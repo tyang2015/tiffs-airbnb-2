@@ -1,0 +1,6 @@
+node_modules
+.env
+build
+
+# what is this?
+.DS_Store
