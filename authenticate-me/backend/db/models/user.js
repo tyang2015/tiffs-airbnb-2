@@ -1,8 +1,9 @@
 'use strict';
 const bcrypt = require('bcryptjs');
+// const {Validator } = require('sequelize');
 
 const {
-  Model
+  Model, Validator
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
@@ -63,16 +64,21 @@ module.exports = (sequelize, DataTypes) => {
       unique: true,
       validate: {
         len: [4,30],
-        isEmail:false
+        // isEmail:false
+        isNotEmail(value) {
+          if (Validator.isEmail(value)) {
+            throw new Error("Cannot be an email.");
+          }
+        }
       }
     },
     email: {
       type:DataTypes.STRING,
       allowNull: false,
-      unique: true,
       validate: {
         len: [3, 256],
-        isEmail: true
+        // why does this not work???
+        // isEmail: true
       },
     },
     hashedPassword: {
