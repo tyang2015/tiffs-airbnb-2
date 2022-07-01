@@ -14,10 +14,10 @@ router.get("/api/csrf/restore", (req, res) => {
   });
 
 
-router.get('/hello/world', function (req, res) {
-    res.cookie('XSRF-TOKEN', req.csrfToken());
-    // req.json(req)
-    res.send('Hello Tiffany');
-});
+// router.get('/hello/world', function (req, res) {
+//     res.cookie('XSRF-TOKEN', req.csrfToken());
+//     // req.json(req)
+//     res.send('Hello Tiffany');
+// });
 
 module.exports = router;
