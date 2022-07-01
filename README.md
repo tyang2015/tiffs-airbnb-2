@@ -4,7 +4,7 @@
 
 ## Database Schema Design
 
-`<insert database schema design here>`
+`![image info](./image.png)`
 
 ## API Documentation
 
