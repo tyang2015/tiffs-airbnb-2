@@ -4,7 +4,7 @@
 
 ## Database Schema Design
 
-`![image info](./image.png)`
+`![AirBnb DB Schema](./Tiffany-Yang-AirBnb-Database-Schema)`
 
 ## API Documentation
 
@@ -52,7 +52,7 @@ Returns the information about the current user that is logged in.
 * Require Authentication: true
 * Request
   * Method: GET
-  * URL: /api/users/:userId
+  * URL: /api/users/currentUser
   * Body: none
 
 * Successful Response
