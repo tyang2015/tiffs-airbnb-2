@@ -78,7 +78,7 @@ information.
 * Require Authentication: false
 * Request
   * Method: POST
-  * URL: /api/login
+  * URL: /api
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -144,7 +144,7 @@ user's information.
 * Require Authentication: false
 * Request
   * Method: POST
-  * URL: /api/signup
+  * URL: /api
   * Headers:
     * Content-Type: application/json
   * Body:
