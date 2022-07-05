@@ -14,6 +14,7 @@ const {Spot, Review, Image, User, AppUser, sequelize} = require('../db/models')
     //  so therefore it cant go into Users table
     const {firstName, lastName, email, password} = req.body
     // why doesnt 'where' clause in findOne work?
+    // this is ok
     let foundUser = await AppUser.findAll({where: {email}});
 
     // if already exists
