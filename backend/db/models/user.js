@@ -55,6 +55,9 @@ module.exports = (sequelize, DataTypes) => {
 
     static associate(models) {
       // define association here
+      // added here
+      // User.hasMany(models.Spot, {foreignKey: 'ownerId', onDelete: 'CASCADE', hooks:true})
+      // User.hasMany(models.Review, {foreignKey: 'userId', onDelete: 'CASCADE', hooks:true})
     }
   }
   User.init({
@@ -87,7 +90,13 @@ module.exports = (sequelize, DataTypes) => {
       validate:{
         len: [60,60]
       }
-    }
+    },
+    // firstName: {
+    //   type: DataTypes.STRING
+    // },
+    // lastName: {
+    //   type: DataTypes.STRING
+    // }
   }, {
     sequelize,
     modelName: 'User',
