@@ -5,7 +5,7 @@ const { restoreUser, requireAuth } = require('../../utils/auth.js');
 const { handleValidationErrors } = require('../../utils/validation');
 const { check } = require('express-validator');
 
-const validateSignup = [
+const validateSpot = [
     check('address')
       .exists({ checkFalsy: true })
       .withMessage('Street address is required'),
@@ -33,7 +33,7 @@ const validateSignup = [
       .withMessage("Description is required"),
     check('price')
       .exists({checkFalsy:true})
-      .withMessage("Price is required"),
+      .withMessage("Price per day is required"),
     handleValidationErrors
   ];
 
@@ -42,8 +42,27 @@ const router = express.Router();
 
 const {Spot, Review, Image, User, sequelize} = require('../../db/models')
 
+router.delete('/:spotId', requireAuth, async (req,res,next)=>{
+    let spot = await Spot.findOne({where: {id: req.params.spotId, ownerId: req.user.id}})
+    if (spot){
+        await spot.destroy()
+        res.json({
+            "message": "Successfully deleted",
+            "statusCode": 200
+        })
+    }
+    else {
+        res.statusCode = 404
+        res.json({
+            "message": "Spot couldn't be found",
+            "statusCode": 404
+        });
+    }
+})
 
-router.patch('/:spotId', requireAuth, async (req, res, next)=>{
+
+
+router.patch('/:spotId', requireAuth, validateSpot, async (req, res, next)=>{
     const {address, city, state, country, lat, lng, name, description, price}= req.body
     // check to see if spotId is correct for req.user.id
     console.log('req.body: ', req.body)
@@ -79,7 +98,7 @@ router.patch('/:spotId', requireAuth, async (req, res, next)=>{
 })
 
 
-router.post('/', requireAuth, validateSignup, async (req,res, next)=>{
+router.post('/', requireAuth, validateSpot, async (req,res, next)=>{
     const {address, city, state, country, lat, lng, name, description, price}= req.body
     let newSpot = await Spot.create({ownerId: req.user.id, address, city, state, country, lat, lng, name, description, price})
     res.statusCode=201
@@ -104,8 +123,6 @@ router.get('/:spotId', async (req, res, next)=>{
                     'spotId',
                     'review',
                     'stars',
-                    // [sequelize.fn('COUNT', sequelize.col('Reviews.id')), "numReviews"],
-                    // [sequelize.fn('SUM', sequelize.col('Reviews.stars')), "totalScore"],
                 ]
             },
             {model: Image, attributes: ['url']},
