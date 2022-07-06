@@ -119,23 +119,19 @@ router.get('/:spotId', async (req, res, next)=>{
             {model: User, as: 'Owner', attributes: ['id', 'firstName', 'lastName']},
         ]
     });
+
     if (!spot){
-        let error = new Error('sorry spot Id does not exist')
+        // let error = new Error('sorry spot Id does not exist')
         res.statusCode=404
-        next(error)
+        res.json({
+            "message": "Spot couldn't be found",
+            "statusCode": res.statusCode
+        })
+        // next(error)
     }
     let newSpot = spot.toJSON()
     let countReviews = await Review.count({include: {model: Spot, where: {id: req.params.spotId}}})
-    let totalScore = await Review.sum('stars', {include: {model: Spot, where: {id: req.params.spotId}}})
-
-    // let totalScore = await Review.findAll({
-    //     attributes:{
-    //         include: [[sequelize.fn('SUM', sequelize.col('stars')), 'sumRatings']]
-    //     },
-    //     include: [
-    //         {model:Spot, where: {id: req.params.spotId}},
-    //     ],
-    // })
+    let totalScore = await Review.sum('stars',  {where: {spotId: req.params.spotId}})
 
     newSpot.numReviews= countReviews
     newSpot.avgStarRating = (totalScore/countReviews).toFixed(2)
