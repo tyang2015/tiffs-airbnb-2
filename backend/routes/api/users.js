@@ -33,6 +33,8 @@ const validateSignup = [
       .withMessage('Password is required.'),
     handleValidationErrors
   ];
+
+
 // get all spots owned by user
 router.get('/spots', requireAuth, async (req, res, next)=>{
   // console.log('in userId spots route')
@@ -43,9 +45,6 @@ router.get('/spots', requireAuth, async (req, res, next)=>{
   })
   res.json(...spots)
 })
-
-
-
 
 // this is for signup
 router.post(
@@ -102,13 +101,12 @@ router.post(
 
   // /currentUser
 
-  router.get('/currentUser', requireAuth, async (req,res, next)=>{
+  router.get('/', requireAuth, async (req,res, next)=>{
     // requireAuth is a 2 part array of middlewares for authentication
     // console.log("Req.user: ", req.user)
-    let currentUser= await AppUser.findAll({where: {id: req.user}})
+    let currentUser= await User.findOne({where: {id: req.user.id}})
     res.json({currentUser})
   });
-
 
 
 
