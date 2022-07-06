@@ -97,12 +97,6 @@ router.patch('/:spotId', requireAuth, validateSpot, async (req, res, next)=>{
         res.json({"message": error.message, "statusCode": error.status})
     }
 
-    // let validOwner = false
-    // for (let i =0; i<spots.length; i++){
-    //     let spot = spots[i]
-    //     if (spot.ownerId = req.user.id) validOwner = true
-    // }
-
 })
 
 
@@ -117,11 +111,6 @@ router.post('/', requireAuth, validateSpot, async (req,res, next)=>{
 router.get('/:spotId', async (req, res, next)=>{
 
     let spot = await Spot.findOne({
-        // attributes: {
-        //     include: [
-        //         [sequelize.literal(`(SELECT * FROM Reviews as review WHERE spot.id = review.spotId)`), 'avgRating']
-        //     ]
-        // },
         where: {id: req.params.spotId},
         include:
         [
