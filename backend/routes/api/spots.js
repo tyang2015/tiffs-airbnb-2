@@ -65,7 +65,7 @@ router.delete('/:spotId', requireAuth, async (req,res,next)=>{
 router.patch('/:spotId', requireAuth, validateSpot, async (req, res, next)=>{
     const {address, city, state, country, lat, lng, name, description, price}= req.body
     // check to see if spotId is correct for req.user.id
-    console.log('req.body: ', req.body)
+    // console.log('req.body: ', req.body)
     const spot = await Spot.findOne({where: {ownerId: req.user.id, id: req.params.spotId}})
     if (spot){
         // it is the owner's property
@@ -85,8 +85,8 @@ router.patch('/:spotId', requireAuth, validateSpot, async (req, res, next)=>{
     // authorization is required
     else if (req.user.id!= spot.ownerId){
         res.json({
-            "message": "Spot couldn't be found",
-            "statusCode": 404
+            "message": "Forbidden",
+            "statusCode": 403
         });
     }
 
