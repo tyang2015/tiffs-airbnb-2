@@ -34,12 +34,12 @@ const validateSignup = [
     handleValidationErrors
   ];
 // get all spots owned by user
-router.get('/:userId/spots', requireAuth, async (req, res, next)=>{
-  console.log('in userId spots route')
+router.get('/spots', requireAuth, async (req, res, next)=>{
+  // console.log('in userId spots route')
   const spots = await User.findAll({
     attributes: [],
     include: {model: Spot},
-    where: {id: req.params.userId}
+    where: {id: req.user.id}
   })
   res.json(...spots)
 })
@@ -100,6 +100,7 @@ router.post(
     }
   );
 
+  // /currentUser
 
   router.get('/currentUser', requireAuth, async (req,res, next)=>{
     // requireAuth is a 2 part array of middlewares for authentication

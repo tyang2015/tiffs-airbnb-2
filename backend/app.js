@@ -98,7 +98,6 @@ app.use((err, _req, _res, next) => {
 // });
 
 
-
 // // error for actual validation from express-validator function
 // // how do i specify that express-validator errors should go in here?
 // // for SIGNUP
@@ -129,8 +128,8 @@ app.use((err, _req, res, _next) => {
     console.error(err);
     res.json({
       // title: err.title || 'Server Error',
-      statusCode: err.statusCode,
       message: err.message,
+      statusCode: err.statusCode,
       errors: err.errors,
       stack: isProduction ? null : err.stack
     });

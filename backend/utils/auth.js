@@ -64,7 +64,7 @@ const setTokenCookie = (res, user) => {
         return next()
       };
 
-      const err = new Error('Unauthorized');
+      const err = new Error('Authentication required');
       err.title = 'Unauthorized';
       err.errors = ['Unauthorized'];
       err.status = 401;

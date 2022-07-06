@@ -82,7 +82,15 @@ router.patch('/:spotId', requireAuth, validateSpot, async (req, res, next)=>{
         await spot.save()
         res.json(spot)
     }
-    else {
+    // authorization is required
+    else if (req.user.id!= spot.ownerId){
+        res.json({
+            "message": "Spot couldn't be found",
+            "statusCode": 404
+        });
+    }
+    
+    else if (!spot) {
         // doesnt belong to current user
         let error = new Error('Spot couldnt be found')
         error.status = 404
