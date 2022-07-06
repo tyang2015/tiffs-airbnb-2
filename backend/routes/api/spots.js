@@ -89,7 +89,7 @@ router.patch('/:spotId', requireAuth, validateSpot, async (req, res, next)=>{
             "statusCode": 404
         });
     }
-    
+
     else if (!spot) {
         // doesnt belong to current user
         let error = new Error('Spot couldnt be found')
@@ -125,14 +125,7 @@ router.get('/:spotId', async (req, res, next)=>{
         where: {id: req.params.spotId},
         include:
         [
-            {model: Review, attributes:
-                [
-                    'id',
-                    'spotId',
-                    'review',
-                    'stars',
-                ]
-            },
+            {model: Review, attributes:[]},
             {model: Image, attributes: ['url']},
             {model: User, as: 'Owner', attributes: ['id', 'firstName', 'lastName']},
         ]
