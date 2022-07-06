@@ -42,7 +42,7 @@ router.post(
     async (req, res, next) => {
       // const { credential, password } = req.body;
       const {email, password} = req.body
-      console.log('req body:', req.body)
+      // console.log('req body:', req.body)
 
       // handled by validateLogin
       // // if email or password not provided
@@ -70,6 +70,7 @@ router.post(
         // err.errors = ['The provided credentials were invalid.'];
         // im using res.json because idk how to send to
         // correct error handler in app.js
+        res.statusCode = 401
         return res.json({
           "message": "Invalid credentials",
           "statusCode": 401

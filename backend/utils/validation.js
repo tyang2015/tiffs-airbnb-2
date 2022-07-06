@@ -20,7 +20,7 @@ const handleValidationErrors = (req, _res, next) => {
     validationErrors.array().forEach((err)=>{
       errors[err.param] = err.msg
     })
-    console.log("new error obj:", errors )
+    // console.log("new error obj:", errors )
 
     let err = new Error
     err.message = "Validation Error"
