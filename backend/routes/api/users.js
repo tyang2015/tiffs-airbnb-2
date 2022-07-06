@@ -60,8 +60,16 @@ router.post(
       let record = await User.findAll({where:{email}})
 
       if (record.length>0){
-        let err = new Error("user with that email already exists")
-        next(err);
+        // let err = new Error("user with that email already exists")
+        // next(err);
+        res.statusCode = 403
+        res.json({
+          "message": "User already exists",
+          "statusCode": res.statusCode,
+          "errors": {
+            "email": "User with that email already exists"
+          }
+        })
       }
 
       const user = await User.signup({ email, firstName, lastName, password });

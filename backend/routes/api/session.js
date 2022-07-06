@@ -10,7 +10,7 @@ const { User } = require('../../db/models');
 const router = express.Router();
 
 // customize this to match the error message below
-// the "check" checks the req.body keys! 
+// the "check" checks the req.body keys!
 const validateLogin = [
     check('email')
       .exists({ checkFalsy: true })
@@ -43,6 +43,7 @@ router.post(
       // const { credential, password } = req.body;
       const {email, password} = req.body
       console.log('req body:', req.body)
+
       // handled by validateLogin
       // // if email or password not provided
       // if (!email || !password){
@@ -62,11 +63,11 @@ router.post(
 
       // if no account found in DB from scope method
       if (!user) {
-        const err = new Error('Login failed');
-        err.status = 401;
-        err.title = 'Login failed';
-        err.message = 'Invalid credentials'
-        err.errors = ['The provided credentials were invalid.'];
+        // const err = new Error('Login failed');
+        // err.status = 401;
+        // err.title = 'Login failed';
+        // err.message = 'Invalid credentials'
+        // err.errors = ['The provided credentials were invalid.'];
         // im using res.json because idk how to send to
         // correct error handler in app.js
         return res.json({
