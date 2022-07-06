@@ -9,15 +9,16 @@ const { User } = require('../../db/models');
 
 const router = express.Router();
 
-
+// customize this to match the error message below
+// the "check" checks the req.body keys!
 const validateLogin = [
-    check('credential')
+    check('email')
       .exists({ checkFalsy: true })
       .notEmpty()
-      .withMessage('Please provide a valid email or username.'),
+      .withMessage('Email is required'),
     check('password')
       .exists({ checkFalsy: true })
-      .withMessage('Please provide a password.'),
+      .withMessage('Password is required'),
     handleValidationErrors
   ];
 
@@ -39,20 +40,47 @@ router.post(
     '/',
     validateLogin,
     async (req, res, next) => {
-      const { credential, password } = req.body;
+      // const { credential, password } = req.body;
+      const {email, password} = req.body
+      console.log('req body:', req.body)
 
-      const user = await User.login({ credential, password });
+      // handled by validateLogin
+      // // if email or password not provided
+      // if (!email || !password){
+      //     res.statusCode=400
+      //     return res.json({
+      //         "message": "Validation error",
+      //         "statusCode": 400,
+      //         "errors": {
+      //           "email": "Email is required",
+      //           "password": "Password is required"
+      //         }
+      //     })
+      // }
 
+      // this will simply query from the DB
+      const user = await User.login({ credential:email, password });
+
+      // if no account found in DB from scope method
       if (!user) {
-        const err = new Error('Login failed');
-        err.status = 401;
-        err.title = 'Login failed';
-        err.errors = ['The provided credentials were invalid.'];
-        return next(err);
+        // const err = new Error('Login failed');
+        // err.status = 401;
+        // err.title = 'Login failed';
+        // err.message = 'Invalid credentials'
+        // err.errors = ['The provided credentials were invalid.'];
+        // im using res.json because idk how to send to
+        // correct error handler in app.js
+        return res.json({
+          "message": "Invalid credentials",
+          "statusCode": 401
+        })
+        // return next(err);
       }
 
+      // after user is successfully retrieved from DB and logged in
       await setTokenCookie(res, user);
-
+      res.statusCode=200
+      res.setHeader('Content-type', 'application/json')
       return res.json({
         user
       });
