@@ -11,9 +11,8 @@ const { handleValidationErrors } = require('../../utils/validation');
 // added
 // const {Spot, Review, Image, User, sequelize} = require('../db/models')
 
-// changed this
 // this gets pooled into an array in handleValidationErrors
-//
+
 const validateSignup = [
     check('email')
       .exists({ checkFalsy: true })
@@ -75,13 +74,14 @@ router.post(
       const user = await User.signup({ email, firstName, lastName, password });
       await setTokenCookie(res, user);
 
-      console.log('user object:', user)
+      // console.log('user object:', user)
 
       userObj.id = user.id
       userObj.firstName = user.firstName
       userObj.lastName = user.lastName
       userObj.email = user.email
       userObj.token = ''
+
       if (user){
         res.statusCode=200
         res.setHeader('Content-Type', 'application/json')
@@ -103,7 +103,7 @@ router.post(
 
   router.get('/currentUser', requireAuth, async (req,res, next)=>{
     // requireAuth is a 2 part array of middlewares for authentication
-    console.log("Req.user: ", req.user)
+    // console.log("Req.user: ", req.user)
     let currentUser= await AppUser.findAll({where: {id: req.user}})
     res.json({currentUser})
   });
