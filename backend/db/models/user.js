@@ -14,8 +14,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     toSafeObject(){
       // we are only extract the 3 necessary fields when they create and send us the instance
-      const {id, username, email} = this;
-      return {id, username, email};
+      const {id, firstName, lastName, email} = this;
+      return {id, firstName,lastName, email};
     }
 
     validatePassword(password) {
@@ -30,10 +30,7 @@ module.exports = (sequelize, DataTypes) => {
       const { Op } = require('sequelize');
       const user = await User.scope('loginUser').findOne({
         where: {
-          [Op.or]: {
-            username: credential,
             email: credential
-          }
         }
       });
       if (user && user.validatePassword(password)) {
@@ -41,10 +38,11 @@ module.exports = (sequelize, DataTypes) => {
       }
     }
 
-    static async signup({ username, email, password }) {
+    static async signup({ firstName, lastName, email, password }) {
       const hashedPassword = bcrypt.hashSync(password);
       const user = await User.create({
-        username,
+        firstName,
+        lastName,
         email,
         hashedPassword
       });
@@ -52,28 +50,19 @@ module.exports = (sequelize, DataTypes) => {
     }
 
 
-
     static associate(models) {
       // define association here
       // added here
-      // User.hasMany(models.Spot, {foreignKey: 'ownerId', onDelete: 'CASCADE', hooks:true})
-      // User.hasMany(models.Review, {foreignKey: 'userId', onDelete: 'CASCADE', hooks:true})
+      User.hasMany(models.Spot, {foreignKey: 'ownerId', onDelete: 'CASCADE', hooks:true})
+      User.hasMany(models.Review, {foreignKey: 'userId', onDelete: 'CASCADE', hooks:true})
     }
   }
   User.init({
-    username: {
-      type:DataTypes.STRING,
-      allowNull: false,
-      unique: true,
-      validate: {
-        len: [4,30],
-        // isEmail:false
-        isNotEmail(value) {
-          if (Validator.isEmail(value)) {
-            throw new Error("Cannot be an email.");
-          }
-        }
-      }
+    firstName: {
+      type: DataTypes.STRING,
+    },
+    lastName:{
+      type: DataTypes.STRING
     },
     email: {
       type:DataTypes.STRING,
@@ -91,12 +80,6 @@ module.exports = (sequelize, DataTypes) => {
         len: [60,60]
       }
     },
-    // firstName: {
-    //   type: DataTypes.STRING
-    // },
-    // lastName: {
-    //   type: DataTypes.STRING
-    // }
   }, {
     sequelize,
     modelName: 'User',
@@ -109,7 +92,8 @@ module.exports = (sequelize, DataTypes) => {
       currentUser(){
         return {
           attributes: {
-            exclude: ['hashedPassword']
+            // added here
+            exclude: ['hashedPassword', 'createdAt', "updatedAt"]
           }
         }
       },
