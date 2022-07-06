@@ -31,16 +31,19 @@ const setTokenCookie = (res, user) => {
   const restoreUser = (req, res, next) => {
     // token parsed from cookies
     const { token } = req.cookies;
+    console.log('Token: ', token)
+    console.log('in restoreUser function')
+    req.user = null;
 
     return jwt.verify(token, secret, null, async (err, jwtPayload) => {
       if (err) {
-        console.log('error coming in here')
         return next();
       }
 
       try {
         const { id } = jwtPayload.data;
         req.user = await User.scope('currentUser').findByPk(id);
+        console.log('req.user:', req.user)
       } catch (e) {
         res.clearCookie('token');
         return next();
@@ -56,7 +59,10 @@ const setTokenCookie = (res, user) => {
   const requireAuth = [
     restoreUser,
     function (req, _res, next) {
-      if (req.user) return next();
+      if (req.user) {
+        // console.log('requireAuth is working!')
+        return next()
+      };
 
       const err = new Error('Unauthorized');
       err.title = 'Unauthorized';
