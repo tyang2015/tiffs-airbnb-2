@@ -36,21 +36,34 @@ const validateSignup = [
 
 // get bookings booked by user
 router.get('/bookings', requireAuth, async(req, res, next)=>{
-  let bookingsObj={}
+  // let bookingsObj={}
   let bookings = await Booking.findAll({
-    include: [{model: Spot}],
+    include: [{model: Spot}, {model:User, attributes: {exclude: ['email']}}],
     where: {userId: req.user.id}
   });
   // if im checking the bookings for my own place
   // apparently as the owner, i can book my own place
   // if im the owner (req.user.id = bookings.spots.ownerId)
-  console.log("owner id:", bookings.Spot.ownerId)
+
   for (let i = 0; i<bookings.length; i++){
-    let booking = bookings[i]
+    console.log("booking ", i)
+    let booking = bookings[i].toJSON()
     if (booking.Spot.ownerId === req.user.id){
-      bookingsObj
+      delete booking.Spot
+    }
+    else {
+      // booking a difference place
+      delete booking.Spot
+      delete booking.User
+      for (key in booking){
+        if (key!=='spotId' || key!== 'startDate' ||key!== 'endDate'){
+          delete booking[key]
+        }
+      }
+
     }
   }
+
   res.json({bookings})
 
 })
