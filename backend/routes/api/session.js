@@ -40,23 +40,8 @@ router.post(
     '/',
     validateLogin,
     async (req, res, next) => {
-      // const { credential, password } = req.body;
       const {email, password} = req.body
       // console.log('req body:', req.body)
-
-      // handled by validateLogin
-      // // if email or password not provided
-      // if (!email || !password){
-      //     res.statusCode=400
-      //     return res.json({
-      //         "message": "Validation error",
-      //         "statusCode": 400,
-      //         "errors": {
-      //           "email": "Email is required",
-      //           "password": "Password is required"
-      //         }
-      //     })
-      // }
 
       // this will simply query from the DB
       const user = await User.login({ credential:email, password });

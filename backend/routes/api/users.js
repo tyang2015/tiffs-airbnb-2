@@ -4,9 +4,10 @@ const router = express.Router();
 
 
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { User, Spot } = require('../../db/models');
+const { User, Spot, Review, Image} = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
+const review = require('../../db/models/review');
 
 // added
 // const {Spot, Review, Image, User, sequelize} = require('../db/models')
@@ -34,6 +35,17 @@ const validateSignup = [
     handleValidationErrors
   ];
 
+// get reviews written by user
+router.get('/reviews', requireAuth, async (req, res, next)=>{
+  let reviewObj = {}
+  let reviews = await Review.findAll({
+    include: [{model: User}, {model: Spot}, {model: Image, attributes: ['url']}],
+    where: {id: req.user.id}
+  })
+  reviewObj.Reviews = reviews
+  res.json(reviewObj)
+
+});
 
 // get all spots owned by user
 router.get('/spots', requireAuth, async (req, res, next)=>{
@@ -107,6 +119,7 @@ router.post(
     let currentUser= await User.findOne({where: {id: req.user.id}})
     res.json({currentUser})
   });
+
 
 
 

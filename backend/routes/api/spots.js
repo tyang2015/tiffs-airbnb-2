@@ -37,10 +37,74 @@ const validateSpot = [
     handleValidationErrors
   ];
 
+const validateReview= [
+    check('review')
+    .exists({ checkFalsy: true })
+    .withMessage('Review text is required'),
+  check('stars')
+    .exists({checkFalsy:true})
+    .withMessage('Stars must be an integer from 1 to 5'),
+]
+
 
 const router = express.Router();
 
-const {Spot, Review, Image, User, sequelize} = require('../../db/models')
+const {Spot, Review, Image, User, sequelize} = require('../../db/models');
+const review = require('../../db/models/review');
+
+router.post('/:spotId/reviews', requireAuth, validateReview , async (req, res, next)=>{
+    // first check if spot Id is valid
+    const spot = await Spot.findOne({ include: {model:Review},where: {id: req.params.spotId}})
+    if (!spot){
+        res.statusCode = 404
+        res.json({
+            "message": "Spot couldn't be found",
+            "statusCode": 404
+        })
+    }
+    // search through reviews, check if the userId of review is the same as current user
+    // if so, you cannot write another review
+    // console.log("reviews array: ", spot.Reviews)
+    // console.log()
+    // res.json(spot.Reviews)
+    for (let i = 0; i< spot.Reviews.length; i++){
+        let review = spot.Reviews[i]
+        if (review.userId === req.user.id){
+            res.statusCode = 403
+            return res.json({
+                "message": "User already has a review for this spot",
+                "statusCode": 403
+            })
+        }
+    }
+    const {review, stars} = req.body
+    let newReview = await Review.create({userId: req.user.id, spotId: req.params.spotId , review, stars})
+    res.json(newReview)
+
+});
+
+router.get('/:spotId/reviews', async (req,res, next)=>{
+    let reviews = await Review.findAll({
+        include: [
+        {model: User, attributes: {exclude: ['createdAt', 'updatedAt', 'email', 'hashedPassword']}},
+        {model: Image, attributes: ['url']},
+        {model: Spot, attributes: {exclude: ['description', 'createdAt', 'updatedAt', 'previewImage']}}
+    ],
+        where: {spotId: req.params.spotId}
+    })
+    if (!reviews.length){
+        res.statusCode = 404
+        res.json({
+            "message": "Spot couldn't be found",
+            "statusCode": 404
+        });
+    }
+    res.statusCode = 200
+    res.json({
+        reviews
+    })
+})
+
 
 router.delete('/:spotId', requireAuth, async (req,res,next)=>{
     let spot = await Spot.findOne({where: {id: req.params.spotId, ownerId: req.user.id}})
