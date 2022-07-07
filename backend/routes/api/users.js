@@ -4,13 +4,12 @@ const router = express.Router();
 
 
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { User, Spot, Review, Image} = require('../../db/models');
+const { User, Spot, Review, Image, Booking} = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const review = require('../../db/models/review');
 
 // added
-// const {Spot, Review, Image, User, sequelize} = require('../db/models')
 
 // this gets pooled into an array in handleValidationErrors
 
@@ -34,6 +33,27 @@ const validateSignup = [
       .withMessage('Password is required.'),
     handleValidationErrors
   ];
+
+// get bookings booked by user
+router.get('/bookings', requireAuth, async(req, res, next)=>{
+  let bookingsObj={}
+  let bookings = await Booking.findAll({
+    include: [{model: Spot}],
+    where: {userId: req.user.id}
+  });
+  // if im checking the bookings for my own place
+  // apparently as the owner, i can book my own place
+  // if im the owner (req.user.id = bookings.spots.ownerId)
+  console.log("owner id:", bookings.Spot.ownerId)
+  for (let i = 0; i<bookings.length; i++){
+    let booking = bookings[i]
+    if (booking.Spot.ownerId === req.user.id){
+      bookingsObj
+    }
+  }
+  res.json({bookings})
+
+})
 
 // get reviews written by user
 router.get('/reviews', requireAuth, async (req, res, next)=>{

@@ -41,9 +41,16 @@ const validateReview= [
     check('review')
     .exists({ checkFalsy: true })
     .withMessage('Review text is required'),
-  check('stars')
+    check('stars')
     .exists({checkFalsy:true})
-    .withMessage('Stars must be an integer from 1 to 5'),
+    .custom( value=>{
+        if (value<1 || value>5 || typeof Number(value)!=="number"){
+            throw new Error('Stars must be an integer from 1 to 5')
+        }
+        return true
+    }),
+    // .withMessage('Stars must be an integer from 1 to 5'),
+    handleValidationErrors
 ]
 
 
@@ -65,8 +72,6 @@ router.post('/:spotId/reviews', requireAuth, validateReview , async (req, res, n
     // search through reviews, check if the userId of review is the same as current user
     // if so, you cannot write another review
     // console.log("reviews array: ", spot.Reviews)
-    // console.log()
-    // res.json(spot.Reviews)
     for (let i = 0; i< spot.Reviews.length; i++){
         let review = spot.Reviews[i]
         if (review.userId === req.user.id){
@@ -147,18 +152,18 @@ router.patch('/:spotId', requireAuth, validateSpot, async (req, res, next)=>{
         res.json(spot)
     }
     // authorization is required
-    else if (req.user.id!= spot.ownerId){
-        res.json({
-            "message": "Forbidden",
-            "statusCode": 403
-        });
-    }
-
-    else if (!spot) {
+    if (!spot) {
         // doesnt belong to current user
         let error = new Error('Spot couldnt be found')
         error.status = 404
         res.json({"message": error.message, "statusCode": error.status})
+    }
+
+    if (req.user.id!= spot.ownerId){
+        res.json({
+            "message": "Forbidden",
+            "statusCode": 403
+        });
     }
 
 })

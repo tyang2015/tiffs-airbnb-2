@@ -2,6 +2,7 @@ const router = require('express').Router()
 const sessionRouter = require('./session.js');
 const usersRouter = require('./users.js');
 const spotsRouter = require('./spots.js')
+const reviewsRouter = require('./reviews.js')
 const { restoreUser, requireAuth } = require('../../utils/auth.js');
 
 router.use(restoreUser);
@@ -11,6 +12,7 @@ router.use('/session', sessionRouter);
 // for signup and getting current users
 router.use('/users', usersRouter);
 router.use('/spots', spotsRouter);
+router.use('/reviews', reviewsRouter)
 
 // app.use('/users', require('./routes/user'))
 
