@@ -6,7 +6,7 @@ const router = express.Router();
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
 const { User, Spot, Review, Image, Booking} = require('../../db/models');
 const { check } = require('express-validator');
-const { handleValidationErrors } = require('../../utils/validation');
+const { handleValidationErrors} = require('../../utils/validation');
 const review = require('../../db/models/review');
 
 // added
@@ -34,39 +34,11 @@ const validateSignup = [
     handleValidationErrors
   ];
 
-// get bookings booked by user
-router.get('/bookings', requireAuth, async(req, res, next)=>{
-  // let bookingsObj={}
-  let bookings = await Booking.findAll({
-    include: [{model: Spot}, {model:User, attributes: {exclude: ['email']}}],
-    where: {userId: req.user.id}
-  });
-  // if im checking the bookings for my own place
-  // apparently as the owner, i can book my own place
-  // if im the owner (req.user.id = bookings.spots.ownerId)
-
-  for (let i = 0; i<bookings.length; i++){
-    console.log("booking ", i)
-    let booking = bookings[i].toJSON()
-    if (booking.Spot.ownerId === req.user.id){
-      delete booking.Spot
-    }
-    else {
-      // booking a difference place
-      delete booking.Spot
-      delete booking.User
-      for (key in booking){
-        if (key!=='spotId' || key!== 'startDate' ||key!== 'endDate'){
-          delete booking[key]
-        }
-      }
-
-    }
-  }
-
+router.get('/bookings', requireAuth, async (req, res, next)=>{
+  let bookings = await Booking.findAll({include: {model:Spot}})
   res.json({bookings})
-
 })
+
 
 // get reviews written by user
 router.get('/reviews', requireAuth, async (req, res, next)=>{

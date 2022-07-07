@@ -2,8 +2,14 @@ const express = require('express');
 const app = require('../../app');
 // added here
 const { restoreUser, requireAuth } = require('../../utils/auth.js');
-const { handleValidationErrors } = require('../../utils/validation');
+const { handleValidationErrors,  handleDateConflictErrors } = require('../../utils/validation');
 const { check } = require('express-validator');
+
+
+const router = express.Router();
+
+const {Spot, Review, Image, User, Booking, sequelize} = require('../../db/models');
+const review = require('../../db/models/review');
 
 const validateSpot = [
     check('address')
@@ -53,11 +59,163 @@ const validateReview= [
     handleValidationErrors
 ]
 
+// added in the edit booking endpoint
+const validateBooking  = [
+    check('startDate')
+    .exists({checkFalsy: true}),
+    check('endDate')
+    .exists({checkFalsy: true}),
+    check('endDate')
+    .exists({checkFalsy: true})
+    .custom((value, {req}) =>{
+        if (value < req.body.startDate){
+            throw new Error("endDate cannot come before startDate")
+        }
+        return true
+    }),
+    handleValidationErrors
+]
 
-const router = express.Router();
+// handling the create booking for spotid (specifically existing dates)
+// send to another middleware for ANOTHER UNIQUE error handling
+const validateBookingDatesExisting= [
+    check('startDate')
+    .exists({checkFalsy: true})
+    .custom(async (value, {req,res,next}) =>{
+        let spot = await Spot.findOne({include: {model:Booking},
+            where: {id: req.params.spotId}
+        })
+        if (spot.Booking.startDate === value){
+            throw new Error
+            return Promise.reject('Start date conflict with an existing booking')
+            // let err = new Error("Start date conflicts with an existing booking")
+            // next(err)
+        }
+        else {
+            return true
+        }
+    }),
+    check('endDate')
+    .exists({checkFalsy: true})
+    .custom(async(value, {req, res, next}) =>{
+        let spot = await Spot.findOne({include: {model:Booking},
+            where: {id: req.params.spotId}
+        })
+        if (spot.Booking.endDate === value){
+            throw new Error
+            return Promise.reject('Start date conflict with an existing booking')
+            // let err= new Error("End date conflicts with an existing booking")
+            // next(err)
+        }
+        else {
+            return true
+        }
+    }),
+    handleDateConflictErrors
+]
 
-const {Spot, Review, Image, User, sequelize} = require('../../db/models');
-const review = require('../../db/models/review');
+router.patch('/:spotId/bookings/:bookingId',
+    requireAuth,
+    validateBooking,
+    validateBookingDatesExisting,
+        async (req, res, next)=>{
+            let today = new Date();
+            let bookingDate = new Date(booking.endDate)
+
+            const booking = await Booking.findAll({
+                where: {userId: req.user.id, spotId: req.params.spotId, id: req.params.bookingId}
+            })
+            if (!booking){
+                res.statusCode = 404
+                res.json({
+                    "message": "Booking couldn't be found",
+                    "statusCode": 404
+                })
+            }
+            if (bookingDate < today){
+                // if booking is in the past
+                res.statusCode = 404;
+                res.json({
+                    "message": "Past bookings can't be modified",
+                    "statusCode": 400
+                })
+            }
+            const {startDate, endDate} = req.body
+            booking.startDate = startDate
+            booking.endDate = endDate
+            await booking.save()
+            res.json(booking)
+
+});
+
+// QUESTION: authorization part.. i cannot book a spot if i own it?
+// i thought that getting all bookings for a spot based on id implies that its ok?
+router.post('/:spotId/bookings', requireAuth, validateBooking, validateBookingDatesExisting,async(req,res,next)=>{
+    let spot = await Spot.findOne({include: {model:Booking},
+        where: {id: req.params.spotId}
+    })
+    if (!spot){
+        res.statusCode = 404
+        res.json({
+            "message": "Spot couldn't be found",
+            "statusCode": 404
+        })
+    }
+    const {startDate, endDate} = req.body
+
+    let newRecord = await Booking.create({
+        spotId: req.params.spotId,
+        userId: req.user.id,
+        startDate,
+        endDate
+    })
+    res.json(newRecord)
+
+});
+
+
+// get bookings booked by user for a given spot
+router.get('/:spotId/bookings', requireAuth, async(req, res, next)=>{
+    let bookings = await Booking.findAll({
+      include: [{model: Spot}, {model:User, attributes:
+         {exclude: ['email', 'hashedPassword', 'createdAt', 'updatedAt']}}],
+      where: {userId: req.user.id, spotId: req.params.spotId}
+    });
+
+    if (!bookings.length){
+        res.statusCode = 404
+        res.json({
+            "message": "Spot couldn't be found",
+            "statusCode": 404
+        })
+    }
+    // if im checking the bookings for my own place
+    // apparently as the owner, i can book my own place
+    // if im the owner (req.user.id = bookings.spots.ownerId)
+
+
+    for (let i = 0; i<bookings.length; i++){
+      let booking = bookings[i].toJSON()
+      if (booking.Spot.ownerId === req.user.id){
+        // console.log('owner is true')
+        delete booking.Spot
+      }
+      else {
+        // booking a different place
+        delete booking.Spot
+        delete booking.User
+        for (key in booking){
+          if (key!='spotId' && key!='startDate' && key!= 'endDate'){
+            delete booking[key]
+          }
+        }
+      }
+      bookings[i] = booking
+    }
+
+    res.json({bookings})
+  })
+
 
 router.post('/:spotId/reviews', requireAuth, validateReview , async (req, res, next)=>{
     // first check if spot Id is valid

@@ -12,10 +12,6 @@ const handleValidationErrors = (req, _res, next) => {
     //   .map((error) => `${error.msg}`);
 
     // added here
-    // console.log("In validation errors: ", validationErrors.array())
-    // let errors = validationErrors.array().reduce((ele, accum)=>{
-    //   return
-    // } , {})
     let errors={}
     validationErrors.array().forEach((err)=>{
       errors[err.param] = err.msg
@@ -23,9 +19,11 @@ const handleValidationErrors = (req, _res, next) => {
     // console.log("new error obj:", errors )
 
     let err = new Error
+    // must differentiate between normal validation errors vs errors with EXISTING endate and startDate
     err.message = "Validation Error"
     err.errors = errors
     err.statusCode = 400
+    err.status = 400
     next(err)
 
     // const err = Error('Bad request.');
@@ -37,6 +35,29 @@ const handleValidationErrors = (req, _res, next) => {
   next();
 };
 
+const handleDateConflictErrors =(req,_res,next)=>{
+  const validationErrors = validationResult(req);
+  if (!validationErrors.isEmpty()) {
+    // added here
+    let errors={}
+    validationErrors.array().forEach((err)=>{
+      if (err.param=== 'startDate') errors[err.param] =  "Start date conflicts with an existing booking"
+      if (err.param === 'endDate') errors[err.param] = "End date conflicts with an existing booking"
+      // errors[err.param] = err.msg
+    })
+
+    let err = new Error
+    err.message = "Sorry, this spot is already booked for the specified dates"
+    err.errors = errors
+    err.statusCode = 403
+    err.status= 403
+    next(err)
+  }
+  next();
+
+}
+
 module.exports = {
-  handleValidationErrors
+  handleValidationErrors,
+  handleDateConflictErrors
 };
