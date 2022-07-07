@@ -119,12 +119,12 @@ router.patch('/:spotId/bookings/:bookingId',
     validateBooking,
     validateBookingDatesExisting,
         async (req, res, next)=>{
-            let today = new Date();
-            let bookingDate = new Date(booking.endDate)
-
+            
             const booking = await Booking.findAll({
                 where: {userId: req.user.id, spotId: req.params.spotId, id: req.params.bookingId}
             })
+            let today = new Date();
+            let bookingDate = new Date(booking.endDate)
             if (!booking){
                 res.statusCode = 404
                 res.json({
