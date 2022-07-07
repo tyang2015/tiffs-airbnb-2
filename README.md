@@ -839,7 +839,7 @@ Return all the bookings that the current user has made.
 * Require Authentication: true
 * Request
   * Method: GET
-  * URL: /api/users/:userId/bookings
+  * URL: /api/users/bookings
   * Body: none
 
 * Successful Response
