@@ -62,7 +62,8 @@ const validateReview= [
 // added in the edit booking endpoint
 const validateBooking  = [
     check('startDate')
-    .exists({checkFalsy: true}),
+    .exists({checkFalsy: true})
+    .withMessage("Must provide valid startDate"),
     check('endDate')
     .exists({checkFalsy: true}),
     check('endDate')
@@ -85,15 +86,22 @@ const validateBookingDatesExisting= [
         let spot = await Spot.findOne({include: {model:Booking},
             where: {id: req.params.spotId}
         })
-        if (spot.Booking.startDate === value){
-            throw new Error
-            return Promise.reject('Start date conflict with an existing booking')
-            // let err = new Error("Start date conflicts with an existing booking")
-            // next(err)
+        console.log('Start Date: ', spot.Booking.startDate)
+        for (let i =0; i< spot.Bookings.length; i++){
+            let booking = spot.Bookings[i]
+            if (booking.startDate === value){
+                return Promise.reject('Start date conflict with an existing booking')
+            }
         }
-        else {
-            return true
-        }
+        // if (spot.Bookings.startDate === value){
+        //     // throw new Error
+        //     return Promise.reject('Start date conflict with an existing booking')
+        //     // let err = new Error("Start date conflicts with an existing booking")
+        //     // next(err)
+        // }
+
+        return true
+
     }),
     check('endDate')
     .exists({checkFalsy: true})
@@ -101,15 +109,14 @@ const validateBookingDatesExisting= [
         let spot = await Spot.findOne({include: {model:Booking},
             where: {id: req.params.spotId}
         })
-        if (spot.Booking.endDate === value){
-            throw new Error
-            return Promise.reject('Start date conflict with an existing booking')
-            // let err= new Error("End date conflicts with an existing booking")
-            // next(err)
+        for (let i =0; i< spot.Bookings.length; i++){
+            let booking = spot.Bookings[i]
+            if (booking.endDate === value){
+                return Promise.reject('End date conflict with an existing booking')
+            }
         }
-        else {
+
             return true
-        }
     }),
     handleDateConflictErrors
 ]
@@ -119,7 +126,7 @@ router.patch('/:spotId/bookings/:bookingId',
     validateBooking,
     validateBookingDatesExisting,
         async (req, res, next)=>{
-            
+
             const booking = await Booking.findAll({
                 where: {userId: req.user.id, spotId: req.params.spotId, id: req.params.bookingId}
             })
@@ -150,10 +157,15 @@ router.patch('/:spotId/bookings/:bookingId',
 
 // QUESTION: authorization part.. i cannot book a spot if i own it?
 // i thought that getting all bookings for a spot based on id implies that its ok?
-router.post('/:spotId/bookings', requireAuth, validateBooking, validateBookingDatesExisting,async(req,res,next)=>{
+router.post('/:spotId/bookings', requireAuth, validateBooking, validateBookingDatesExisting, async(req,res,next)=>{
     let spot = await Spot.findOne({include: {model:Booking},
         where: {id: req.params.spotId}
     })
+    // res.json(spot)
+
+    // let spot = await Spot.findOne({include: {model:Booking},
+    //     where: {id: req.params.spotId}
+    // })
     if (!spot){
         res.statusCode = 404
         res.json({

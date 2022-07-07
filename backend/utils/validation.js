@@ -41,7 +41,7 @@ const handleDateConflictErrors =(req,_res,next)=>{
     // added here
     let errors={}
     validationErrors.array().forEach((err)=>{
-      if (err.param=== 'startDate') errors[err.param] =  "Start date conflicts with an existing booking"
+      if (err.param=== 'startDate' ) errors[err.param] =  "Start date conflicts with an existing booking"
       if (err.param === 'endDate') errors[err.param] = "End date conflicts with an existing booking"
       // errors[err.param] = err.msg
     })
