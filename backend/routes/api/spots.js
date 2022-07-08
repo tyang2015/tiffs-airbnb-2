@@ -11,6 +11,7 @@ const router = express.Router();
 const {Spot, Review, Image, User, Booking, sequelize} = require('../../db/models');
 const review = require('../../db/models/review');
 const booking = require('../../db/models/booking');
+// const { where } = require('sequelize/types');
 
 const validateSpot = [
     check('address')
@@ -113,11 +114,104 @@ const validateBookingDatesExisting= [
     handleDateConflictErrors
 ]
 
-router.delete('/:spotId/bookings/:bookingId', requireAuth, async (req, res,next)=>{
-    let booking = await Booking.findOne({where: {userId: req.user.id,
-         spotId: req.params.spotId,
-         id: req.params.bookingId
-    }})
+const validateSpotQuery = [
+    check('page')
+      .exists({ checkFalsy: true })
+      .custom(value => {
+        if (value<0) throw new Error("Page must be greater than or equal to 0")
+      }),
+    check('size')
+      .exists({ checkFalsy: true })
+      .custom(value =>{
+        if (value<0) throw new Error("Page must be greater than or equal to 0")
+      }),
+    check('maxLat')
+      .exists({ checkFalsy: true })
+      .withMessage("Maximum latitude is invalid"),
+    check('minLat')
+      .exists({ checkFalsy: true })
+      .withMessage('Minimum latitude is invalid'),
+    check('maxLng')
+      .exists({ checkFalsy: true })
+      .withMessage('Maximum longitude is invalid'),
+    check('minLng')
+      .exists({ checkFalsy: true })
+      .withMessage('Minimum longitude is invalid'),
+    check('minPrice')
+      .exists({ checkFalsy: true })
+      .custom(value =>{
+        if (value<=0) throw new Error("Minimum price must be greater than 0")
+      }),
+    check('maxPrice')
+      .exists({ checkFalsy: true })
+      .custom(value =>{
+        if (value<=0) throw new Error("Minimum price must be greater than 0")
+      }),
+]
+
+// add an image to a spot based on the spot's id
+router.post('/:spotId/images', requireAuth, async (req,res,next)=>{
+    let reviewId = null;
+    const {url} = req.body
+    console.log("user id:", req.user.id )
+    let spot = await Spot.findOne({
+        include: [{model: Review}],
+        where: {id: req.params.spotId}
+    });
+    // there should only be either 0 or 1 item in Reviews array
+    // bc you can only leave 1 review for a spot
+    // res.json(spot)
+    if (!spot){
+        res.statusCode = 404
+        res.json({
+            "message": "Spot couldn't be found",
+            "statusCode": 404
+        })
+    }
+    if (spot.ownerId != req.user.id){
+        res.statusCode = 403
+        res.json({
+            "message": "Forbidden",
+            "statusCode": 403
+        })
+    }
+    // if (spot.user)
+    // for (let i =0 ; i<spot.Reviews.length; i++){
+    //     let review = spot.Reviews[i]
+    //     if (review.userId == req.user.id){
+    //         ownerReviewId = review.userId
+    //     }
+    // }
+    if (spot.Reviews.length){
+        reviewId = spot.Reviews[0].id
+    }
+    let newImage = await Image.create({
+        spotId: req.params.spotId,
+        reviewId,
+        url
+    })
+    res.json({
+        newImage
+    })
+
+});
+
+router.delete('/bookings/:bookingId', requireAuth, async (req, res,next)=>{
+    let booking = await Booking.findOne({
+        where: {
+            id: req.params.bookingId
+        }
+    })
+    // res.json(booking)
+
+    if (!booking){
+        req.statusCode = 404
+        res.json({
+            "message": "Booking couldn't be found",
+            "statusCode": 404
+        })
+    }
+
     // authorization required
     if (booking.userId != req.user.id){
         res.statusCode = 403;
@@ -130,13 +224,6 @@ router.delete('/:spotId/bookings/:bookingId', requireAuth, async (req, res,next)
     let today = new Date();
     let startingDate = new Date(booking.startDate)
 
-    if (!booking){
-        req.statusCode = 404
-        res.json({
-            "message": "Booking couldn't be found",
-            "statusCode": 404
-        })
-    }
     if (today > startingDate){
         // you cannot delete a booking date past start date
         res.statusCode = 400
@@ -147,7 +234,7 @@ router.delete('/:spotId/bookings/:bookingId', requireAuth, async (req, res,next)
     }
     await booking.destroy()
     res.statusCode = 200
-    res.send({
+    res.json({
         "message": "Successfully deleted",
         "statusCode": 200
     })
@@ -193,11 +280,7 @@ router.post('/:spotId/bookings', requireAuth, validateBooking, validateBookingDa
     let spot = await Spot.findOne({include: {model:Booking},
         where: {id: req.params.spotId}
     })
-    // res.json(spot)
 
-    // let spot = await Spot.findOne({include: {model:Booking},
-    //     where: {id: req.params.spotId}
-    // })
     if (!spot){
         res.statusCode = 404
         res.json({
@@ -412,6 +495,39 @@ router.get('/', async(req, res, next)=>{
     let spots = await Spot.findAll();
     res.json(spots)
 });
+
+
+router.get('/', async (req, res, next)=>{
+    const {page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice} = req.query
+
+    let pagination ={}
+    where= {}
+    // {minLat: 10, maxLat:20 ...}
+    // where: where
+    if (minLat) where.minLat = minLat
+    if (maxLat) where.maxLat = maxLat
+    if (minLng) where.minLng = minLng
+    if (maxLng) where.maxLng = maxLng
+    if (minPrice) where.minPrice = minPrice
+    if (maxPrice) where.maxPrice = maxPrice
+
+    page = typeof Number(page)!= "number" || Number(page)<=0 ||!(page)? 1: parseInt(page)
+    size = typeof Number(size)!= "number" || Number(size)<=0 || !(size)? 20: parseInt(size)
+    // at this point, we've changed it to a number, so you can more easily compare the number
+    if (size > 20) {
+      size = 20
+    }
+    pagination.offset= size * (page -1)
+    pagination.limit= size
+
+    let spots = await Spot.findAll({
+        where,
+        ...pagination
+    })
+    res.json({
+        spots
+    })
+})
 
 
 module.exports = router;

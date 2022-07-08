@@ -32,11 +32,6 @@ module.exports = {
       reviewId: 7,
       url: 'https://www.jetsetter.com//uploads/sites/7/2019/04/GettyImages-636587230-1832x1374.jpg'
     },
-    {
-      spotId: 2,
-      reviewId: 1,
-      url: 'https://www.jetsetter.com//uploads/sites/7/2019/04/GettyImages-504249394-1832x1374.jpg'
-    }
    ]);
   },
 
