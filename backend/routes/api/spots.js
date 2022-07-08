@@ -10,6 +10,7 @@ const router = express.Router();
 
 const {Spot, Review, Image, User, Booking, sequelize} = require('../../db/models');
 const review = require('../../db/models/review');
+const booking = require('../../db/models/booking');
 
 const validateSpot = [
     check('address')
@@ -55,7 +56,6 @@ const validateReview= [
         }
         return true
     }),
-    // .withMessage('Stars must be an integer from 1 to 5'),
     handleValidationErrors
 ]
 
@@ -86,22 +86,15 @@ const validateBookingDatesExisting= [
         let spot = await Spot.findOne({include: {model:Booking},
             where: {id: req.params.spotId}
         })
-        console.log('Start Date: ', spot.Booking.startDate)
         for (let i =0; i< spot.Bookings.length; i++){
             let booking = spot.Bookings[i]
             if (booking.startDate === value){
-                return Promise.reject('Start date conflict with an existing booking')
+                // this error message does not pass into validationResults
+                // had to create msg manually
+                return Promise.reject('Start date conflict with an existing booking !!!')
             }
         }
-        // if (spot.Bookings.startDate === value){
-        //     // throw new Error
-        //     return Promise.reject('Start date conflict with an existing booking')
-        //     // let err = new Error("Start date conflicts with an existing booking")
-        //     // next(err)
-        // }
-
         return true
-
     }),
     check('endDate')
     .exists({checkFalsy: true})
@@ -115,11 +108,50 @@ const validateBookingDatesExisting= [
                 return Promise.reject('End date conflict with an existing booking')
             }
         }
-
-            return true
+        return true
     }),
     handleDateConflictErrors
 ]
+
+router.delete('/:spotId/bookings/:bookingId', requireAuth, async (req, res,next)=>{
+    let booking = await Booking.findOne({where: {userId: req.user.id,
+         spotId: req.params.spotId,
+         id: req.params.bookingId
+    }})
+    // authorization required
+    if (booking.userId != req.user.id){
+        res.statusCode = 403;
+        res.json({
+            "message": "Forbidden",
+            "statusCode": 403
+        })
+    }
+
+    let today = new Date();
+    let startingDate = new Date(booking.startDate)
+
+    if (!booking){
+        req.statusCode = 404
+        res.json({
+            "message": "Booking couldn't be found",
+            "statusCode": 404
+        })
+    }
+    if (today > startingDate){
+        // you cannot delete a booking date past start date
+        res.statusCode = 400
+        res.json({
+            "message": "Bookings that have been started can't be deleted",
+            "statusCode": 400
+        })
+    }
+    await booking.destroy()
+    res.statusCode = 200
+    res.send({
+        "message": "Successfully deleted",
+        "statusCode": 200
+    })
+})
 
 router.patch('/:spotId/bookings/:bookingId',
     requireAuth,
@@ -130,8 +162,6 @@ router.patch('/:spotId/bookings/:bookingId',
             const booking = await Booking.findAll({
                 where: {userId: req.user.id, spotId: req.params.spotId, id: req.params.bookingId}
             })
-            let today = new Date();
-            let bookingDate = new Date(booking.endDate)
             if (!booking){
                 res.statusCode = 404
                 res.json({
@@ -139,6 +169,8 @@ router.patch('/:spotId/bookings/:bookingId',
                     "statusCode": 404
                 })
             }
+            let today = new Date();
+            let bookingDate = new Date(booking.endDate)
             if (bookingDate < today){
                 // if booking is in the past
                 res.statusCode = 404;
