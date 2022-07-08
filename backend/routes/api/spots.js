@@ -118,45 +118,38 @@ const validateBookingDatesExisting= [
 
 const validateSpotQuery = [
     check('page')
-      .exists({ checkFalsy: true })
       .custom(value => {
         if (Number(value)<0) throw new Error("Page must be greater than or equal to 0")
       }),
     check('size')
-      .exists({ checkFalsy: true })
       .custom(value =>{
         if (Number(value)<0) throw new Error("Page must be greater than or equal to 0")
       }),
     check('maxLat')
-      .exists({ checkFalsy: true })
       .custom(value =>{
-        if (Number(value)<-90 || Number(value)>90) throw new Error("Maximum latitude is invalid")
+        if (Number(value)<-90 || Number(value)>90 ) throw new Error("Maximum latitude is invalid")
       }),
     check('minLat')
-      .exists({ checkFalsy: true })
       .custom(value =>{
-        if (Number(value)<-90 || Number(value)>90) throw new Error("Minimum latitude is invalid")
+        if (Number(value)<-90 || Number(value)>90 ) throw new Error("Minimum latitude is invalid")
       }),
     check('maxLng')
-        .exists({ checkFalsy: true })
         .custom(value =>{
-        if (Number(value)<-180 || Number(value)>180) throw new Error("Max longitude is invalid")
+        if (Number(value)<-180 || Number(value)>180 && value) throw new Error("Max longitude is invalid")
         }),
     check('minLng')
-      .exists({ checkFalsy: true })
       .custom(value =>{
-        if (Number(value)<-180 || Number(value)>180) throw new Error("Min longitude is invalid")
+        if ((Number(value)<-180 || Number(value)>180) && value) throw new Error("Min longitude is invalid")
         }),
     check('minPrice')
-      .exists({ checkFalsy: true })
       .custom(value =>{
         if (Number(value)<=0) throw new Error("Minimum price must be greater than 0")
       }),
     check('maxPrice')
-      .exists({ checkFalsy: true })
       .custom(value =>{
         if (Number(value)<=0) throw new Error("Minimum price must be greater than 0")
       }),
+      handleValidationErrors
 ]
 
 // add an image to a spot based on the spot's id
@@ -260,6 +253,7 @@ router.patch('/bookings/:bookingId',
             const booking = await Booking.findOne({
                 where: { id: req.params.bookingId}
             })
+            // res.json(booking)
 
             // not found
             if (!booking){
@@ -294,6 +288,7 @@ router.patch('/bookings/:bookingId',
             let errors = {}
             errors.message = "Sorry, this spot is already booked for the specified dates"
             errors.statusCode = 403
+            errors.errors = {}
             let existingDates = false
             if (booking.startDate === startDate){
                 existingDates = true
