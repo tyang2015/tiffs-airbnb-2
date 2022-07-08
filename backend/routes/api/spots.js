@@ -289,16 +289,17 @@ router.patch('/bookings/:bookingId',
             errors.message = "Sorry, this spot is already booked for the specified dates"
             errors.statusCode = 403
             errors.errors = {}
-            let existingDates = false
+            let existingStart = false
+            let existingEnd = false
             if (booking.startDate === startDate){
-                existingDates = true
+                existingStart = true
                 errors.errors.startDate = "Start date conflicts with an existing booking"
             }
             if (booking.endDate === endDate){
-                existingDates = true
+                existingEnd = true
                 errors.errors.endDate = "End date conflicts with an existing booking"
             }
-            if (existingDates){
+            if (existingStart && existingEnd){
                 res.statusCode = 403
                 res.json({
                     ...errors
