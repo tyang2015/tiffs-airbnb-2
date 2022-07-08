@@ -1035,7 +1035,7 @@ Update and return an existing booking.
 * Require proper authorization: Booking must belong to the current user
 * Request
   * Method: PATCH
-  * URL: /api/spots/:spotId/bookings/:bookingId
+  * URL: /api/spots/bookings/:bookingId
   * Headers:
     * Content-Type: application/json
   * Body:
