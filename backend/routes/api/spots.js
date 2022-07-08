@@ -236,8 +236,6 @@ router.get('/:spotId/bookings', requireAuth, async(req, res, next)=>{
     // if im checking the bookings for my own place
     // apparently as the owner, i can book my own place
     // if im the owner (req.user.id = bookings.spots.ownerId)
-
-
     for (let i = 0; i<bookings.length; i++){
       let booking = bookings[i].toJSON()
       if (booking.Spot.ownerId === req.user.id){
