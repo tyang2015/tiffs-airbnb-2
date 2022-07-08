@@ -549,7 +549,7 @@ router.get('/:spotId', async (req, res, next)=>{
 });
 
 router.get('/', async(req, res, next)=>{
-    const {page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice} = req.query
+    let {page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice} = req.query
 
     let pagination ={}
     where= {}
