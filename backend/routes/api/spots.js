@@ -78,6 +78,7 @@ const validateBooking  = [
     handleValidationErrors
 ]
 
+// TO DO: FIX MIDDLEWARE TO SEE WHATS WRONG
 // handling the create booking for spotid (specifically existing dates)
 // send to another middleware for ANOTHER UNIQUE error handling
 const validateBookingDatesExisting= [
@@ -240,15 +241,18 @@ router.delete('/bookings/:bookingId', requireAuth, async (req, res,next)=>{
     })
 })
 
-router.patch('/:spotId/bookings/:bookingId',
+// changed endpoint
+router.patch('/bookings/:bookingId',
     requireAuth,
     validateBooking,
-    validateBookingDatesExisting,
+    // validateBookingDatesExisting,
         async (req, res, next)=>{
 
             const booking = await Booking.findAll({
-                where: {userId: req.user.id, spotId: req.params.spotId, id: req.params.bookingId}
+                where: { id: req.params.bookingId}
             })
+
+            // not found
             if (!booking){
                 res.statusCode = 404
                 res.json({
@@ -256,6 +260,15 @@ router.patch('/:spotId/bookings/:bookingId',
                     "statusCode": 404
                 })
             }
+            // authorization issue
+            if (booking.userId != req.user.id){
+                res.statusCode = 403
+                res.json({
+                    "message": "Forbidden",
+                    "statusCode": 403
+                })
+            }
+
             let today = new Date();
             let bookingDate = new Date(booking.endDate)
             if (bookingDate < today){
@@ -267,6 +280,27 @@ router.patch('/:spotId/bookings/:bookingId',
                 })
             }
             const {startDate, endDate} = req.body
+
+            // check existing dates here for error handling
+            let errors = {}
+            errors.message = "Sorry, this spot is already booked for the specified dates"
+            errors.statusCode = 403
+            let existingDates = false
+            if (booking.startDate === startDate){
+                existingDates = true
+                errors.errors.startDate = "Start date conflicts with an existing booking"
+            }
+            if (booking.endDate === endDate){
+                existingDates = true
+                errors.errors.endDate = "End date conflicts with an existing booking"
+            }
+            if (existingDates){
+                res.statusCode = 403
+                res.json({
+                    ...errors
+                })
+            }
+
             booking.startDate = startDate
             booking.endDate = endDate
             await booking.save()
@@ -276,7 +310,7 @@ router.patch('/:spotId/bookings/:bookingId',
 
 // QUESTION: authorization part.. i cannot book a spot if i own it?
 // i thought that getting all bookings for a spot based on id implies that its ok?
-router.post('/:spotId/bookings', requireAuth, validateBooking, validateBookingDatesExisting, async(req,res,next)=>{
+router.post('/:spotId/bookings', requireAuth, validateBooking, async(req,res,next)=>{
     let spot = await Spot.findOne({include: {model:Booking},
         where: {id: req.params.spotId}
     })
@@ -289,6 +323,30 @@ router.post('/:spotId/bookings', requireAuth, validateBooking, validateBookingDa
         })
     }
     const {startDate, endDate} = req.body
+
+    // do error handling for existing dates here
+    let errors = {}
+    errors.message = "Sorry, this spot is already booked for the specified dates"
+    errors.statusCode = 403
+    let existingStart = false
+    let existingEnd = false
+    for (let i =0; i< spot.Bookings.length; i++){
+        let booking = spot.Bookings[i]
+        if (booking.startDate === startDate){
+            existingStart = true
+            errors.errors.startDate = "Start date conflicts with an existing booking"
+        }
+        if (booking.endDate === endDate){
+            existingEnd = true
+            errors.errors.endDate = "End date conflicts with an existing booking"
+        }
+    }
+    if (existingStart || existingEnd){
+        res.statusCode = 403
+        res.json({
+            ...errors
+        })
+    }
 
     let newRecord = await Booking.create({
         spotId: req.params.spotId,
@@ -317,7 +375,6 @@ router.get('/:spotId/bookings', requireAuth, async(req, res, next)=>{
         })
     }
     // if im checking the bookings for my own place
-    // apparently as the owner, i can book my own place
     // if im the owner (req.user.id = bookings.spots.ownerId)
     for (let i = 0; i<bookings.length; i++){
       let booking = bookings[i].toJSON()
@@ -492,12 +549,6 @@ router.get('/:spotId', async (req, res, next)=>{
 });
 
 router.get('/', async(req, res, next)=>{
-    let spots = await Spot.findAll();
-    res.json(spots)
-});
-
-
-router.get('/', async (req, res, next)=>{
     const {page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice} = req.query
 
     let pagination ={}
@@ -527,7 +578,40 @@ router.get('/', async (req, res, next)=>{
     res.json({
         spots
     })
-})
+});
+
+
+// router.get('/', async (req, res, next)=>{
+//     const {page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice} = req.query
+
+//     let pagination ={}
+//     where= {}
+//     // {minLat: 10, maxLat:20 ...}
+//     // where: where
+//     if (minLat) where.minLat = minLat
+//     if (maxLat) where.maxLat = maxLat
+//     if (minLng) where.minLng = minLng
+//     if (maxLng) where.maxLng = maxLng
+//     if (minPrice) where.minPrice = minPrice
+//     if (maxPrice) where.maxPrice = maxPrice
+
+//     page = typeof Number(page)!= "number" || Number(page)<=0 ||!(page)? 1: parseInt(page)
+//     size = typeof Number(size)!= "number" || Number(size)<=0 || !(size)? 20: parseInt(size)
+//     // at this point, we've changed it to a number, so you can more easily compare the number
+//     if (size > 20) {
+//       size = 20
+//     }
+//     pagination.offset= size * (page -1)
+//     pagination.limit= size
+
+//     let spots = await Spot.findAll({
+//         where,
+//         ...pagination
+//     })
+//     res.json({
+//         spots
+//     })
+// })
 
 
 module.exports = router;
