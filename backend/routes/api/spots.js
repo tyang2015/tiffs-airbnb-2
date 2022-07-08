@@ -571,14 +571,15 @@ router.get('/', async(req, res, next)=>{
     pagination.offset= size * (page -1)
     pagination.limit= size
 
-    let spots = await Spot.findAll({
-        where: {
-            lat: {[Op.between] : [minLat, maxLat]},
-            lng: {[Op.between] : [minLng, maxLng]},
-            price:  {[Op.between] : [minPrice, maxPrice]}
-        },
-        ...pagination
-    })
+    // let spots = await Spot.findAll({
+    //     where: {
+    //         lat: {[Op.between] : [minLat, maxLat]},
+    //         lng: {[Op.between] : [minLng, maxLng]},
+    //         price:  {[Op.between] : [minPrice, maxPrice]}
+    //     },
+    //     ...pagination
+    // })
+    let spots = await Spot.findAll({})
     res.json({
         spots
     })
