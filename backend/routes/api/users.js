@@ -35,7 +35,7 @@ const validateSignup = [
   ];
 
 router.get('/bookings', requireAuth, async (req, res, next)=>{
-  let bookings = await Booking.findAll({include: {model:Spot}})
+  let bookings = await Booking.findAll({include: {model:Spot}, where: {userId: req.user.id}})
   res.json({bookings})
 })
 

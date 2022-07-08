@@ -9,9 +9,10 @@ const { check } = require('express-validator');
 const router = express.Router();
 
 const {Spot, Review, Image, User, Booking, sequelize} = require('../../db/models');
+const {Op} = require('sequelize')
 const review = require('../../db/models/review');
 const booking = require('../../db/models/booking');
-// const { where } = require('sequelize/types');
+
 
 const validateSpot = [
     check('address')
@@ -119,34 +120,42 @@ const validateSpotQuery = [
     check('page')
       .exists({ checkFalsy: true })
       .custom(value => {
-        if (value<0) throw new Error("Page must be greater than or equal to 0")
+        if (Number(value)<0) throw new Error("Page must be greater than or equal to 0")
       }),
     check('size')
       .exists({ checkFalsy: true })
       .custom(value =>{
-        if (value<0) throw new Error("Page must be greater than or equal to 0")
+        if (Number(value)<0) throw new Error("Page must be greater than or equal to 0")
       }),
     check('maxLat')
       .exists({ checkFalsy: true })
-      .withMessage("Maximum latitude is invalid"),
+      .custom(value =>{
+        if (Number(value)<-90 || Number(value)>90) throw new Error("Maximum latitude is invalid")
+      }),
     check('minLat')
       .exists({ checkFalsy: true })
-      .withMessage('Minimum latitude is invalid'),
+      .custom(value =>{
+        if (Number(value)<-90 || Number(value)>90) throw new Error("Minimum latitude is invalid")
+      }),
     check('maxLng')
-      .exists({ checkFalsy: true })
-      .withMessage('Maximum longitude is invalid'),
+        .exists({ checkFalsy: true })
+        .custom(value =>{
+        if (Number(value)<-180 || Number(value)>180) throw new Error("Max longitude is invalid")
+        }),
     check('minLng')
       .exists({ checkFalsy: true })
-      .withMessage('Minimum longitude is invalid'),
+      .custom(value =>{
+        if (Number(value)<-180 || Number(value)>180) throw new Error("Min longitude is invalid")
+        }),
     check('minPrice')
       .exists({ checkFalsy: true })
       .custom(value =>{
-        if (value<=0) throw new Error("Minimum price must be greater than 0")
+        if (Number(value)<=0) throw new Error("Minimum price must be greater than 0")
       }),
     check('maxPrice')
       .exists({ checkFalsy: true })
       .custom(value =>{
-        if (value<=0) throw new Error("Minimum price must be greater than 0")
+        if (Number(value)<=0) throw new Error("Minimum price must be greater than 0")
       }),
 ]
 
@@ -248,7 +257,7 @@ router.patch('/bookings/:bookingId',
     // validateBookingDatesExisting,
         async (req, res, next)=>{
 
-            const booking = await Booking.findAll({
+            const booking = await Booking.findOne({
                 where: { id: req.params.bookingId}
             })
 
@@ -548,19 +557,25 @@ router.get('/:spotId', async (req, res, next)=>{
     res.json(newSpot)
 });
 
-router.get('/', async(req, res, next)=>{
+router.get('/', validateSpotQuery ,async(req, res, next)=>{
     let {page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice} = req.query
+    // console.log("req.query:", req.query)
 
-    let pagination ={}
-    where= {}
+    let pagination ={};
+    where = {};
+    let spots;
+    // where: { lat: {[Op.gte]: minLat }, }
     // {minLat: 10, maxLat:20 ...}
-    // where: where
-    // if (minLat) where.minLat = minLat
-    // if (maxLat) where.maxLat = maxLat
-    // if (minLng) where.minLng = minLng
-    // if (maxLng) where.maxLng = maxLng
-    // if (minPrice) where.minPrice = minPrice
-    // if (maxPrice) where.maxPrice = maxPrice
+    //  [ {where.minLat: where.maxLat}  , {where.minLng: where.maxLng} ]
+
+    // this is wrong
+    // it will overwrite one or the other which is fine in our case
+    if (minLat) where.lat = {[Op.gte]: Number(minLat)}
+    if (maxLat) where.lat = {[Op.lte]: Number(maxLat)}
+    if (minLng) where.lng = {[Op.gte]: Number(minLng)}
+    if (maxLng) where.lng =  {[Op.lte]: Number(maxLng)}
+    if (minPrice) where.price = {[Op.gt]: Number(minPrice)}
+    if (maxPrice) where.price =  {[Op.lt]: Number(maxPrice)}
 
     page = typeof Number(page)!= "number" || Number(page)<=0 ||!(page)? 1: parseInt(page)
     size = typeof Number(size)!= "number" || Number(size)<=0 || !(size)? 20: parseInt(size)
@@ -571,52 +586,92 @@ router.get('/', async(req, res, next)=>{
     pagination.offset= size * (page -1)
     pagination.limit= size
 
-    // let spots = await Spot.findAll({
-    //     where: {
-    //         lat: {[Op.between] : [minLat, maxLat]},
-    //         lng: {[Op.between] : [minLng, maxLng]},
-    //         price:  {[Op.between] : [minPrice, maxPrice]}
-    //     },
-    //     ...pagination
-    // })
-    let spots = await Spot.findAll({})
+    // lat range only
+    if ((minLat && maxLat) && !(minLng && maxLng) && !(minPrice && maxPrice)){
+         spots = await Spot.findAll({
+            where: {
+                lat: {[Op.between] : [minLat, maxLat]},
+            },
+            ...pagination
+        })
+    }
+    // lng range only
+    else if ((!minLat && maxLat) && (minLng && maxLng) && !(minPrice && maxPrice)){
+         spots = await Spot.findAll({
+            where: {
+                lng: {[Op.between] : [minLng, maxLng]}
+            },
+            ...pagination
+        })
+    }
+    // price range only
+    else if ((!minLat && maxLat) && !(minLng && maxLng) && (minPrice && maxPrice)){
+         spots = await Spot.findAll({
+            where: {
+                price: {[Op.between]: [minPrice, maxPrice]}
+            },
+            ...pagination
+        })
+    }
+
+    // lat range and lng range
+    else if ((minLat && maxLat) && (minLng && maxLng) && !(minPrice && maxPrice)){
+         spots = await Spot.findAll({
+            where: {
+                lat: {[Op.between] : [minLat, maxLat]},
+                lng: {[Op.between] : [minLng, maxLng]}
+            },
+            ...pagination
+        })
+    }
+    // if lat range and price range
+    else if ((minLat && maxLat) && !(minLng && maxLng) && (minPrice && maxPrice)){
+         spots = await Spot.findAll({
+            where: {
+                lat: {[Op.between] : [minLat, maxLat]},
+                price: {[Op.between]: [minPrice, maxPrice]}
+            },
+            ...pagination
+        })
+    }
+    // if lng and price range
+    else if (!(minLat && maxLat) && (minLng && maxLng) && (minPrice && maxPrice)){
+         spots = await Spot.findAll({
+            where: {
+                lng: {[Op.between] : [minLng, maxLng]},
+                price: {[Op.between]: [minPrice, maxPrice]}
+            },
+            ...pagination
+        })
+    }
+
+    // if all 3
+    else if ((minLat && maxLat) && (minLng && maxLng) && (minPrice && maxPrice)){
+         spots = await Spot.findAll({
+            where: {
+                lat: {[Op.between] : [minLat, maxLat]},
+                lng: {[Op.between] : [minLng, maxLng]},
+                price: {[Op.between]: [minPrice, maxPrice]}
+            },
+            ...pagination
+        })
+    }
+
+    // if no pairs
+    else {
+         spots = await Spot.findAll({
+            where,
+            ...pagination
+        })
+    }
+
+    // let spots = await Spot.findAll({})
     res.json({
         spots
     })
 });
 
 
-// router.get('/', async (req, res, next)=>{
-//     const {page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice} = req.query
-
-//     let pagination ={}
-//     where= {}
-//     // {minLat: 10, maxLat:20 ...}
-//     // where: where
-//     if (minLat) where.minLat = minLat
-//     if (maxLat) where.maxLat = maxLat
-//     if (minLng) where.minLng = minLng
-//     if (maxLng) where.maxLng = maxLng
-//     if (minPrice) where.minPrice = minPrice
-//     if (maxPrice) where.maxPrice = maxPrice
-
-//     page = typeof Number(page)!= "number" || Number(page)<=0 ||!(page)? 1: parseInt(page)
-//     size = typeof Number(size)!= "number" || Number(size)<=0 || !(size)? 20: parseInt(size)
-//     // at this point, we've changed it to a number, so you can more easily compare the number
-//     if (size > 20) {
-//       size = 20
-//     }
-//     pagination.offset= size * (page -1)
-//     pagination.limit= size
-
-//     let spots = await Spot.findAll({
-//         where,
-//         ...pagination
-//     })
-//     res.json({
-//         spots
-//     })
-// })
 
 
 module.exports = router;
