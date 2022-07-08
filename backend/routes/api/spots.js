@@ -555,12 +555,12 @@ router.get('/', async(req, res, next)=>{
     where= {}
     // {minLat: 10, maxLat:20 ...}
     // where: where
-    if (minLat) where.minLat = minLat
-    if (maxLat) where.maxLat = maxLat
-    if (minLng) where.minLng = minLng
-    if (maxLng) where.maxLng = maxLng
-    if (minPrice) where.minPrice = minPrice
-    if (maxPrice) where.maxPrice = maxPrice
+    // if (minLat) where.minLat = minLat
+    // if (maxLat) where.maxLat = maxLat
+    // if (minLng) where.minLng = minLng
+    // if (maxLng) where.maxLng = maxLng
+    // if (minPrice) where.minPrice = minPrice
+    // if (maxPrice) where.maxPrice = maxPrice
 
     page = typeof Number(page)!= "number" || Number(page)<=0 ||!(page)? 1: parseInt(page)
     size = typeof Number(size)!= "number" || Number(size)<=0 || !(size)? 20: parseInt(size)
@@ -572,7 +572,11 @@ router.get('/', async(req, res, next)=>{
     pagination.limit= size
 
     let spots = await Spot.findAll({
-        where,
+        where: {
+            lat: {[Op.between] : [minLat, maxLat]},
+            lng: {[Op.between] : [minLng, maxLng]},
+            price:  {[Op.between] : [minPrice, maxPrice]}
+        },
         ...pagination
     })
     res.json({

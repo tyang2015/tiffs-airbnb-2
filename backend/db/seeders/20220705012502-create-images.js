@@ -32,6 +32,68 @@ module.exports = {
       reviewId: 7,
       url: 'https://www.jetsetter.com//uploads/sites/7/2019/04/GettyImages-636587230-1832x1374.jpg'
     },
+    {
+      spotId: 3,
+      reviewId: 7,
+      url: 'https://www.jetsetter.com//uploads/sites/7/2019/04/GettyImages-636587230-1832x1374.jpg'
+    },
+    // added here
+    {
+      spotId: 3,
+      reviewId: 6,
+      url: 'blsahdfshdfs.jpg'
+    },
+    {
+      spotId: 4,
+      reviewId: 6,
+      url: 'https://www.jetsetter.com//uploads/sites/7/2019/04/GettyImages-636587230-1832x1374.jpg'
+    },
+    {
+      spotId: 5,
+      reviewId: 6,
+      url: 'https://www.jetsetter.com//uploads/sites/7/2019/04/GettyImages-636587230-1832x1374.jpg'
+    },
+    {
+      spotId: 6,
+      reviewId: 6,
+      url: 'https://www.jetsetter.com//uploads/sites/7/2019/04/GettyImages-636587230-1832x1374.jpg'
+    },
+    {
+      spotId: 7,
+      reviewId: 6,
+      url: 'https://www.jetsetter.com//uploads/sites/7/2019/04/GettyImages-636587230-1832x1374.jpg'
+    },
+    {
+      spotId: 8,
+      reviewId: 6,
+      url: 'https://www.jetsetter.com//uploads/sites/7/2019/04/GettyImages-636587230-1832x1374.jpg'
+    },
+    {
+      spotId: 9,
+      reviewId: 6,
+      url: 'https://www.jetsetter.com//uploads/sites/7/2019/04/GettyImages-636587230-1832x1374.jpg'
+    },
+    {
+      spotId: 10,
+      reviewId: 6,
+      url: 'https://www.jetsetter.com//uploads/sites/7/2019/04/GettyImages-636587230-1832x1374.jpg'
+    },
+    {
+      spotId: 11,
+      reviewId: 6,
+      url: 'https://www.jetsetter.com//uploads/sites/7/2019/04/GettyImages-636587230-1832x1374.jpg'
+    },
+    {
+      spotId: 12,
+      reviewId: 6,
+      url: 'https://www.jetsetter.com//uploads/sites/7/2019/04/GettyImages-636587230-1832x1374.jpg'
+    },
+    {
+      spotId: 13,
+      reviewId: 6,
+      url: 'https://www.jetsetter.com//uploads/sites/7/2019/04/GettyImages-636587230-1832x1374.jpg'
+    }
+
    ]);
   },
 
