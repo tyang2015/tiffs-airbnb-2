@@ -1,4 +1,4 @@
-import {useState, useEffect} from "react"
+import React,{useState, useEffect} from "react"
 import {useDispatch, useSelector} from "react-redux"
 import {login} from '../../store/session'
 import {useHistory, Redirect} from "react-router-dom"
@@ -14,7 +14,7 @@ const LoginFormPage = () =>{
 
     if (sessionUser) return (
         <Redirect to="/" />
-      );
+    );
 
     const handleSubmit = (e)=>{
         e.preventDefault();

@@ -4,6 +4,7 @@ import { csrfFetch } from "./csrf"
 const SET_USER = 'user/setUser'
 const REMOVE_USER = 'user/removeUser'
 
+
 const setUser = (user) =>{
     return {
         type: SET_USER,
@@ -17,7 +18,7 @@ const removeUser =() => {
     }
 }
 
-// thunk creator function
+// thunk creator function for login
 // IMPORTANT: u may have to change credential to email later
 export const login = (user) => async (dispatch) => {
     const { email, password } = user;
@@ -33,6 +34,32 @@ export const login = (user) => async (dispatch) => {
     dispatch(setUser(data.user));
     return response;
   };
+
+//   phase 2
+  export const signup = (user) => async (dispatch) => {
+    const { email, password, firstName, lastName} = user;
+    const response = await csrfFetch("/api/users", {
+      method: "POST",
+      body: JSON.stringify({
+        email,
+        password,
+        firstName,
+        lastName
+      }),
+    });
+    const data = await response.json();
+    dispatch(setUser(data.user));
+    return response;
+  };
+
+// phase 3
+export const logout = () => async (dispatch) => {
+  const response = await csrfFetch('/api/session', {
+    method: 'DELETE',
+  });
+  dispatch(removeUser());
+  return response;
+};
 
 //   last part in phase 1
 export const restoreUser = () => async dispatch => {
