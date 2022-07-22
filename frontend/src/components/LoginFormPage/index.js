@@ -1,4 +1,4 @@
-import {useState, useEffect} from "react"
+import React,{useState, useEffect} from "react"
 import {useDispatch, useSelector} from "react-redux"
 import {login} from '../../store/session'
 import {useHistory, Redirect} from "react-router-dom"
@@ -14,7 +14,7 @@ const LoginFormPage = () =>{
 
     if (sessionUser) return (
         <Redirect to="/" />
-      );
+    );
 
     const handleSubmit = (e)=>{
         e.preventDefault();
@@ -27,7 +27,7 @@ const LoginFormPage = () =>{
             // what does a data object with errors look like?
             // input an invalid email and password
             if (data && data.errors) {
-                console.log("Bad data: ", data)
+                // console.log("Bad data: ", data)
                 setErrors(data.errors)
             }
         })

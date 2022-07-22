@@ -1,9 +1,10 @@
 import LoginFormPage from "./components/LoginFormPage"
 import {Switch, Route} from "react-router-dom"
-import React from 'react';
-import {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch} from "react-redux"
 import * as sessionActions from "./store/session";
+import SignupFormPage from "./components/SignupFormPage/index";
+import Navigation from "./components/Navigation";
 
 function App() {
   const dispatch = useDispatch();
@@ -12,12 +13,21 @@ function App() {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
   }, [dispatch])
 
-  return isLoaded && (
-    <Switch>
-      <Route path="/login">
-        <LoginFormPage/>
-      </Route>
-    </Switch>
+  return (
+    <>
+      <Navigation isLoaded={isLoaded} />
+      {isLoaded && (
+      <Switch>
+        <Route exact path="/login">
+          <LoginFormPage/>
+        </Route>
+        <Route exact path="/users">
+          {/* <h2> hello </h2> */}
+          <SignupFormPage/>
+        </Route>
+      </Switch>
+      )}
+    </>
   );
 }
 
