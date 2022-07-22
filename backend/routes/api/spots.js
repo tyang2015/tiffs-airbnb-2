@@ -3,7 +3,7 @@ const app = require('../../app');
 // added here
 const { restoreUser, requireAuth } = require('../../utils/auth.js');
 const { handleValidationErrors,  handleDateConflictErrors } = require('../../utils/validation');
-const { check } = require('express-validator');
+const { check, query } = require('express-validator');
 
 
 const router = express.Router();
@@ -117,35 +117,35 @@ const validateBookingDatesExisting= [
 ]
 
 const validateSpotQuery = [
-    check('page')
+    query('page')
       .custom(value => {
         if (Number(value)<0) throw new Error("Page must be greater than or equal to 0")
       }),
-    check('size')
+    query('size')
       .custom(value =>{
         if (Number(value)<0) throw new Error("Page must be greater than or equal to 0")
       }),
-    check('maxLat')
+    query('maxLat')
       .custom(value =>{
         if (Number(value)<-90 || Number(value)>90 ) throw new Error("Maximum latitude is invalid")
       }),
-    check('minLat')
+    query('minLat')
       .custom(value =>{
         if (Number(value)<-90 || Number(value)>90 ) throw new Error("Minimum latitude is invalid")
       }),
-    check('maxLng')
+    query('maxLng')
         .custom(value =>{
         if (Number(value)<-180 || Number(value)>180 && value) throw new Error("Max longitude is invalid")
         }),
-    check('minLng')
+    query('minLng')
       .custom(value =>{
         if ((Number(value)<-180 || Number(value)>180) && value) throw new Error("Min longitude is invalid")
         }),
-    check('minPrice')
+    query('minPrice')
       .custom(value =>{
         if (Number(value)<=0) throw new Error("Minimum price must be greater than 0")
       }),
-    check('maxPrice')
+    query('maxPrice')
       .custom(value =>{
         if (Number(value)<=0) throw new Error("Minimum price must be greater than 0")
       }),
@@ -380,7 +380,6 @@ router.get('/:spotId/bookings', requireAuth, async(req, res, next)=>{
         })
     }
     // if im checking the bookings for my own place
-    // if im the owner (req.user.id = bookings.spots.ownerId)
     for (let i = 0; i<bookings.length; i++){
       let booking = bookings[i].toJSON()
       if (booking.Spot.ownerId === req.user.id){
