@@ -118,37 +118,37 @@ const validateBookingDatesExisting= [
 
 const validateSpotQuery = [
     query('page')
-      .custom(value => {
-        if (Number(value)<0) throw new Error("Page must be greater than or equal to 0")
-      }),
+      .isInt({min:0})
+      .optional({checkFalsy: true})
+      .withMessage("Page must be greater than or equal to 0"),
     query('size')
-      .custom(value =>{
-        if (Number(value)<0) throw new Error("Page must be greater than or equal to 0")
-      }),
+      .isInt({min:0})
+      .optional({checkFalsy: true})
+      .withMessage("Size must be greater than or equal to 0"),
     query('maxLat')
-      .custom(value =>{
-        if (Number(value)<-90 || Number(value)>90 ) throw new Error("Maximum latitude is invalid")
-      }),
+      .isFloat({min:-90, max: 90})
+      .optional({checkFalsy: true})
+      .withMessage("Maximum latitude is invalid"),
     query('minLat')
-      .custom(value =>{
-        if (Number(value)<-90 || Number(value)>90 ) throw new Error("Minimum latitude is invalid")
-      }),
+      .isFloat({min:-90, max: 90})
+      .optional({checkFalsy: true})
+      .withMessage("Minimum latitude is invalid"),
     query('maxLng')
-        .custom(value =>{
-        if (Number(value)<-180 || Number(value)>180 && value) throw new Error("Max longitude is invalid")
-        }),
+        .isFloat({min:-180, max: 180})
+        .optional({checkFalsy: true})
+        .withMessage("Maximum longitude is invalid"),
     query('minLng')
-      .custom(value =>{
-        if ((Number(value)<-180 || Number(value)>180) && value) throw new Error("Min longitude is invalid")
-        }),
+        .isFloat({min:-180, max: 180})
+        .optional({checkFalsy: true})
+        .withMessage("Minimum latitude is invalid"),
     query('minPrice')
-      .custom(value =>{
-        if (Number(value)<=0) throw new Error("Minimum price must be greater than 0")
-      }),
+      .isFloat({min:0.01})
+      .optional({checkFalsy: true})
+      .withMessage("Minimum price must be greater than 0"),
     query('maxPrice')
-      .custom(value =>{
-        if (Number(value)<=0) throw new Error("Minimum price must be greater than 0")
-      }),
+      .isFloat({min:0.01})
+      .optional({checkFalsy: true})
+      .withMessage("Max price must be greater than 0"),
       handleValidationErrors
 ]
 
@@ -552,7 +552,7 @@ router.get('/:spotId', async (req, res, next)=>{
     res.json(newSpot)
 });
 
-router.get('/', validateSpotQuery ,async(req, res, next)=>{
+router.get('/' , validateSpotQuery,async(req, res, next)=>{
     let {page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice} = req.query
     // console.log("req.query:", req.query)
 
