@@ -5,6 +5,7 @@ import {useDispatch} from "react-redux"
 import * as sessionActions from "./store/session";
 import SignupFormPage from "./components/SignupFormPage/index";
 import Navigation from "./components/Navigation";
+import Spots from './components/Spots'
 
 function App() {
   const dispatch = useDispatch();
@@ -24,6 +25,9 @@ function App() {
         <Route exact path="/users">
           {/* <h2> hello </h2> */}
           <SignupFormPage/>
+        </Route>
+        <Route exact path= "/spots">
+          <Spots />
         </Route>
       </Switch>
       )}
