@@ -1,17 +1,8 @@
 const GET_SPOTS = 'spots/getSpots'
-// structure of initial state:
-// spotId: {
-//     spotData,
-//     reviews:{
-//         reviewId: {
-//                 reviewData,
-//                 user: {userData for who reviewed}
-//             }
-//     },
-//     images: {normalizedImageData}
-// }
-
-
+const GET_SPOT_DATA = 'spots/getSpotData'
+const DELETE_SPOT = 'spots/deleteSpot'
+const CREATE_SPOT = 'spots/createSpot'
+const UPDATE_SPOT = 'spots/updateSpot'
 
 // action creator
 // this is going to be brought back from the DB with: eg. spotData = await response.json()
@@ -24,8 +15,31 @@ const load = (payload) => {
     }
 }
 
+// remember we dispatch this from thunk AFTER getting our info from db
+// including the id field
+const create = (payload) => {
+    return {
+        type: CREATE_SPOT,
+        payload
+    }
+}
+
+// payload = object SUBMITTED from form
+export const createSpot = (payload) => async dispatch => {
+    let response = await fetch('/api/spots', {
+        method:'POST',
+        headers:{'Content-Type': 'application/json'},
+        body:JSON.stringify(payload)
+    })
+    if (response.ok){
+        const spot = await response.json()
+        dispatch(create(spot))
+    }
+}
+
 
 // thunk action creator
+// QUESTION: should i add another endpoint for /api/spots/:spotId/images
 export const getSpots = () => async dispatch => {
     const response = await fetch('/api/spots');
     if (response.ok){
@@ -39,59 +53,65 @@ export const getSpots = () => async dispatch => {
         for (let i = 0; i< spotIdList.length; i++){
             let spotId = i+1
             let response2 = await fetch(`/api/spots/${spotId}/reviews`)
-            // console.log('reponse object:',response.json())
+            // let response3 = await fetch()
             if (response2.ok) {
                 let reviewsObj = await response2.json()
-                // console.log('reviews response object:', reviewsObj.reviews)
-
-                spots.spots[i].reviews = reviewsObj.reviews
-                // console.log('reviews key in object:' , spots.spots[spotId-1])
-                console.log('spots updated:', spots)
+                // spots.spots[i].reviews = reviewsObj.reviews
+                spots.spots[i].reviews ={}
+                reviewsObj.reviews.forEach(review=> {
+                    spots.spots[i].reviews[review.id] = review
+                })
             }
         }
         // }
-        // console.log('spots in thunk before going into reducer', spots)
+        console.log('spots in thunk before going into reducer', spots)
         dispatch(load(spots));
     }
-        // spotIdList.forEach(spotId=> {
-        //     let response = await fetch(`/api/spots/${spotId}/reviews`)
-        //     if (response.ok) {
-        //         spots.reviews = response.reviews.filter(review => !review.Images || !review.Spot)
-        //     }
-        // })
-
-        // put all the data into spots
-    // }
 }
 
 
-const initialState = {}
 
+const initialState = {}
 const spotReducer = (state= initialState, action) => {
     switch (action.type){
         case GET_SPOTS: {
-            let allSpots = {}
+            // let allSpots = {}
             // console.log('spot data array from reducer:', action.payload.spots)
             // action.payload.spots.forEach(spot => {
             //     allSpots[spot.id] = spot
             //     // allSpots[spot.id].reviews = JSON.stringify(spot.reviews)
             // })
-            for (let i = 0; i< action.payload.spots.length; i++) {
-                let spot = action.payload.spots[i]
-                allSpots[spot.id] = spot
-                // for (let j=0; j< action.payload.spots[i].reviews.length; j++){
-                //     // j + 1 is the review id
-                //     let review = action.payload.spots[i].reviews[j]
-                //     if (j===0){
-                //         allSpots[spot.id].reviews = {}
-                //     }
-                //     console.log(`review:`, review)
-                //     // // the first review of every spot, the object can be reiniiated
-                //     allSpots[spot.id].reviews[review.id] = review
-                // }
-            }
-            // console.log('all spots object (with reviews):', allSpots)
+            // for (let i = 0; i< action.payload.spots.length; i++) {
+            //     let spot = action.payload.spots[i]
+            //     allSpots[spot.id] = spot
+            //     // console.log(`review for spot ${i+1}: ${allSpots[spot.id].reviews}`)
+            //     console.log("reviews for a single spot:", allSpots[spot.id].reviews)
+            //     // instantiate it
+            //     const oldReviewObj= {}
+            //     oldReviewObj[action.payload.spots[i].reviews[0].id] = action.payload.spots[i].reviews[0]
+            //     for (let j=0; j< action.payload.spots[i].reviews.length; j++){
+            //         let review = action.payload.spots[i].reviews[j]
+            //         const newReviewObj={}
+            //         // if (j===0){
+            //             oldReviewObj[review.id] = {...oldReviewObj, review}
+            //         // }
+            //         // else {
+            //             newReviewObj[review.id]= review
+            //         // }
+            //         allSpots[spot.id].reviews = {...oldReviewObj, ...newReviewObj}
+            //     }
+            // }
+            let allSpots ={}
+            action.payload.spots.forEach(spot => allSpots[spot.id] = spot)
+            console.log('all spots object (with reviews):',allSpots)
             return {...state, ...allSpots}
+        }
+        case CREATE_SPOT: {
+            const newState = {...state}
+            newState[action.payload.id] = action.payload
+            return newState
+            // iterate through keys
+            // newState =
         }
         default:
             return state

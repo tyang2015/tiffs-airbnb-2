@@ -10,6 +10,7 @@ const Spots = () =>{
     let spots = useSelector(state=> Object.values(state.spots))
     // const [spots, getSpots] = useState('')
 
+    // triggers this in the first stage. end state useSelector triggers render 
     useEffect(()=>{
         dispatch(getSpots())
     }, [dispatch])
