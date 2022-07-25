@@ -1,3 +1,5 @@
+import { csrfFetch } from "./csrf"
+
 const GET_SPOTS = 'spots/getSpots'
 const GET_SPOT_DATA = 'spots/getSpotData'
 const DELETE_SPOT = 'spots/deleteSpot'
@@ -17,6 +19,15 @@ const load = (payload) => {
     }
 }
 
+// delete spot
+const remove = (id) => {
+    return {
+        type: DELETE_SPOT,
+        id
+    }
+}
+
+
 // remember we dispatch this from thunk AFTER getting our info from db
 // including the id field
 const create = (payload) => {
@@ -33,10 +44,43 @@ const getOneSpot = (spot) => {
     }
 }
 
+const edit = (spot) => {
+    return {
+        type: UPDATE_SPOT,
+        spot
+    }
+}
+
+export const deleteSpot = (id) => async dispatch => {
+    let response = await csrfFetch(`/api/spots/${id}`, {
+        method:'DELETE',
+        headers:{'Content-Type': 'application/json'},
+        body:JSON.stringify(payload)
+    })}
+    if (response.ok){
+        const data = await response.json()
+        // dont plug the data (which is just a msg) in
+        dispatch(remove(id))
+    }
+
+
+export const editSpot = (id, payload) => async dispatch => {
+    console.log('inside EditSpot thunk creator')
+    let response = await csrfFetch(`/api/spots/${id}`, {
+        method:'PATCH',
+        headers:{'Content-Type': 'application/json'},
+        body:JSON.stringify(payload)
+    })
+    if (response.ok){
+        const spot = await response.json()
+        dispatch(edit(id,spot))
+    }
+}
+
 // payload = object SUBMITTED from form
 export const createSpot = (payload) => async dispatch => {
     console.log('inside CreateSpot thunk creator')
-    let response = await fetch('/api/spots', {
+    let response = await csrfFetch('/api/spots', {
         method:'POST',
         headers:{'Content-Type': 'application/json'},
         body:JSON.stringify(payload)
@@ -125,6 +169,11 @@ const spotReducer = (state= initialState, action) => {
             console.log('all spots object (with reviews):',allSpots)
             return {...state, ...allSpots}
         }
+        case DELETE_SPOT: {
+            const newState= {...state}
+            delete newState[action.id]
+            return newState
+        }
         case CREATE_SPOT: {
             const newState = {...state}
             newState[action.payload.id] = action.payload
@@ -137,6 +186,11 @@ const spotReducer = (state= initialState, action) => {
             newState[action.spot.id] =action.spot
             // newState = {1: {id:1, ownerId:1,...}}
             console.log('new state in get spot data:', newState)
+            return newState
+        }
+        case UPDATE_SPOT: {
+            const newState = {...state}
+            newState[action.spot.id] = action.spot
             return newState
         }
         default:

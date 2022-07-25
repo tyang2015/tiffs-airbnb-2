@@ -9,7 +9,8 @@ import Spots from './components/Spots'
 import GetSpot from './components/GetSpot'
 import { getSpots } from "./store/spot";
 import CreateSpotForm from "./components/CreateSpotForm";
-// import EditSpotForm
+import EditSpotForm from "./components/EditSpotForm"
+
 function App() {
   const dispatch = useDispatch();
   // // array form
@@ -43,10 +44,11 @@ function App() {
         </Route>
         {/* make an alternative endpoint for the create spot form */}
         <Route exact path= "/api/spots/new">
-          <CreateSpotForm formType={"Create Spot"} spots={spots}/>
+          <CreateSpotForm spots={spots}/>
         </Route>
-        <Route exact path= "/api/spots/:spotId">
-          <EditSpotForm formType={"Create Spot"} spots={spots}/>
+        {/* change the edit url  */}
+        <Route exact path= "/api/spots/:spotId/edit">
+          <EditSpotForm spots={spots}/>
         </Route>
         <Route exact path= "/api/spots/:spotId">
           <GetSpot spots={spots}/>

@@ -1,14 +1,17 @@
 import React,{useState, useEffect} from "react"
 import {useHistory, useSelector} from 'react-redux'
-import { createSpot } from '../../store/spot'
+import { createSpot, editSpot } from '../../store/spot'
 // import
 import {useDispatch} from "react-redux"
+import {useParams} from 'react-router-dom'
+
 
 const SpotForm = ({spot, formType, spots}) => {
   // spot argument will only be used for Edit Form
   // spots is just used to test CREATE
+  console.log('spot on edit form:', spot)
   const dispatch = useDispatch();
-  const allSpots = Object.values(spots)
+  const {spotId} = useParams();
   // console.log('all spots:', allSpots)
 
   const [address, setAddress] = useState('')
@@ -20,6 +23,8 @@ const SpotForm = ({spot, formType, spots}) => {
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
   const [price, setPrice] = useState(1)
+
+  const allSpots = Object.values(spots)
 
   const handleSubmit = async (e)=>{
     e.preventDefault();
@@ -37,18 +42,21 @@ const SpotForm = ({spot, formType, spots}) => {
     }
 
     if (formType==='Create Spot'){
-      const spotCreated= await dispatch(createSpot(spot))
-      console.log('sucesssfully create spot!', spot)
+        const spotCreated= await dispatch(createSpot(spot))
+        // console.log('sucesssfully create spot!', spot)
     }
-    if (formType ==='Edit Spot'){
-      console.log('TODO: edit form')
+    else {
+        // it will have a spot id here so no need for conditional
+        const spotEdited = await dispatch(editSpot(spot.id, spot))
+        // console.log('spot object returned:', spotEdited)
+        // console.log('Sucessfully edited!')
     }
   }
 
     return (
       <>
           <form onSubmit={handleSubmit} >
-          <h2> Create a Spot </h2>
+          <h2> {formType} </h2>
           <label>
             Address
             <input
