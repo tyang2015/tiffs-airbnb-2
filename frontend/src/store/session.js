@@ -31,6 +31,7 @@ export const login = (user) => async (dispatch) => {
     });
     const data = await response.json();
     // console.log(data)
+    // CHANGED HERE
     dispatch(setUser(data.user));
     return response;
   };
@@ -48,7 +49,9 @@ export const login = (user) => async (dispatch) => {
       }),
     });
     const data = await response.json();
-    dispatch(setUser(data.user));
+    // CHANGED HERE
+    console.log('data from signup:', data)
+    dispatch(setUser(data));
     return response;
   };
 
@@ -63,10 +66,11 @@ export const logout = () => async (dispatch) => {
 
 //   last part in phase 1
 export const restoreUser = () => async dispatch => {
-const response = await csrfFetch('/api/session');
-const data = await response.json();
-dispatch(setUser(data.user));
-return response;
+  const response = await csrfFetch('/api/session');
+  const data = await response.json();
+  // CHANGED data.user to data
+  dispatch(setUser(data.user));
+  return response;
 };
 
 const initialState = {user:null}
