@@ -4,7 +4,7 @@ import { createSpot } from '../../store/spot'
 // import
 import {useDispatch} from "react-redux"
 
-const CreateSpotForm = ({spot, formType, spots}) => {
+const SpotForm = ({spot, formType, spots}) => {
   // spot argument will only be used for Edit Form
   // spots is just used to test CREATE
   const dispatch = useDispatch();
@@ -130,4 +130,4 @@ const CreateSpotForm = ({spot, formType, spots}) => {
     )
 }
 
-export default CreateSpotForm
+export default SpotForm

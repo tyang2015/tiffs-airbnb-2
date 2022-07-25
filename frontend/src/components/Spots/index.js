@@ -5,15 +5,17 @@ import {useState, useEffect} from 'react'
 import {getSpots} from "../../store/spot"
 import React from 'react'
 
-const Spots = () =>{
+const Spots = ({spots}) =>{
     const dispatch = useDispatch();
-    let spots = useSelector(state=> Object.values(state.spots))
+    // console.log('spots in spots component:', spots)
+    const allSpots = Object.values(spots)
+    // let spots = useSelector(state=> Object.values(state.spots))
     // const [spots, getSpots] = useState('')
 
-    // triggers this in the first stage. end state useSelector triggers render 
-    useEffect(()=>{
-        dispatch(getSpots())
-    }, [dispatch])
+    // triggers this in the first stage. end state useSelector triggers render
+    // useEffect(()=>{
+    //     dispatch(getSpots())
+    // }, [dispatch])
 
     const getSpotData = (e) =>{
         e.preventDefault();
@@ -22,11 +24,11 @@ const Spots = () =>{
 
     return (
         <>
-            <h2> spots data here</h2>
+            <h2> all spots data here</h2>
             {/* <button onClick={getSpotData}> CLICK HERE TO TEST SPOT DATA </button> */}
             <div>
                 {
-                    spots.map(spot => (
+                    allSpots.map(spot => (
                     <div key={spot.id}>
                         <h3>{spot.name}</h3>
                         <p>{spot.description}</p>
@@ -35,6 +37,7 @@ const Spots = () =>{
                 }
                 spot
             </div>
+
         </>
     )
 }

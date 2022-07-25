@@ -7,6 +7,8 @@ const UPDATE_SPOT = 'spots/updateSpot'
 // action creator
 // this is going to be brought back from the DB with: eg. spotData = await response.json()
 // then you dispatch the action with dispatch(loadSpots(spotData))
+
+// load all spots
 const load = (payload) => {
     return {
         type: GET_SPOTS,
@@ -23,9 +25,17 @@ const create = (payload) => {
         payload
     }
 }
+// the argument will be passed to reducer (newState) to be returned on component useSelector
+const getOneSpot = (spot) => {
+    return {
+        type: GET_SPOT_DATA,
+        spot
+    }
+}
 
 // payload = object SUBMITTED from form
 export const createSpot = (payload) => async dispatch => {
+    console.log('inside CreateSpot thunk creator')
     let response = await fetch('/api/spots', {
         method:'POST',
         headers:{'Content-Type': 'application/json'},
@@ -34,6 +44,17 @@ export const createSpot = (payload) => async dispatch => {
     if (response.ok){
         const spot = await response.json()
         dispatch(create(spot))
+    }
+}
+
+// getting spot details for 1 Spot
+export const getSpotData= (id) => async dispatch => {
+    // console.log('inside thunk creator for getSpotData')
+    const response = await fetch(`/api/spots/${id}`)
+    if (response.ok){
+        let spot = await response.json()
+        console.log('spot details:', spot)
+        dispatch(getOneSpot(spot))
     }
 }
 
@@ -48,7 +69,7 @@ export const getSpots = () => async dispatch => {
         // /api/spots/:spotId/review endpoint's reviews data
         // console.log('spots')
         let spotIdList = spots.spots.map(spot=> spot.id)
-        console.log('spot id list:' , spotIdList)
+        // console.log('spot id list:' , spotIdList)
         // let newSpots = spots.toJSON()
         for (let i = 0; i< spotIdList.length; i++){
             let spotId = i+1
@@ -63,8 +84,6 @@ export const getSpots = () => async dispatch => {
                 })
             }
         }
-        // }
-        console.log('spots in thunk before going into reducer', spots)
         dispatch(load(spots));
     }
 }
@@ -112,6 +131,13 @@ const spotReducer = (state= initialState, action) => {
             return newState
             // iterate through keys
             // newState =
+        }
+        case GET_SPOT_DATA: {
+            const newState = {...state}
+            newState[action.spot.id] =action.spot
+            // newState = {1: {id:1, ownerId:1,...}}
+            console.log('new state in get spot data:', newState)
+            return newState
         }
         default:
             return state
