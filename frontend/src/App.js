@@ -50,7 +50,7 @@ function App() {
         <Route exact path= "/spots/:spotId/edit">
           <EditSpotForm spots={spots}/>
         </Route>
-        <Route exact path= "/api/spots/:spotId">
+        <Route exact path= "/spots/:spotId">
           <GetSpot spots={spots}/>
         </Route>
       </Switch>

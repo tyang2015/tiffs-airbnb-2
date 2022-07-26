@@ -51,14 +51,15 @@ const edit = (spot) => {
     }
 }
 
-export const deleteSpot = (id) => async dispatch => {
+export const deleteSpot = (id)=> async dispatch => {
+    console.log('inside deleteSpot thunk')
     let response = await csrfFetch(`/api/spots/${id}`, {
         method:'DELETE',
-        headers:{'Content-Type': 'application/json'},
-    })
+        headers:{'Content-Type': 'application/json'}
+    });
     if (response.ok){
-        const data = await response.json()
-        // dont plug the data (which is just a msg) in
+        // const data = await response.json()
+        // dont plug the data (which is just a msg) in.we just need to delete in DB
         dispatch(remove(id))
     }
 }

@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom"
+import { useParams, useHistory } from "react-router-dom"
 import React,{useState, useEffect} from "react"
 import { useDispatch, useSelector } from "react-redux";
 import {deleteSpot } from "../../store/spot";
@@ -7,14 +7,17 @@ import {deleteSpot } from "../../store/spot";
 const GetSpot = ({spots}) => {
     const {spotId} = useParams();
     const dispatch = useDispatch();
+    const history = useHistory();
     const spot = spots[spotId]
     // const spot = spots.filter(spot => spot.id === Number(spotId))
     // const [spot, setSpot] = useState({})
 
     // display error msg?
-    const deleteHandle = (e) => {
+    const deleteHandle = async (e) => {
         dispatch(deleteSpot(spotId))
-        console.log('successsfully deleted?')
+        alert('successfully deleted!')
+        history.push('/spots')
+
     }
 
     return (
