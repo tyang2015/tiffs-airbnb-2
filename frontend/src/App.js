@@ -39,15 +39,15 @@ function App() {
         <Route exact path="/users">
           <SignupFormPage/>
         </Route>
-        <Route exact path= "/api/spots">
+        <Route exact path= "/spots">
           <Spots spots={spots}/>
         </Route>
         {/* make an alternative endpoint for the create spot form */}
-        <Route exact path= "/api/spots/new">
+        <Route exact path= "/spots/new">
           <CreateSpotForm spots={spots}/>
         </Route>
         {/* change the edit url  */}
-        <Route exact path= "/api/spots/:spotId/edit">
+        <Route exact path= "/spots/:spotId/edit">
           <EditSpotForm spots={spots}/>
         </Route>
         <Route exact path= "/api/spots/:spotId">
