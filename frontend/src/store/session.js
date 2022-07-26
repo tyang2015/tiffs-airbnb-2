@@ -37,6 +37,7 @@ export const login = (user) => async (dispatch) => {
   };
 
 //   phase 2
+// I CHANGED THIS TO DATA.USER AND IT WORKS... WHY??
   export const signup = (user) => async (dispatch) => {
     const { email, password, firstName, lastName} = user;
     const response = await csrfFetch("/api/users", {
@@ -50,7 +51,7 @@ export const login = (user) => async (dispatch) => {
     });
     const data = await response.json();
     // CHANGED HERE
-    console.log('data from signup:', data)
+    // console.log('data from signup:', data)
     dispatch(setUser(data));
     return response;
   };
