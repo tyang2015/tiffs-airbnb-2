@@ -14,10 +14,9 @@ const GetSpot = ({spots}) => {
 
     // display error msg?
     const deleteHandle = async (e) => {
-        dispatch(deleteSpot(spotId))
+        await dispatch(deleteSpot(spotId))
         alert('successfully deleted!')
         history.push('/spots')
-
     }
 
     return (

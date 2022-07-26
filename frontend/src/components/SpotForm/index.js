@@ -4,6 +4,7 @@ import { createSpot, editSpot } from '../../store/spot'
 // import
 import {useDispatch} from "react-redux"
 import {useParams} from 'react-router-dom'
+import './SpotForm.css'
 
 
 const SpotForm = ({spot, formType, spots}) => {

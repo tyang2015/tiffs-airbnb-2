@@ -52,7 +52,7 @@ const edit = (spot) => {
 }
 
 export const deleteSpot = (id)=> async dispatch => {
-    console.log('inside deleteSpot thunk')
+    // console.log('inside deleteSpot thunk')
     let response = await csrfFetch(`/api/spots/${id}`, {
         method:'DELETE',
         headers:{'Content-Type': 'application/json'}
