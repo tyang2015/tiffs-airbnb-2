@@ -27,7 +27,7 @@ const Spots = ({spots}) =>{
     //     }
     //     allSpots.avgStarRating = (totalScore/numReviews).toFixed(2)
     // }
-    console.log('spots data:', allSpots)
+    // console.log('spots data:', allSpots)
 
     const getSpotData = (e) =>{
         e.preventDefault();
