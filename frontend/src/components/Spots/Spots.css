@@ -1,12 +1,11 @@
 .spots-main-grid-container {
     display: grid;
-    grid-template-columns: repeat(4, 25%);
+    grid-template-columns: repeat(5, 20%);
     grid-template-rows: repeat(10, 550px);
     background-color: beige;
-    grid-row-gap: 60px;
-    grid-column-gap: 40px;
+    /* grid-row-gap: 30px; */
+    /* grid-column-gap: 30px; */
     justify-items: center;
-    /* z-index: -1; */
 
 }
 
@@ -14,30 +13,36 @@
     /* top half is image and bottom half is text box */
     /*
     width: 430px;
-    height: 600px;
-    flex-flow: row wrap;
-    align-items: center; */
+    height: 600px; */
+    position: relative;
+    width: 420px;
     background-color: lightsteelblue;
-    border: red solid 5px;
+    border: red 10px solid;
     display:flex;
     flex-direction: column;
+    padding:0;
+    margin:0;
 
+    /* BECAUSE ITS COLUMN, justify content is now used for vertical alignment */
     /* display: block; */
-    height: 100%;
-    /* top: 0; */
-    width: 70%;
-    /* padding-bottom: 0%; */
+    /* height: 80%; */
+    height: 450px;
     align-items: center;
+    justify-content: space-between;
 
 }
 
 .spot-bottom-text-container{
-    width: auto;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     background-color: lightsalmon;
-    border: black solid 10px;
-    /* align-self: end; */
+    /* border: black solid 10px; */
+
+    bottom: 35px;
+    position:relative;
+    /* justify-self:stretch; */
+    /* align-self: center; */
 
 
     /* display:block;
@@ -47,19 +52,22 @@
 }
 
 .spot-bottom-right-text-container{
-    position: relative;
-    /* left: 140px; */
-    right:0px;
-    bottom: 0px;
+    /* absolute is RELATIVE to parent container */
+    position: absolute;
+    right:0;
     background: green;
-    height: 100%;
+    /* height: 100%; */
     align-items: center;
-    justify-content:end;
-    align-self: end;
-    /* text-align: right; */
+    /* justify-content:start; */
+    align-self: start;
+
 }
 
 img{
-    height:50%;
+    /* position: absolute; */
+    /* top: 0; */
+    height:70%;
     width: 100%;
+    /* margin-bottom: 0px; */
+
 }
