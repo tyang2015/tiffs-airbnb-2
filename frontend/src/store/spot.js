@@ -55,13 +55,13 @@ export const deleteSpot = (id) => async dispatch => {
     let response = await csrfFetch(`/api/spots/${id}`, {
         method:'DELETE',
         headers:{'Content-Type': 'application/json'},
-        body:JSON.stringify(payload)
-    })}
+    })
     if (response.ok){
         const data = await response.json()
         // dont plug the data (which is just a msg) in
         dispatch(remove(id))
     }
+}
 
 
 export const editSpot = (id, payload) => async dispatch => {
@@ -113,19 +113,22 @@ export const getSpots = () => async dispatch => {
         // /api/spots/:spotId/review endpoint's reviews data
         // console.log('spots')
         let spotIdList = spots.spots.map(spot=> spot.id)
-        // console.log('spot id list:' , spotIdList)
         // let newSpots = spots.toJSON()
         for (let i = 0; i< spotIdList.length; i++){
             let spotId = i+1
             let response2 = await fetch(`/api/spots/${spotId}/reviews`)
-            // let response3 = await fetch()
-            if (response2.ok) {
+            // get avgStarRating for each /api/spots/:spotId
+            let response3 = await fetch(`/api/spots/${spotId}`)
+            if (response2.ok && response3.ok) {
                 let reviewsObj = await response2.json()
+                let spotDetailsObj = await response3.json()
+                let avgRating = spotDetailsObj.avgStarRating
                 // spots.spots[i].reviews = reviewsObj.reviews
                 spots.spots[i].reviews ={}
                 reviewsObj.reviews.forEach(review=> {
                     spots.spots[i].reviews[review.id] = review
                 })
+                spots.spots[i].avgStarRating = avgRating
             }
         }
         dispatch(load(spots));

@@ -1,14 +1,21 @@
 import { useParams } from "react-router-dom"
 import React,{useState, useEffect} from "react"
 import { useDispatch, useSelector } from "react-redux";
-import { getSpotData, getSpots } from "../../store/spot";
+import {deleteSpot } from "../../store/spot";
 
+// you can key in spots, no need for reducer
 const GetSpot = ({spots}) => {
     const {spotId} = useParams();
     const dispatch = useDispatch();
     const spot = spots[spotId]
     // const spot = spots.filter(spot => spot.id === Number(spotId))
     // const [spot, setSpot] = useState({})
+
+    // display error msg?
+    const deleteHandle = (e) => {
+        dispatch(deleteSpot(spotId))
+        console.log('successsfully deleted?')
+    }
 
     return (
         <>
@@ -22,6 +29,7 @@ const GetSpot = ({spots}) => {
                 </div>
 
             )}
+            <button onClick={deleteHandle}> Delete Spot </button>
         </>
     )
 }

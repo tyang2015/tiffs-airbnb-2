@@ -555,7 +555,7 @@ router.get('/:spotId', async (req, res, next)=>{
 router.get('/' , validateSpotQuery,async(req, res, next)=>{
     let {page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice} = req.query
     // console.log("req.query:", req.query)
-
+    // const spotIds = []
     let pagination ={};
     where = {};
     let spots;
@@ -656,11 +656,27 @@ router.get('/' , validateSpotQuery,async(req, res, next)=>{
     else {
          spots = await Spot.findAll({
             where,
-            ...pagination
+            ...pagination,
         })
+        let spotIdList = spots.map(spot=> spot.id)
+        let avgScores = []
+        for (let i=0; i<spotIdList.length-1; i++){
+            // let spot = spots[i]
+            let spotId = spotIdList[i]
+            let countReviews = await Review.count({include: {model: Spot, where: {id: spotId}}})
+            let totalScore = await Review.sum('stars',  {where: {spotId: spotId}})
+            avgScores.push((totalScore/countReviews).toFixed(2))
+        }
+        // why doesnt this work??? why cant i add a new key value inside the sequelize arary
+        // tried deep cloning/doing shallow copies, still doesnt work
+        for (let i=0; i<spots.length; i++){
+            // spots[i].description = ''
+           spots[i].avgStarRating = 10
+        }
+        // allSpots.forEach((spot,i)=> spot.avgStartRating = avgScores[i])
+        // res.json(spots)
     }
 
-    // let spots = await Spot.findAll({})
     res.json({
         spots
     })

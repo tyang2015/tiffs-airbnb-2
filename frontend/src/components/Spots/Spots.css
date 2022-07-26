@@ -1,0 +1,65 @@
+.spots-main-grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 25%);
+    grid-template-rows: repeat(10, 550px);
+    background-color: beige;
+    grid-row-gap: 60px;
+    grid-column-gap: 40px;
+    justify-items: center;
+    /* z-index: -1; */
+
+}
+
+.spot-card-container{
+    /* top half is image and bottom half is text box */
+    /*
+    width: 430px;
+    height: 600px;
+    flex-flow: row wrap;
+    align-items: center; */
+    background-color: lightsteelblue;
+    border: red solid 5px;
+    display:flex;
+    flex-direction: column;
+
+    /* display: block; */
+    height: 100%;
+    /* top: 0; */
+    width: 70%;
+    /* padding-bottom: 0%; */
+    align-items: center;
+
+}
+
+.spot-bottom-text-container{
+    width: auto;
+    display: flex;
+    justify-content: space-between;
+    background-color: lightsalmon;
+    border: black solid 10px;
+    /* align-self: end; */
+
+
+    /* display:block;
+    position: relative;
+    bottom: 0px;
+    width: 100%; */
+}
+
+.spot-bottom-right-text-container{
+    position: relative;
+    /* left: 140px; */
+    right:0px;
+    bottom: 0px;
+    background: green;
+    height: 100%;
+    align-items: center;
+    justify-content:end;
+    align-self: end;
+    /* text-align: right; */
+}
+
+img{
+    height:50%;
+    width: 100%;
+}
