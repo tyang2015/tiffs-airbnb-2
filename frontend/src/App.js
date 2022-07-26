@@ -36,7 +36,7 @@ function App() {
         {/* <Route exact path="/login">
           <LoginFormPage/>
         </Route> */}
-        <Route exact path="/api/users">
+        <Route exact path="/users">
           <SignupFormPage/>
         </Route>
         <Route exact path= "/api/spots">
