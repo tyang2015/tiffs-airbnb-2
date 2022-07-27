@@ -251,7 +251,8 @@ router.patch('/bookings/:bookingId',
         async (req, res, next)=>{
 
             const booking = await Booking.findOne({
-                where: { id: req.params.bookingId}
+                where: { id: req.params.bookingId},
+                include: {model:Spot}
             })
             // res.json(booking)
 
@@ -359,7 +360,14 @@ router.post('/:spotId/bookings', requireAuth, validateBooking, async(req,res,nex
         startDate,
         endDate
     })
-    res.json(newRecord)
+    let ans = newRecord.toJSON()
+    // newRecord.Spot = spot
+    // let ans = await Booking.findByPk(newRecord.id, {
+    //     include: [Spot]
+    // })
+    ans.Spot= spot
+    console.log('New record:', newRecord)
+    res.json(ans)
 
 });
 

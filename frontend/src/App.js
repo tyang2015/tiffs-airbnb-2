@@ -8,25 +8,39 @@ import Navigation from "./components/Navigation";
 import Spots from './components/Spots'
 import GetSpot from './components/GetSpot'
 import { getSpots } from "./store/spot";
+import { getBookings } from "./store/booking";
 import CreateSpotForm from "./components/CreateSpotForm";
 import EditSpotForm from "./components/EditSpotForm"
+import UserBookings from "./components/UserBookings";
+import SpotBookings from "./components/SpotBookings";
+// import BookingForm from "./components/CreateBookingForm";
+// import BookingForm from "./components/BookingForm";
+// TODO: import CREATEBOOKINGFORM AND EDITBOOKINGFORM
+import CreateBookingForm from "./components/CreateBookingForm";
+import EditBookingForm from "./components/EditBookingForm";
 
 function App() {
   const dispatch = useDispatch();
   // // array form
   // let spots = useSelector(state=> Object.values(state.spots))
   // // object form
-  let spots = useSelector(state=> state.spots)
+  const spots = useSelector(state=> state.spots)
+  const bookings = useSelector(state=>state.bookings)
 
-  const [isLoaded,setIsLoaded] = useState(false);
-  useEffect(()=>{
-    dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
-  }, [dispatch])
+    const [isLoaded,setIsLoaded] = useState(false);
+    useEffect(()=>{
+      dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
+    }, [dispatch])
 
-  // load all spots
-  useEffect(()=>{
-    dispatch(getSpots())
-  }, [dispatch])
+    // load all spots
+    useEffect(()=>{
+      dispatch(getSpots())
+    }, [dispatch])
+
+    // load all bookings
+    useEffect(()=>{
+      dispatch(getBookings())
+    }, [dispatch])
 
   return (
     <>
@@ -42,16 +56,26 @@ function App() {
         <Route exact path= "/spots">
           <Spots spots={spots}/>
         </Route>
-        {/* make an alternative endpoint for the create spot form */}
         <Route exact path= "/spots/new">
           <CreateSpotForm spots={spots}/>
         </Route>
-        {/* change the edit url  */}
         <Route exact path= "/spots/:spotId/edit">
           <EditSpotForm spots={spots}/>
         </Route>
         <Route exact path= "/spots/:spotId">
           <GetSpot spots={spots}/>
+        </Route>
+        <Route exact path= "/users/bookings">
+          <UserBookings  bookings={bookings}/>
+        </Route>
+        <Route exact path= "/spots/:spotId/bookings/new">
+          <CreateBookingForm bookings={bookings}/>
+        </Route>
+        <Route exact path= "/spots/bookings/:bookingId">
+          <EditBookingForm bookings={bookings}/>
+        </Route>
+        <Route exact path= "/spots/:spotId/bookings">
+          <SpotBookings bookings={bookings}/>
         </Route>
       </Switch>
       )}
