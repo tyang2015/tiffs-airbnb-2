@@ -1,13 +1,42 @@
 /* ul tag is a block html element (resizable) */
+/* TODO: since airbnb icon container is not super left-aligned in the nav bar */
+/* do not use flex and try to align both boxes separately with display:block? */
+ul.top-nav-bar{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(177, 170, 170, 0.3);
+    /* background-color: coral; */
+}
 
+div.airbnb-icon-container{
+    /* background-color: green; */
+    height:fit-content;
+    width: 110px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: auto 10px;
+    color:#ff385c
 
-/* ul.top-nav-bar{
-    width:fit-content;
-    display: inline;
-    right: 0
-} */
+    /* IMPORTANT: changing to absolute also affects the sibling elements! (navlinks) */
+    /* position: absolute; */
+    /* left:0 */
+    /* align-self: flex-start; */
+    /* justify-self: start; */
+}
 
 li.inside-nav-bar{
     /* background-color: greenyellow; */
-    text-align: right;
+    /* padding: 70px 0; */
+    margin: auto 10px;
+    border: 1px solid rgba(177, 170, 170, 0.3);
+    border-radius: 30%;
+    height: 45px;
+    width: 95px;
+    text-align: center;
+    vertical-align: center;
+    padding: 10px
+
+    /* text-align: center; */
+    /* vertical-align: middle; */
 }

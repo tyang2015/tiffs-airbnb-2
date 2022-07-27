@@ -1,0 +1,14 @@
+/* img tag in spots index has border-radius applied, trickles to all img tags */
+.spot-preview-image{
+    width: 700px;
+}
+
+.spot-detail-card{
+    background-color: lightblue;
+    width: fit-content
+}
+
+.spot-detail{
+    border-top: 1px solid rgba(177, 170, 170, 0.3);
+    background-color: burlywood;
+}

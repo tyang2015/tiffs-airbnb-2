@@ -31,11 +31,12 @@ const GetSpot = ({spots}) => {
         <>
             <h2> spot details for {spotId}</h2>
             {spot && (
-                <div>
-                    <p> Name: {spot.name}</p>
-                    <p> Description: {spot.description}</p>
-                    <p> City: {spot.city}</p>
-                    <p> Price: {spot.price}</p>
+                <div className='spot-detail-card'>
+                    <img className='spot-preview-image' src={`${spot.previewImage}`} alt={`${spot.name} picture`}/>
+                    <p className='spot-detail'> Name: {spot.name}</p>
+                    <p className='spot-detail'> Description: {spot.description}</p>
+                    <p className='spot-detail'> City: {spot.city}</p>
+                    <p className='spot-detail'> Price: {spot.price}</p>
                 </div>
 
             )}
