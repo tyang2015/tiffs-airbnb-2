@@ -26,6 +26,13 @@ const edit = (booking) => {
     }
 }
 
+const remove = (id) => {
+    return {
+        type: DELETE_BOOKING,
+        id
+    }
+}
+
 export const getBookings = () => async dispatch => {
     const response = await csrfFetch(`/api/users/bookings`)
     if (response.ok){
@@ -60,6 +67,16 @@ export const editBooking = (bookingId, payload) => async dispatch => {
     }
 }
 
+export const deleteBooking = (bookingId) => async dispatch => {
+    const response = await csrfFetch(` /api/spots/bookings/${bookingId}`, {
+        method: 'DELETE',
+        headers: {'Content-Type': 'application/json'}
+    })
+    if (response.ok){
+        dispatch(remove(bookingId))
+    }
+}
+
 const bookingReducer = (state= {}, action) => {
     switch (action.type){
         case GET_BOOKINGS: {
@@ -76,6 +93,13 @@ const bookingReducer = (state= {}, action) => {
         case EDIT_BOOKING:{
             let newState = {...state}
             newState[action.booking.id] = action.booking
+            return newState
+        }
+        case DELETE_BOOKING: {
+            console.log('OLD STATE BEFORE DELETE:', state)
+            let newState = JSON.parse(JSON.stringify(state))
+            delete newState[action.id]
+            console.log('NEW STATE AFTER DELETE:', newState)
             return newState
         }
         default:

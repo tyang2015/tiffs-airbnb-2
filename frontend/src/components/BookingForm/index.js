@@ -15,11 +15,10 @@ const BookingForm = ({bookings, formType, booking})=> {
     const dispatch = useDispatch();
     const [startDate, setStartDate] = useState('')
     const [endDate, setEndDate] = useState('');
-    // const [hasSubmitted, setHasSubmitted] = useState(false)
     const allBookings = Object.values(bookings)
-    let bookingUpdated;
-    let bookingCreated;
-    let renderedBookings;
+    // let bookingUpdated;
+    // let bookingCreated;
+    // let renderedBookings;
 
     const handleSubmit = async (e)=>{
         e.preventDefault();
@@ -31,29 +30,26 @@ const BookingForm = ({bookings, formType, booking})=> {
         }
 
         if (formType==='Create Booking'){
-          bookingCreated = await dispatch(createBooking(spotId, booking))
+          let bookingCreated = await dispatch(createBooking(spotId, booking))
           alert('Thanks for booking!')
-          history.push('/users/bookings')
         } else{
-          bookingUpdated = await dispatch(editBooking(booking.id, booking))
+          let bookingUpdated = await dispatch(editBooking(booking.id, booking))
           alert('Your booking has been rescheduled!')
-          history.push('/users/bookings')
-          // console.log('/users/bookings')
         }
     }
     // if its EDIT FORM or CREATE FORM and we got back the data already
-    if (bookingUpdated || bookingCreated){
-      renderedBookings = (
-        <div>
-          {allBookings.map(booking =>(
-            <div key={booking.id}>
-              <h3>Booking {booking.id}: {booking.Spot.name}</h3>
-              <p> Dates: {booking.startDate}  TO  {booking.endDate}</p>
-            </div>
-          ))}
-        </div>
-      )
-    }
+    // if (bookingUpdated || bookingCreated){
+    //   renderedBookings = (
+    //     <div>
+    //       {allBookings.map(booking =>(
+    //         <div key={booking.id}>
+    //           <h3>Booking {booking.id}: {booking.Spot.name}</h3>
+    //           <p> Dates: {booking.startDate}  TO  {booking.endDate}</p>
+    //         </div>
+    //       ))}
+    //     </div>
+    //   )
+    // }
 
     return (
       <>
@@ -69,19 +65,23 @@ const BookingForm = ({bookings, formType, booking})=> {
             />
           </label>
           <label>
-            endDate
+            EndDate
             <textarea
               value={endDate}
               onChange={e => setEndDate(e.target.value)}
               placeholder='end date'
             />
           </label>
-
           <input type="submit" value={formType} />
         </form>
         <h2> All Bookings You Created: </h2>
         <div>
-          {allBookings && renderedBookings}
+          {allBookings && allBookings.map(booking =>(
+            <div key={booking.id}>
+               <h3>Booking {booking.id}: {booking.Spot.name}</h3>
+               <p> Dates: {booking.startDate}  TO  {booking.endDate}</p>
+            </div>
+           ))}
         </div>
       </>
     )

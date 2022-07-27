@@ -66,7 +66,7 @@ function App() {
           <GetSpot spots={spots}/>
         </Route>
         <Route exact path= "/users/bookings">
-          <UserBookings bookings={bookings}/>
+          <UserBookings  bookings={bookings}/>
         </Route>
         <Route exact path= "/spots/:spotId/bookings/new">
           <CreateBookingForm bookings={bookings}/>

@@ -8,15 +8,21 @@ const GetSpot = ({spots}) => {
     const {spotId} = useParams();
     const dispatch = useDispatch();
     const history = useHistory();
+    const sessionUser = useSelector(state => state.session.user);
+
     const spot = spots[spotId]
     // const spot = spots.filter(spot => spot.id === Number(spotId))
     // const [spot, setSpot] = useState({})
 
     // display error msg?
     const deleteHandle = async (e) => {
-        await dispatch(deleteSpot(spotId))
-        alert('successfully deleted!')
-        history.push('/spots')
+        if (sessionUser.id!== spot.ownerId){
+            alert('You do not have permission to delete spot')
+        } else {
+            await dispatch(deleteSpot(spotId))
+            alert('successfully deleted!')
+            history.push('/spots')
+        }
     }
 
     return (
