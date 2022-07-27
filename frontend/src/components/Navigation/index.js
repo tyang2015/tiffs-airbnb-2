@@ -24,8 +24,8 @@ function Navigation({ isLoaded }){
   }
 
   return (
-    <ul>
-      <li>
+    <ul className='top-nav-bar'>
+      <li className= 'inside-nav-bar'>
         <NavLink exact to="/">Home</NavLink>
         {isLoaded && sessionLinks}
       </li>

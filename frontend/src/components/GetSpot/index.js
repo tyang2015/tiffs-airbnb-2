@@ -2,6 +2,7 @@ import { useParams, useHistory } from "react-router-dom"
 import React,{useState, useEffect} from "react"
 import { useDispatch, useSelector } from "react-redux";
 import {deleteSpot } from "../../store/spot";
+import './GetSpot.css'
 
 // you can key in spots, no need for reducer
 const GetSpot = ({spots}) => {
@@ -13,6 +14,7 @@ const GetSpot = ({spots}) => {
     const spot = spots[spotId]
     // const spot = spots.filter(spot => spot.id === Number(spotId))
     // const [spot, setSpot] = useState({})
+    console.log('spots: ',spots)
 
     // display error msg?
     const deleteHandle = async (e) => {

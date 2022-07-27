@@ -1,3 +1,13 @@
-body {
-    background-color: rgb(232, 197, 194);
+/* ul tag is a block html element (resizable) */
+
+
+/* ul.top-nav-bar{
+    width:fit-content;
+    display: inline;
+    right: 0
+} */
+
+li.inside-nav-bar{
+    /* background-color: greenyellow; */
+    text-align: right;
 }

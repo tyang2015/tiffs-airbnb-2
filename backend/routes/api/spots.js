@@ -314,6 +314,7 @@ router.patch('/bookings/:bookingId',
 
 });
 
+
 // QUESTION: authorization part.. i cannot book a spot if i own it?
 // i thought that getting all bookings for a spot based on id implies that its ok?
 router.post('/:spotId/bookings', requireAuth, validateBooking, async(req,res,next)=>{

@@ -36,6 +36,7 @@ const create = (payload) => {
         payload
     }
 }
+
 // the argument will be passed to reducer (newState) to be returned on component useSelector
 const getOneSpot = (spot) => {
     return {
@@ -182,8 +183,6 @@ const spotReducer = (state= initialState, action) => {
             const newState = {...state}
             newState[action.payload.id] = action.payload
             return newState
-            // iterate through keys
-            // newState =
         }
         case GET_SPOT_DATA: {
             const newState = {...state}

@@ -7,6 +7,24 @@
     /* justify-items: center; */
 }
 
+/* html {
+    background-color: #ff385c;
+} */
+
+
+.airbnb-icon-container {
+    /* display:block; */
+    background-color: blue;
+    height:fit-content;
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+
+
+}
+
+
 /* TODO: change this to relative and see if it fixes the display */
 .spot-card-container{
     position: relative;
