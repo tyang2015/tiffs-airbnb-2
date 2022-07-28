@@ -1,22 +1,42 @@
+/* TODO: refactor the other css files to add viewport max width/heights on highest parent */
+/* remove px (absolute units) */
+html {
+    max-width: 100vw;
+    max-height: 100vh;
+}
+
+/* TIP: use auto-fill value for unknown # of rows or columns */
 .spots-main-grid-container {
     display: grid;
     grid-template-columns: repeat(5, 20%);
-    grid-template-rows: repeat(10, 480px);
+    /* grid-template-rows: repeat(10, 480px); */
+    grid-template-rows: repeat(auto-fill);
+
+
     /* grid-row-gap: 30px;
     grid-column-gap: 5px; */
     /* justify-items: center; */
 }
 
-/* html {
-    background-color: #ff385c;
-} */
+.cliploader-container {
+    /* style={{display: "flex", alignItems: 'center', justifyContent: 'center'}} */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* background-color: lightblue; */
+    text-align: center;
+    min-height: 100vh;
+    /* height: 30%; */
+    min-width: 100vw;
+    width: 30%;
+    margin:auto;
+}
 
 
 /* .airbnb-icon-container {
     background-color: blue;
 
 } */
-
 
 /* TODO: change this to relative and see if it fixes the display */
 .spot-card-container{
@@ -40,9 +60,9 @@
     max-height: fit-content;
     display: flex;
     justify-content: space-between;
-    background-color: lightpink;
-    font-size: large;
+    background-color: rgba(245, 39, 131, 0.1);
 
+    font-size: large;
     bottom: 20px;
 
     /* justify-self:stretch; */
@@ -60,10 +80,10 @@
 
 }
 
+/* QUESTION: i cannot make the height a percentage value (ends up with uneven image heights) */
 img{
-    /* position: absolute; */
-    /* top: 0; */
-    height:70%;
+    position: relative;
+    height:350px;
     width: 100%;
     border-radius: 12px;
     /* border: 5px red solid; */

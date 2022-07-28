@@ -73,7 +73,7 @@ const GetSpot = ({spots}) => {
                         <p className='spot-detail-item-description'> Price: ${spot.price}</p>
                     </div>
                     <div>
-                        <p> Show longitude and latitude</p>
+                        <p> Show longitude and latitude coordinates</p>
                         <input
                             type='button'
                             onClick={ToggleLngMenu}

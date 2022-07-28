@@ -153,7 +153,7 @@ module.exports = {
       name: "Romantic Treehouse",
       description: "Perfect place for honeymoon and general couple merriment",
       price: 260.90,
-      previewImage: 'https://media.architecturaldigest.com/photos/60820f681198d8019ca14208/master/w_1200,h_1199,c_limit/5c1293a0-e59a-4a4a-8886-14bcb733.jpg',
+      previewImage: 'https://www.veronikasadventure.com/wp-content/uploads/2020/04/Taiwan-Airbnb-6-Alishan.jpg',
     },
     {
       ownerId: 4,
