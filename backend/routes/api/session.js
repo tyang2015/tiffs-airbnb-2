@@ -45,7 +45,6 @@ router.post(
 
       // this will simply query from the DB
       const user = await User.login({ credential:email, password });
-
       // if no account found in DB from scope method
       if (!user) {
         // const err = new Error('Login failed');

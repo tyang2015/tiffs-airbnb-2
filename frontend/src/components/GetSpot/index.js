@@ -8,8 +8,10 @@ import './GetSpot.css'
 const GetSpot = ({spots}) => {
     const {spotId} = useParams();
     const dispatch = useDispatch();
+
     const history = useHistory();
     const sessionUser = useSelector(state => state.session.user);
+    const [showLngMenu, setShowLngMenu] = useState(false)
 
     const spot = spots[spotId]
     // const spot = spots.filter(spot => spot.id === Number(spotId))
@@ -27,16 +29,66 @@ const GetSpot = ({spots}) => {
         }
     }
 
+    const ToggleLngMenu= (e) => {
+        if (sessionUser.id!==spot.ownerId){
+            alert('Only the authorized owner can view longitude & latitude coordinates')
+            return
+        }
+        showLngMenu === true? setShowLngMenu(false): setShowLngMenu(true)
+        // setShowLngMenu(true)
+    }
+    // useEffect(()=>{
+    //     set
+    // }, [showLngMenu])
+
     return (
         <>
             <h2> spot details for {spotId}</h2>
             {spot && (
                 <div className='spot-detail-card'>
                     <img className='spot-preview-image' src={`${spot.previewImage}`} alt={`${spot.name} picture`}/>
-                    <p className='spot-detail'> Name: {spot.name}</p>
-                    <p className='spot-detail'> Description: {spot.description}</p>
-                    <p className='spot-detail'> City: {spot.city}</p>
-                    <p className='spot-detail'> Price: {spot.price}</p>
+                    <div className='spot-detail' >
+                        <div className= 'spot-detail-icon-container'>
+                            <i class="fa-solid fa-house"></i>
+                        </div>
+                        <p className='spot-detail-item-description'> Name: {spot.name}</p>
+
+                    </div>
+                    <div className='spot-detail'>
+                        <div className= 'spot-detail-icon-container'>
+                            <i class="fa-solid fa-envelope"></i>
+                        </div>
+                        <p className='spot-detail-item-description'> Description: {spot.description}</p>
+                    </div>
+                    <div className='spot-detail'>
+                        <div className= 'spot-detail-icon-container'>
+                            <i class="fa-solid fa-city"></i>
+                        </div>
+                        <p className='spot-detail-item-description'> City: {spot.city}</p>
+                    </div>
+                    <div className='spot-detail'>
+                        <div className= 'spot-detail-icon-container'>
+                            <i class="fa-solid fa-dollar-sign"></i>
+                        </div>
+                        <p className='spot-detail-item-description'> Price: ${spot.price}</p>
+                    </div>
+                    <div>
+                        <p> Show longitude and latitude</p>
+                        <input
+                            type='button'
+                            onClick={ToggleLngMenu}
+                            value={showLngMenu? "<" : ">"}
+                        />
+
+                    </div>
+                    {showLngMenu && (
+                        <div className='spot-detail'>
+                            <div className= 'spot-detail-icon-container'>
+                                <i class="fa-solid fa-dollar-sign"></i>
+                            </div>
+                            <p className='spot-detail-item-description'> Longitude: {spot.lng}</p>
+                        </div>
+                    )}
                 </div>
 
             )}

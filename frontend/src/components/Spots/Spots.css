@@ -35,6 +35,7 @@
 }
 
 .spot-bottom-text-container{
+    position:relative;
     width: 100%;
     max-height: fit-content;
     display: flex;
@@ -43,7 +44,6 @@
     font-size: large;
 
     bottom: 20px;
-    position:relative;
 
     /* justify-self:stretch; */
     /* align-self: center; */

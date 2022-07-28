@@ -5,10 +5,11 @@ import {useState, useEffect} from 'react'
 import {getSpots} from "../../store/spot"
 import React from 'react'
 import './Spots.css'
-import Navigation from '../Navigation'
+import ClipLoader from "react-spinners/ClipLoader"
 
 const Spots = ({spots}) =>{
     const dispatch = useDispatch();
+    const [loading, setLoading] = useState(true);
     const allSpots = Object.values(spots)
     // let spots = useSelector(state=> Object.values(state.spots))
 
@@ -28,16 +29,22 @@ const Spots = ({spots}) =>{
     //     allSpots.avgStarRating = (totalScore/numReviews).toFixed(2)
     // }
 
-    const getSpotData = (e) =>{
-        e.preventDefault();
-        dispatch(getSpots())
-    }
+
+    // when spots is loaded from useSelector, then i will setloading to false
+    useEffect(()=>{
+        setLoading(true)
+        if (allSpots) setLoading(false)
+    }, [allSpots])
+    // if (!allSpots) return (
+    //     <>
+    //         <ClipLoader size={100} color={"#36D7B7"}/>
+    //     </>
+    // )
+        // else
     return (
         <>
-        {/* move the top part to the Navigation */}
-            {/* <button onClick={getSpotData}> CLICK HERE TO TEST SPOT DATA </button> */}
-            {/* spots-main-container will be where you specify the grid layout */}
             <div className="spots-main-grid-container">
+               <ClipLoader size={100} color={"#36D7B7"}/>
                 {
                     allSpots.map(spot => (
                     <div key={spot.id} className= "spot-card-container">
