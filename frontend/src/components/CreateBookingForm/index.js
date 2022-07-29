@@ -3,7 +3,7 @@ import React from "react"
 import BookingForm from "../BookingForm"
 
 
-const CreateBookingForm = ({bookings}) => {
+const CreateBookingForm = ({bookings, spots}) => {
   const booking = {
     // address: '',
     // city: '',
@@ -19,7 +19,7 @@ const CreateBookingForm = ({bookings}) => {
   }
 
   return (
-    <BookingForm booking={booking} formType={'Create Booking'} bookings={bookings}/>
+    <BookingForm booking={booking} spots={spots} formType={'Create Booking'} bookings={bookings}/>
   )
 
 }

@@ -1,0 +1,40 @@
+.booking-detail-card{
+    /* background-color: rgba(255, 56, 92, .1); */
+    border-radius:50px;
+    border: 2px solid rgba(177, 170, 170, 0.3);
+    text-align:center;
+    /* width: 300px */
+    width:90%
+}
+
+/* body{
+    background-color: green;
+} */
+/* body{
+
+} */
+.spot-bookings-grid-container{
+    display: grid;
+    grid-template-columns: repeat(4, 20%);
+    grid-template-rows: repeat(auto-fill);
+    /* grid-column-gap: .5%; */
+    grid-row-gap: 1.5%;
+    margin-top: 2%;
+    justify-content: center;
+
+}
+
+.spot-bookings-title-container{
+    display: flex;
+    /* background-color: aquamarine; */
+    justify-content: center;
+}
+
+.fa-solid.fa-house{
+    /* background-color: blueviolet; */
+    margin: auto 10px
+}
+
+.spot-bookings-images-container{
+    display:flex;
+}

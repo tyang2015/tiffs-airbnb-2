@@ -52,7 +52,6 @@ const GetSpot = ({spots}) => {
                             <i class="fa-solid fa-house"></i>
                         </div>
                         <p className='spot-detail-item-description'> Name: {spot.name}</p>
-
                     </div>
                     <div className='spot-detail'>
                         <div className= 'spot-detail-icon-container'>

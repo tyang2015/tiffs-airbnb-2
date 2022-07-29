@@ -1,92 +1,95 @@
-/* TODO: refactor the other css files to add viewport max width/heights on highest parent */
-/* remove px (absolute units) */
-html {
-    max-width: 100vw;
-    max-height: 100vh;
+.html {
+    min-height: 100vh;
+    min-width: 100vw;
 }
 
-/* TIP: use auto-fill value for unknown # of rows or columns */
 .spots-main-grid-container {
     display: grid;
     grid-template-columns: repeat(5, 20%);
-    /* grid-template-rows: repeat(10, 480px); */
     grid-template-rows: repeat(auto-fill);
-
-
+    grid-column-gap: 1.5%;
     /* grid-row-gap: 30px;
-    grid-column-gap: 5px; */
     /* justify-items: center; */
 }
-
-.cliploader-container {
-    /* style={{display: "flex", alignItems: 'center', justifyContent: 'center'}} */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    /* background-color: lightblue; */
-    text-align: center;
-    min-height: 100vh;
-    /* height: 30%; */
-    min-width: 100vw;
-    width: 30%;
-    margin:auto;
-}
-
-
-/* .airbnb-icon-container {
-    background-color: blue;
-
-} */
 
 /* TODO: change this to relative and see if it fixes the display */
 .spot-card-container{
     position: relative;
-    width:90%;
-    /* max-height:100%;  */
-    /* border: red 10px solid; */
-    /* background-color: beige; */
+    /* width:90%; */
+    max-height:100%;
     display:flex;
     flex-direction: column;
-
+    justify-content: start;
     /* BECAUSE ITS COLUMN, justify content is now used for vertical alignment */
-    align-items: center;
-    justify-content: space-between;
-
 }
 
+/* QUESTION: should i make height units absolute? in px? */
+/* CONTAINS BOTH DIVS OF TEXT (TOP ROW & BOTTOM ROW) */
 .spot-bottom-text-container{
-    position:relative;
     width: 100%;
-    max-height: fit-content;
+    /* max-height: fit-content; */
+    height: 20%;
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    background-color: rgba(245, 39, 131, 0.1);
-
+    background-color: lightpink;
     font-size: large;
-    bottom: 20px;
-
+    /* margin-bottom: 0; */
+    bottom: 2%;
+    position:relative;
+    bottom:0;
     /* justify-self:stretch; */
     /* align-self: center; */
 }
 
-.spot-bottom-right-text-container{
-    /* absolute is RELATIVE to parent container */
+.spot-top-half-text-container{
+    display:flex;
+    justify-content: space-between;
+}
+
+.spot-bottom-half-text-container{
+    display:flex;
+    justify-content: start;
+}
+
+/* absolute is RELATIVE to parent container */
+/* .spot-bottom-right-text-container{
     position: absolute;
     right:0;
-    /* height: 100%; */
     align-items: center;
-    /* justify-content:start; */
     align-self: start;
+} */
+
+
+/* absolute units for height is ok? */
+img{
+    height: 450px;
+    position:relative;
+    /* max-height: 80%;
+    min-height: 80%; */
+    width: 100%;
+    border-radius: 15px;
 
 }
 
-/* QUESTION: i cannot make the height a percentage value (ends up with uneven image heights) */
-img{
-    position: relative;
-    height:350px;
-    width: 100%;
-    border-radius: 12px;
-    /* border: 5px red solid; */
-    /* margin-bottom: 0; */
+/* .spots-image{} */
 
+.cliploader-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 100vh;
+    min-width: 100vw;
+    width: 30%;
+    margin:auto;
+
+    /* width: 100vh;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin:auto;
+    text-align: center; */
+    /* background-color: green; */
 }

@@ -5,6 +5,7 @@ import ProfileButton from '../ProfileButton';
 import './Navigation.css';
 import LoginFormModal from '../LoginFormModal';
 
+
 function Navigation({ isLoaded }){
   const sessionUser = useSelector(state => state.session.user);
 
@@ -24,7 +25,8 @@ function Navigation({ isLoaded }){
   }
 
   return (
-    <ul className='top-nav-bar'>
+    // <>
+    <ul className='top-nav-bar' style={{listStyle:'none'}}>
       <div className="airbnb-icon-container top-bar" >
           {/* TODO: remove block if display:flex doesnt work */}
           <svg width="30" height="32" style={{ fill: "ff385c"}}>
@@ -32,13 +34,19 @@ function Navigation({ isLoaded }){
           </svg>
           <h2> airbnb</h2>
       </div>
-    {/* added above from spots index */}
+      <div className='top-right-nav-bar'>
+        <div className='feature-links'>
+          <NavLink className={`navlink`} exact to= '/'> See all spots </NavLink>
+          <NavLink className={`navlink`} exact to='/users/bookings'> View your bookings </NavLink>
+        </div>
 
-      <li className= 'inside-nav-bar top-bar'>
-        <NavLink exact to="/">Home</NavLink>
-        {isLoaded && sessionLinks}
-      </li>
+        <li className= 'inside-nav-bar top-bar' >
+          <NavLink exact to="/" className={`navlink`} style={{textDecoration:'none'}}>☰</NavLink>
+          {isLoaded && sessionLinks}
+        </li>
+      </div>
     </ul>
+    // </>
   );
 }
 

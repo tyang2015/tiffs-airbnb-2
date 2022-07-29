@@ -13,9 +13,6 @@ import CreateSpotForm from "./components/CreateSpotForm";
 import EditSpotForm from "./components/EditSpotForm"
 import UserBookings from "./components/UserBookings";
 import SpotBookings from "./components/SpotBookings";
-// import BookingForm from "./components/CreateBookingForm";
-// import BookingForm from "./components/BookingForm";
-// TODO: import CREATEBOOKINGFORM AND EDITBOOKINGFORM
 import CreateBookingForm from "./components/CreateBookingForm";
 import EditBookingForm from "./components/EditBookingForm";
 
@@ -50,11 +47,11 @@ function App() {
         {/* <Route exact path="/login">
           <LoginFormPage/>
         </Route> */}
+        <Route exact path= "/">
+          <Spots spots={spots}/>
+        </Route>
         <Route exact path="/users">
           <SignupFormPage/>
-        </Route>
-        <Route exact path= "/spots">
-          <Spots spots={spots}/>
         </Route>
         <Route exact path= "/spots/new">
           <CreateSpotForm spots={spots}/>
@@ -66,13 +63,13 @@ function App() {
           <GetSpot spots={spots}/>
         </Route>
         <Route exact path= "/users/bookings">
-          <UserBookings  bookings={bookings}/>
+          <UserBookings  bookings={bookings} />
         </Route>
         <Route exact path= "/spots/:spotId/bookings/new">
-          <CreateBookingForm bookings={bookings}/>
+          <CreateBookingForm bookings={bookings} spots={spots}/>
         </Route>
         <Route exact path= "/spots/bookings/:bookingId">
-          <EditBookingForm bookings={bookings}/>
+          <EditBookingForm bookings={bookings} spots={spots}/>
         </Route>
         <Route exact path= "/spots/:spotId/bookings">
           <SpotBookings bookings={bookings}/>
