@@ -30,6 +30,10 @@ const GetSpot = ({spots}) => {
     }
 
     const ToggleLngMenu= (e) => {
+        if (!sessionUser) {
+            alert('Please login to view')
+            return
+        }
         if (sessionUser.id!==spot.ownerId){
             alert('Only the authorized owner can view longitude & latitude coordinates')
             return
@@ -76,16 +80,16 @@ const GetSpot = ({spots}) => {
                         <input
                             type='button'
                             onClick={ToggleLngMenu}
-                            value={showLngMenu? "<" : ">"}
+                            value={showLngMenu? "⮛": "⮙"}
+                            style={{border:'none', backgroundColor:'white'}}
                         />
 
                     </div>
                     {showLngMenu && (
                         <div className='spot-detail'>
                             <div className= 'spot-detail-icon-container'>
-                                <i class="fa-solid fa-dollar-sign"></i>
-                            </div>
-                            <p className='spot-detail-item-description'> Longitude: {spot.lng}</p>
+                                <i class="fa-solid fa-location-dot"></i>                            </div>
+                                <p className='spot-detail-item-description'> Longitude: {spot.lng} Latitude: {spot.lat}</p>
                         </div>
                     )}
                 </div>

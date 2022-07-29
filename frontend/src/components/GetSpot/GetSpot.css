@@ -4,7 +4,7 @@
 }
 
 .spot-detail-card{
-    background-color: lightcyan;
+    /* background-color: lightcyan; */
     width: fit-content;
 }
 
@@ -15,6 +15,7 @@
     /* background-color: burlywood; */
     /* border: 5px solid red; */
 }
+
 
 p.spot-detail-item-description{
     margin-left: 10px;

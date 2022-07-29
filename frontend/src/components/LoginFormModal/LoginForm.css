@@ -1,0 +1,71 @@
+/* body{
+    margin: auto
+} */
+input.form-control.login {
+    border: none;
+    border: red solid 5px;
+    padding: 0;
+    font-size: 20px;
+    border-radius: 0;
+    /* display: block; */
+    /* width: 60%; */
+    /* height: calc(1.5em + 0.75rem + 2px); */
+    /* width: 100%; */
+    max-width: 100%;
+    width: 82%;
+    height: 20px;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+
+}
+
+.login-email-container, .login-password-container{
+    /* background-color: blue; */
+    width: 100%;
+
+}
+
+.parent-main-container-before-form{
+    background-color: orange;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 500px;
+}
+
+.submit-container{
+    background-color: aqua;
+    width: 70%
+}
+
+/* this is not the whole modal */
+/* why doesnt this center the form data */
+
+/* .modal-form-container{
+    display:flex;
+    background-color: green;
+    justify-content: center;
+    align-items:center
+} */
+
+.login-main-container{
+    /* background-color: coral; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+    justify-content: center;
+}
+
+/* apply special affect to button */
+.login.submit-button {
+    background-color: black;
+    color: white;
+    border-radius:7px;
+    height: 50px;
+    width: 120px;
+    background-image:radial-gradient(circle at center center, rgb(255, 56, 92) 0%, rgb(230, 30, 77) 27.5%, rgb(227, 28, 95) 40%, rgb(215, 4, 102) 57.5%, rgb(189, 30, 89) 75%, rgb(189, 30, 89) 100%);
+    border: none;
+}

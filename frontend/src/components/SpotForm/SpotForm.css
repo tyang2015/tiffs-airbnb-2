@@ -1,3 +1,17 @@
+.form-group input {
+    background: transparent;
+    font-family: sans-serif;
+    line-height: 1.15;
+    width: 900px;
+    /* ADJUST BELOW FOR FORM INPUT WIDTH */
+    /* width: 90%; */
+
+    /* background-color: green; */
+    /* -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: rgba(0,0,0,0); */
+
+}
+
 /* html {
     font-family: sans-serif;
     line-height: 1.15;
