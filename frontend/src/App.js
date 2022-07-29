@@ -74,6 +74,9 @@ function App() {
         <Route exact path= "/spots/:spotId/bookings">
           <SpotBookings bookings={bookings}/>
         </Route>
+        <Route>
+          <h2>Page Not Found</h2>
+        </Route>
       </Switch>
       )}
     </>
