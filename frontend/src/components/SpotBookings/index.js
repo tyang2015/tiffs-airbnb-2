@@ -8,9 +8,14 @@ import './SpotBookings.css'
 // TODO: change backend to do a joined table with users and get the firstName of user to be rendered on page
 const SpotBookings = ({bookings})=>{
     let {spotId} = useParams();
-    const allBookings = Object.values(bookings)
-    const bookingsForSpot = allBookings.filter(booking=> booking.spotId === Number(spotId))
-    const firstBooking = bookingsForSpot[0]
+    let allBookings;
+    let bookingsForSpot;
+    let firstBooking;
+    if (bookings){
+        allBookings = Object.values(bookings)
+        bookingsForSpot = allBookings.filter(booking=> booking.spotId === Number(spotId))
+        firstBooking = bookingsForSpot[0]
+    }
     console.log('first booking:',firstBooking)
     return (
         <>
@@ -27,14 +32,14 @@ const SpotBookings = ({bookings})=>{
                     {firstBooking && (<img src={`${firstBooking.Spot.previewImage}`} />)}
                 </div>
                 <div className='spot-bookings-grid-container'>
-                    {bookingsForSpot.map(booking=> (
+                    {bookings && (bookingsForSpot.map(booking=> (
                         <div className={`booking-detail-card`} key={booking.id} >
                             <h2> Booking #{booking.id}</h2>
                             <p> Hosted by Owner {booking.Spot.ownerId}</p>
                             <p> {booking.startDate} ➣ {booking.endDate}</p>
                             {/* <p> To: {booking.endDate}</p> */}
                         </div>
-                    ))}
+                    )))}
                 </div>
             </div>
         </>

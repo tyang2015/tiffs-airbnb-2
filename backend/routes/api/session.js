@@ -47,19 +47,19 @@ router.post(
       const user = await User.login({ credential:email, password });
       // if no account found in DB from scope method
       if (!user) {
-        // const err = new Error('Login failed');
-        // err.status = 401;
-        // err.title = 'Login failed';
-        // err.message = 'Invalid credentials'
-        // err.errors = ['The provided credentials were invalid.'];
+        const err = new Error('Login failed');
+        err.status = 401;
+        err.title = 'Login failed';
+        err.message = 'Invalid credentials'
+        err.errors = ['The provided credentials were invalid.'];
         // im using res.json because idk how to send to
         // correct error handler in app.js
-        res.statusCode = 401
-        return res.json({
-          "message": "Invalid credentials",
-          "statusCode": 401
-        })
-        // return next(err);
+        // res.statusCode = 401
+        // return res.json({
+        //   "message": "Invalid credentials",
+        //   "statusCode": 401
+        // })
+        return next(err);
       }
 
       // after user is successfully retrieved from DB and logged in

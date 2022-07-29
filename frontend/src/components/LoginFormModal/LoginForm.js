@@ -9,22 +9,37 @@ function LoginForm() {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
 
+  // added here
+  const [hasSubmitted, setHasSubmitted] = useState(false)
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    setHasSubmitted(true)
     setErrors([]);
-    return dispatch(sessionActions.login({ email, password })).catch(
+    dispatch(sessionActions.login({ email, password })).catch(
       async (res) => {
         const data = await res.json();
+        // console.log('data msg logged in form:', data.message)
+        // if (data.message == 'Invalid credentials'){
+        //   setErrors(data.message)
+        //   console.log('errors:', errors)
+        // }
+        // console.log('data:', data)
         if (data && data.errors) setErrors(data.errors);
+        console.log('Data errors:', data.errors)
+        // if (data)
+        // console.log('data errors:', data.errors)
       }
     );
+    setHasSubmitted(false)
+    return
   };
 
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <h2> Welcome to Tiff's Airbnb </h2>
         <div className="parent-main-container-before-form">
+          <h2> Welcome to Tiff's Airbnb </h2>
           <ul>
             {errors.map((error, idx) => (
               <li key={idx}>{error}</li>

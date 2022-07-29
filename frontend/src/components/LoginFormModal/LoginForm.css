@@ -3,7 +3,7 @@
 } */
 input.form-control.login {
     border: none;
-    border: red solid 5px;
+    /* border: red solid 5px; */
     padding: 0;
     font-size: 20px;
     border-radius: 0;
@@ -35,14 +35,8 @@ input.form-control.login {
     width: 500px;
 }
 
-.submit-container{
-    background-color: aqua;
-    width: 70%
-}
-
 /* this is not the whole modal */
 /* why doesnt this center the form data */
-
 /* .modal-form-container{
     display:flex;
     background-color: green;

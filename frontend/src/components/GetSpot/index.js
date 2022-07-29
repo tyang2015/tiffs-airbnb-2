@@ -1,11 +1,12 @@
-import { useParams, useHistory } from "react-router-dom"
+import { useParams, useHistory, NavLink } from "react-router-dom"
 import React,{useState, useEffect} from "react"
 import { useDispatch, useSelector } from "react-redux";
 import {deleteSpot } from "../../store/spot";
 import './GetSpot.css'
+import SpotBookings from "../SpotBookings";
 
 // you can key in spots, no need for reducer
-const GetSpot = ({spots}) => {
+const GetSpot = ({spots, bookings}) => {
     const {spotId} = useParams();
     const dispatch = useDispatch();
 
@@ -14,8 +15,6 @@ const GetSpot = ({spots}) => {
     const [showLngMenu, setShowLngMenu] = useState(false)
 
     const spot = spots[spotId]
-    // const spot = spots.filter(spot => spot.id === Number(spotId))
-    // const [spot, setSpot] = useState({})
     console.log('spots: ',spots)
 
     // display error msg?
@@ -93,9 +92,11 @@ const GetSpot = ({spots}) => {
                         </div>
                     )}
                 </div>
-
             )}
             <button onClick={deleteHandle}> Delete Spot </button>
+            <NavLink exact to={`/spots/${spotId}/bookings`}>
+                Click here to book
+            </NavLink>
         </>
     )
 }
