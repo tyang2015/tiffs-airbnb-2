@@ -24,10 +24,7 @@ const LoginFormPage = () =>{
         }
         dispatch(login(userObj)).catch(async(res)=>{
             const data = await res.json()
-            // what does a data object with errors look like?
-            // input an invalid email and password
             if (data && data.errors) {
-                // console.log("Bad data: ", data)
                 setErrors(data.errors)
             }
         })

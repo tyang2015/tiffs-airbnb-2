@@ -35,7 +35,15 @@ const validateSignup = [
   ];
 
 router.get('/bookings', requireAuth, async (req, res, next)=>{
-  let bookings = await Booking.findAll({include: {model:Spot}, where: {userId: req.user.id}})
+  let bookings = await Booking.findAll({include: {model:Spot, include: {model:Image}}, where: {userId: req.user.id}})
+  // let newbookings = bookings.toJSON()
+  // let spotIds = bookings.map(booking => booking.Spot.id)
+  // let images = await Image.findAll({where: {[Op.in] :spotIds}})
+
+  // for (let i=0; i<bookings.length; i++){
+  //   let booking = bookings[i]
+  //   if (booking.Spot.id === )
+  // }
   res.json({bookings})
 });
 

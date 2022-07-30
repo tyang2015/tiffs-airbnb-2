@@ -27,7 +27,9 @@ const BookingForm = ({bookings, formType, booking, spots})=> {
     } else {
       spotBookings = allBookings.filter(booking=> booking.spotId === Number(bookingId))
     }
+    console.log('spot bookings for current spot:', spotBookings)
     const firstSpotBooking = spotBookings[0]
+    // console.log('first spot booking:', firstSpotBooking)
 
 
     let existingStartDates = allBookings.map(booking=> {
@@ -97,7 +99,7 @@ const BookingForm = ({bookings, formType, booking, spots})=> {
       {hasSubmitted && validationErrors.length>0 && (
         <div>
           The following errors were found:
-          <ul>
+          <ul className='validation-errors'>
             {validationErrors.map((error) => (
               <li key={error}>{error}</li>
             ))}
@@ -118,26 +120,27 @@ const BookingForm = ({bookings, formType, booking, spots})=> {
           <form onSubmit={handleSubmit} >
             <fieldset>
               <h2> {formType} </h2>
-
-                <div className="form-group first">
-                  <input
-                    type="date"
-                    value={startDate}
-                    onChange={e => setStartDate(e.target.value)}
-                    placeholder= 'start date'
-                    className='form-control'
-                  style={{width: '150px'}}
-                  />
-                </div>
-                <div className="form-group last">
+                <div className= 'booking-input-container'>
+                  <div className="form-group first booking">
                     <input
                       type="date"
-                      value={endDate}
-                      onChange={e => setEndDate(e.target.value)}
-                      placeholder='end date'
-                      className='form-control'
-                      style={{width: '150px'}}
+                      value={startDate}
+                      onChange={e => setStartDate(e.target.value)}
+                      placeholder= 'start date'
+                      className='form-control booking'
+                    style={{width: '150px'}}
                     />
+                  </div>
+                  <div className="form-group last booking">
+                      <input
+                        type="date"
+                        value={endDate}
+                        onChange={e => setEndDate(e.target.value)}
+                        placeholder='end date'
+                        className='form-control booking'
+                        style={{width: '150px'}}
+                      />
+                  </div>
                 </div>
               <input type="submit" value={formType} className='submit-button'/>
             </fieldset>

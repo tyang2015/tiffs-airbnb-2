@@ -31,6 +31,9 @@ router.delete('/:imageId', requireAuth, async(req, res, next)=>{
 
 })
 
+// // ADDED: get images for spot id (to be put on create/edit bookings tab)
+// router.get('')
+
 
 
 module.exports = router

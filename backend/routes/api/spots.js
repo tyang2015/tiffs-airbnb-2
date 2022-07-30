@@ -315,13 +315,16 @@ router.patch('/bookings/:bookingId',
 });
 
 
-// QUESTION: authorization part.. i cannot book a spot if i own it?
-// i thought that getting all bookings for a spot based on id implies that its ok?
 router.post('/:spotId/bookings', requireAuth, validateBooking, async(req,res,next)=>{
     let spot = await Spot.findOne({include: {model:Booking},
         where: {id: req.params.spotId}
     })
-
+    // added here
+    let images = await Image.findAll({
+        // include: {model: Spot},
+        where: {spotId: req.params.spotId}
+    })
+    // res.json(images)
     if (!spot){
         res.statusCode = 404
         res.json({
@@ -367,6 +370,7 @@ router.post('/:spotId/bookings', requireAuth, validateBooking, async(req,res,nex
     //     include: [Spot]
     // })
     ans.Spot= spot
+    ans.Images= images
     console.log('New record:', newRecord)
     res.json(ans)
 

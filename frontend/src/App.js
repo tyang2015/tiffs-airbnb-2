@@ -50,9 +50,9 @@ function App() {
         <Route exact path= "/">
           <Spots spots={spots}/>
         </Route>
-        <Route exact path="/users">
+        {/* <Route exact path="/users">
           <SignupFormPage/>
-        </Route>
+        </Route> */}
         <Route exact path= "/spots/new">
           <CreateSpotForm spots={spots}/>
         </Route>

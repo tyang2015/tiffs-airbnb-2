@@ -19,16 +19,7 @@ function LoginForm() {
     dispatch(sessionActions.login({ email, password })).catch(
       async (res) => {
         const data = await res.json();
-        // console.log('data msg logged in form:', data.message)
-        // if (data.message == 'Invalid credentials'){
-        //   setErrors(data.message)
-        //   console.log('errors:', errors)
-        // }
-        // console.log('data:', data)
         if (data && data.errors) setErrors(data.errors);
-        console.log('Data errors:', data.errors)
-        // if (data)
-        // console.log('data errors:', data.errors)
       }
     );
     setHasSubmitted(false)
@@ -40,7 +31,7 @@ function LoginForm() {
       <form onSubmit={handleSubmit}>
         <div className="parent-main-container-before-form">
           <h2> Welcome to Tiff's Airbnb </h2>
-          <ul>
+          <ul className='validation-errors'>
             {errors.map((error, idx) => (
               <li key={idx}>{error}</li>
             ))}
@@ -66,9 +57,7 @@ function LoginForm() {
                 required
               />
             </div>
-            {/* <div className={`submit-container`}> */}
-              <button type="submit" className="submit-button login">Log In</button>
-            {/* </div> */}
+            <button type="submit" className="submit-button login">Log In</button>
           </div>
         </div>
       </form>

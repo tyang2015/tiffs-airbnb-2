@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import ProfileButton from '../ProfileButton';
 import './Navigation.css';
 import LoginFormModal from '../LoginFormModal';
-
+import SignupFormModal from '../SignupFormModal';
 
 function Navigation({ isLoaded }){
   const sessionUser = useSelector(state => state.session.user);
@@ -18,7 +18,8 @@ function Navigation({ isLoaded }){
     sessionLinks = (
       <>
         <LoginFormModal />
-        <NavLink to="/users">Sign Up</NavLink>
+        <SignupFormModal/>
+        {/* <NavLink to="/users">Sign Up</NavLink> */}
         {/* <NavLink to="/login">Log In</NavLink> */}
       </>
     );
@@ -36,8 +37,8 @@ function Navigation({ isLoaded }){
       </div>
       <div className='top-right-nav-bar'>
         <div className='feature-links'>
-          <NavLink className={`navlink`} exact to= '/'> See all spots </NavLink>
-          <NavLink className={`navlink`} exact to='/users/bookings'> View your bookings </NavLink>
+          <NavLink className={`navlink`} style={{textDecoration:'none'}} exact to= '/'> See all spots </NavLink>
+          <NavLink className={`navlink`} style={{textDecoration:'none'}} exact to='/users/bookings'> View your bookings </NavLink>
         </div>
 
         <li className= 'inside-nav-bar top-bar' >

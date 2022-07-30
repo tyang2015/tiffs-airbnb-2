@@ -33,15 +33,18 @@ const SpotForm = ({spot, formType, spots}) => {
 
   useEffect(()=>{
     const errs= []
+    console.log('name:', name)
+    console.log('name length:', name.length)
     if (!name) errs.push("Please enter a valid name")
+    if (name.length>50) errs.push("Name must be less than 50 characters")
     if (!address) errs.push("Please enter a valid address")
     if (!city) errs.push("Please enter a valid city")
     if (!state) errs.push("Please enter a valid state")
     if (!country) errs.push("Please enter a valid country")
-    if (!lat || Number(lat)>90 || Number(lat)<-90) errs.push("Please enter a valid latitude value")
-    if (!lng || Number(lng)>180 || Number(lng)<-180) errs.push("Please enter a valid longitude value")
+    if (!lat || Number(lat)>90 || Number(lat)<-90 || Number(lat)!== 'number') errs.push("Please enter a valid latitude value")
+    if (!lng || Number(lng)>180 || Number(lng)<-180 || Number(lat)!== 'number') errs.push("Please enter a valid longitude value")
     if (!description) errs.push("Please enter a valid description")
-    if (!price || typeof Number(price)!='number') errs.push("Please enter a valid price")
+    if (!price || typeof Number(price)!='number' || Number(price)!='number') errs.push("Please enter a valid price")
     setValidationErrors(errs)
 
   }, [address, city, state, country,lat, lng, description, price])
@@ -50,6 +53,7 @@ const SpotForm = ({spot, formType, spots}) => {
     e.preventDefault();
 
     setHasSubmitted(true)
+    console.log('validation errors for spot form:', validationErrors)
 
     if (validationErrors.length>0){
       alert('Cannot submit data')
@@ -92,7 +96,7 @@ const SpotForm = ({spot, formType, spots}) => {
       {validationErrors.length>0 && hasSubmitted && (
         <div>
           The following errors were found:
-          <ul>
+          <ul className='validation-errors'>
             {validationErrors.map((error) => (
               <li key={error}>{error}</li>
             ))}
@@ -100,19 +104,19 @@ const SpotForm = ({spot, formType, spots}) => {
         </div>
       )}
         <form onSubmit={handleSubmit} >
-          <fieldset>
+          <fieldset className={`spot-fieldset-container`}>
             <h2> {formType} </h2>
-              <div className="form-group first">
+              <div className="form-group first spot">
                 <input
                   id="address"
                   type="text"
                   value={address}
                   onChange={e => setAddress(e.target.value)}
-                  className='form-control'
+                  className='form-control spot'
                   placeholder='Address'
                 />
               </div>
-              <div className='form-group'>
+              <div className='form-group spot'>
                 {/* <label for="city">  </label> */}
                 <input
                   id="city"
@@ -120,83 +124,83 @@ const SpotForm = ({spot, formType, spots}) => {
                   value={city}
                   onChange={e => setCity(e.target.value)}
                   placeholder="City"
-                  className="form-control"
+                  className="form-control spot"
                 />
               </div>
-              <div className='form-group'>
+              <div className='form-group spot'>
                 <input
                   type="text"
                   value={state}
                   onChange={e => setState(e.target.value)}
                   placeholder='State'
-                  className="form-control"
+                  className="form-control spot"
                 />
               </div>
-              <div className='form-group'>
+              <div className='form-group spot'>
                 <input
                   type="text"
                   value={country}
                   onChange={e => setCountry(e.target.value)}
                   placeholder='Country'
-                  className="form-control"
+                  className="form-control spot"
                 />
               </div>
-              <div className='form-group'>
+              <div className='form-group spot'>
                 <input
                   type="text"
                   value={lat}
                   onChange={e => setLat(e.target.value)}
                   placeholder='Latitude'
-                  className="form-control"
+                  className="form-control spot"
                 />
               </div>
-              <div className='form-group'>
+              <div className='form-group spot'>
                 <input
                   type="text"
                   value={lng}
                   onChange={e => setLng(e.target.value)}
                   placeholder='Longitude'
-                  className="form-control"
+                  className="form-control spot"
                 />
               </div>
-              <div className='form-group'>
+              <div className='form-group spot'>
                 <input
                   type="text"
                   value={name}
                   onChange={e => setName(e.target.value)}
                   placeholder='Name'
-                  className='form-control'
+                  className='form-control spot'
                 />
               </div>
-              <div className='form-group'>
+              <div className='form-group spot'>
                 <input
                   type="text"
                   value={description}
                   onChange={e => setDescription(e.target.value)}
                   placeholder='Description'
-                  className='form-control'
+                  className='form-control spot'
                 />
               </div>
-              <div className='form-group last'>
+              <div className='form-group last spot'>
                 <input
                   type="text"
                   value={price}
                   onChange={e => setPrice(e.target.value)}
                   placeholder='Price'
-                  className='form-control'
+                  className='form-control spot'
                 />
               </div>
             <input type="submit" value={formType} className='submit-button'/>
           </fieldset>
         </form>
-        <h2> All Spots</h2>
+        {/* <h2> All Spots</h2>
         <div>
           {
             allSpots.map(spot => (
               <p key={spot.id}> {spot.name} </p>
             ))
           }
-        </div>
+        </div> */}
       </>
     )
 }
