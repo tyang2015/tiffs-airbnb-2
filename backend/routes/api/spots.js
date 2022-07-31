@@ -340,6 +340,7 @@ router.post('/:spotId/bookings', requireAuth, validateBooking, async(req,res,nex
     errors.statusCode = 403
     let existingStart = false
     let existingEnd = false
+    errors.errors = {}
     for (let i =0; i< spot.Bookings.length; i++){
         let booking = spot.Bookings[i]
         if (booking.startDate === startDate){

@@ -82,7 +82,7 @@ const bookingReducer = (state= {}, action) => {
         case GET_BOOKINGS: {
             let newState = {...state}
             action.payload.bookings.forEach(booking=> newState[booking.id]= booking)
-            console.log('new State:', newState)
+            // console.log('new State:', newState)
             return newState
         }
         case CREATE_BOOKING:{
@@ -96,10 +96,10 @@ const bookingReducer = (state= {}, action) => {
             return newState
         }
         case DELETE_BOOKING: {
-            console.log('OLD STATE BEFORE DELETE:', state)
+            // console.log('OLD STATE BEFORE DELETE:', state)
             let newState = JSON.parse(JSON.stringify(state))
             delete newState[action.id]
-            console.log('NEW STATE AFTER DELETE:', newState)
+            // console.log('NEW STATE AFTER DELETE:', newState)
             return newState
         }
         default:

@@ -67,7 +67,7 @@ export const deleteSpot = (id)=> async dispatch => {
 
 
 export const editSpot = (id, payload) => async dispatch => {
-    console.log('inside EditSpot thunk creator')
+    // console.log('inside EditSpot thunk creator')
     let response = await csrfFetch(`/api/spots/${id}`, {
         method:'PATCH',
         headers:{'Content-Type': 'application/json'},
@@ -81,7 +81,7 @@ export const editSpot = (id, payload) => async dispatch => {
 
 // payload = object SUBMITTED from form
 export const createSpot = (payload) => async dispatch => {
-    console.log('inside CreateSpot thunk creator')
+    // console.log('inside CreateSpot thunk creator')
     let response = await csrfFetch('/api/spots', {
         method:'POST',
         headers:{'Content-Type': 'application/json'},
@@ -153,8 +153,6 @@ export const getSpots = () => async dispatch => {
     }
 }
 
-
-
 const initialState = {}
 const spotReducer = (state= initialState, action) => {
     switch (action.type){
@@ -187,7 +185,7 @@ const spotReducer = (state= initialState, action) => {
             // }
             let allSpots ={}
             action.payload.spots.forEach(spot => allSpots[spot.id] = spot)
-            console.log('all spots object (with reviews):',allSpots)
+            // console.log('all spots object (with reviews):',allSpots)
             return {...state, ...allSpots}
         }
         case DELETE_SPOT: {
@@ -198,21 +196,20 @@ const spotReducer = (state= initialState, action) => {
         case CREATE_SPOT: {
             const newState = {...state}
             newState[action.payload.id] = action.payload
-            console.log('created spot New state:', newState)
             return newState
         }
         case GET_SPOT_DATA: {
             const newState = {...state}
             newState[action.spot.id] =action.spot
             // newState = {1: {id:1, ownerId:1,...}}
-            console.log('new state in get spot data:', newState)
+            // console.log('new state in get spot data:', newState)
             return newState
         }
         case UPDATE_SPOT: {
             const newState = {...state}
             // const newState= JSON.parse(JSON.stringify(state))
             newState[action.spot.id] = action.spot
-            console.log('new state for updating spot:', newState)
+            // console.log('new state for updating spot:', newState)
             return newState
         }
         default:

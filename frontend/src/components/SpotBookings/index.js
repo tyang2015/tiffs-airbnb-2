@@ -17,7 +17,7 @@ const SpotBookings = ({bookings})=>{
         bookingsForSpot = allBookings.filter(booking=> booking.spotId === Number(spotId))
         firstBooking = bookingsForSpot[0]
     }
-    console.log('first booking:',firstBooking)
+    // console.log('first booking:',firstBooking)
     return (
         <>
             {firstBooking? (

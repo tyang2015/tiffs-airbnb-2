@@ -1,46 +1,59 @@
 import React from "react"
 import {useParams, useHistory} from "react-router-dom"
 import {useState, useEffect} from "react"
-import {useDispatch} from "react-redux"
+import {useDispatch, useSelector} from "react-redux"
 import { createBooking, editBooking } from "../../store/booking"
 import './BookingForm.css'
 
 
-const BookingForm = ({bookings, formType, booking, spots})=> {
+const BookingForm = ({bookings, formType, booking, spots, spot})=> {
   // it will be valid or undefined bc edit form does not have spotId in url
   // that is ok
-    console.log('bookings in edit form:', bookings)
     const {spotId, bookingId} = useParams();
+    const sessionUser = useSelector(state => state.session.user);
+
 
     const dispatch = useDispatch();
     // number strings can be compared
-    const [startDate, setStartDate] = useState(new Date())
-    const [endDate, setEndDate] = useState(new Date());
-    const [validationErrors, setValidationErrors] = useState('');
+            // CHANGE HERE
+    const [startDate, setStartDate] = useState('');
+    const [endDate, setEndDate] = useState('');
+    const [validationErrors, setValidationErrors] = useState([]);
     const [hasSubmitted, setHasSubmitted] = useState(false)
-    // this belongs to a user
     const allBookings = Object.values(bookings)
     let spotBookings;
-    // let spotBookingsForEdit;
     if (formType==='Create Booking'){
       spotBookings = allBookings.filter(booking=> booking.spotId === Number(spotId))
     } else {
       spotBookings = allBookings.filter(booking=> booking.spotId === Number(bookingId))
     }
-    console.log('spot bookings for current spot:', spotBookings)
     const firstSpotBooking = spotBookings[0]
-    // console.log('first spot booking:', firstSpotBooking)
 
+    let existingStartDates = []
+    let existingEndDates = []
+    allBookings.forEach(booking=>{
+      if (booking.spotId === Number(spotId)){
+        // manipulate start date here
+        let startDate = new Date(booking.startDate)
+        let endDate = new Date(booking.endDate)
 
-    let existingStartDates = allBookings.map(booking=> {
-      if (booking.spotId === Number(spotId)) return booking.startDate
+        let startDateString = new Date(startDate.getTime()-(startDate.getTimezoneOffset()*60000)).toISOString().split("T")[0]
+        let endDateString = new Date(endDate.getTime()-(endDate.getTimezoneOffset()*60000)).toISOString().split("T")[0]
+        // console.log('start date string type:', typeof startDateString)
+        // console.log('end date string type:', typeof endDateString)
+        existingStartDates.push(startDateString)
+        existingEndDates.push(endDateString)
+      }
     })
-    let existingEndDates = allBookings.map(booking=>{
-      if (booking.spotId=== Number(spotId)) return booking.endDate
-    })
 
-    // console.log('allBookings in booking form:', allBookings)
-    // console.log('spot booking:', spotBooking)
+    // let existingStartDates = allBookings.map(booking=> {
+    //   if (booking.spotId === Number(spotId)) return booking.startDate
+    // })
+    // let existingEndDates = allBookings.map(booking=>{
+    //   if (booking.spotId=== Number(spotId)) return booking.endDate
+    // })
+    console.log("start dates before submit:", existingStartDates)
+    console.log("end dates before submit:", existingEndDates)
 
     useEffect(()=>{
       let errs=[]
@@ -57,8 +70,25 @@ const BookingForm = ({bookings, formType, booking, spots})=> {
     const handleSubmit = async (e)=>{
         e.preventDefault();
         setHasSubmitted(true)
-        // console.log('starting dates in db:', existingStartDates)
-        // booking will have id already for Edit
+
+        console.log('start date:', startDate)
+        console.log('end date', endDate)
+        console.log('type of startdate:', typeof startDate)
+        console.log('type of enddate:', typeof endDate)
+
+        // if (existingStartDates.includes(startDate) ) {
+        //   alert('cannot submit: please fix start date')
+        //   return
+        // }
+        // if (existingEndDates.includes(endDate) ){
+        //   alert('cannot submti: please fix end date')
+        //   return
+        // }
+
+        if (sessionUser.id ===spot.ownerId){
+          alert("Cannot book if you are the owner")
+          return
+        }
         if (validationErrors.length>0){
           alert("Cannot submit bookings form")
           // setHasSubmitted(false)
@@ -72,13 +102,21 @@ const BookingForm = ({bookings, formType, booking, spots})=> {
         }
 
         if (formType==='Create Booking'){
-          let bookingCreated = await dispatch(createBooking(spotId, booking))
+          let bookingCreated = dispatch(createBooking(spotId, booking))
+          existingStartDates.push(startDate)
+          existingEndDates.push(endDate)
+          console.log('start date after successful create:', existingStartDates)
+          console.log('end date after successful create:', existingEndDates)
+          // setStartDate('')
+          // setEndDate('')
           alert('Thanks for booking!')
           setHasSubmitted(false)
+          return
         } else{
-          let bookingUpdated = await dispatch(editBooking(booking.id, booking))
+          let bookingUpdated = dispatch(editBooking(booking.id, booking))
           alert('Your booking has been rescheduled!')
           setHasSubmitted(false)
+          return
         }
     }
     // if its EDIT FORM or CREATE FORM and we got back the data already

@@ -35,7 +35,7 @@ input.booking.form-control{
 
 .spot-bookings-main-container{
     display:flex;
-    background-color: rgb(204, 236, 236);
+    /* background-color: rgb(204, 236, 236); */
     justify-content:start;
     height: 100vh;
     width:100vw;

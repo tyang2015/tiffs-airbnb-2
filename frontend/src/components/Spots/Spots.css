@@ -32,14 +32,12 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    background-color: lightpink;
+    /* background-color: lightpink; */
     font-size: large;
     /* margin-bottom: 0; */
     bottom: 2%;
     position:relative;
     bottom:0;
-    /* justify-self:stretch; */
-    /* align-self: center; */
 }
 
 .spot-top-half-text-container{
