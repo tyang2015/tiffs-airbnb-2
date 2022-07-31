@@ -48,7 +48,7 @@ const SpotForm = ({spot, formType, spots}) => {
     if (!price || typeof Number(price)!=='number') errs.push("Please enter a valid price")
     setValidationErrors(errs)
 
-  }, [address, city, state, country,lat, lng, description, price])
+  }, [address, city, state, name, country,lat, lng, description, price])
 
   const handleSubmit = async (e)=>{
     e.preventDefault();
