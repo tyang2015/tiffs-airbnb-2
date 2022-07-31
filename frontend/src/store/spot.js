@@ -111,9 +111,6 @@ export const getSpots = () => async dispatch => {
     const response = await fetch('/api/spots');
     if (response.ok){
         let spots = await response.json()
-        // for each spot retrieved, the id can be used to get the
-        // /api/spots/:spotId/review endpoint's reviews data
-        // console.log('spots')
         let spotIdList = spots.spots.map(spot=> spot.id)
         // let newSpots = spots.toJSON()
         for (let i = 0; i< spotIdList.length; i++){
@@ -133,6 +130,23 @@ export const getSpots = () => async dispatch => {
                 spots.spots[i].avgStarRating = avgRating
             }
         }
+        // let newSpots = {...spots}
+        // let scores = []
+        // let numReviews = []
+        // for (let i=0; spots.spots.length; i++){
+        //     newSpots.spots[i].reviews = {}
+        //     numReviews.push(spots.spots[i].Reviews.length)
+        //     scores[i]=0
+        //     for (let j=0; spots.spots[i].Reviews.length; j++){
+        //         let review = spots.spots[i].Reviews[j]
+        //         if (review){
+        //             newSpots.spots[i].reviews[review.id] = review
+        //             scores[i]= scores[i]+ spots.spots[i].Reviews[j].stars
+        //         }
+        //     }
+        //     newSpots[i].avgStarRating = (scores[i]/numReviews[i]).toFixed(2)
+        // }
+        // dispatch(load(newSpots))
         dispatch(load(spots));
     }
 }

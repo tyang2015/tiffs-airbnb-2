@@ -37,8 +37,9 @@ function Navigation({ isLoaded }){
       </div>
       <div className='top-right-nav-bar'>
         <div className='feature-links'>
-          <NavLink className={`navlink`} style={{textDecoration:'none'}} exact to= '/'> See all spots </NavLink>
-          <NavLink className={`navlink`} style={{textDecoration:'none'}} exact to='/users/bookings'> View your bookings </NavLink>
+          <NavLink className={`navlink`}  exact to='/spots/new'> Create a spot </NavLink>
+          <NavLink className={`navlink`}  exact to='/users/bookings'> View your bookings </NavLink>
+          <NavLink className={`navlink`}  exact to= '/'> See all spots </NavLink>
         </div>
 
         <li className= 'inside-nav-bar top-bar' >

@@ -572,6 +572,8 @@ router.get('/' , validateSpotQuery,async(req, res, next)=>{
     let pagination ={};
     where = {};
     let spots;
+    let numReviews =[];
+    let scores = [];
     // where: { lat: {[Op.gte]: minLat }, }
     // {minLat: 10, maxLat:20 ...}
     //  [ {where.minLat: where.maxLat}  , {where.minLng: where.maxLng} ]
@@ -670,24 +672,25 @@ router.get('/' , validateSpotQuery,async(req, res, next)=>{
          spots = await Spot.findAll({
             where,
             ...pagination,
+            // include: {model:Review}
         })
-        let spotIdList = spots.map(spot=> spot.id)
-        let avgScores = []
-        for (let i=0; i<spotIdList.length-1; i++){
-            // let spot = spots[i]
-            let spotId = spotIdList[i]
-            let countReviews = await Review.count({include: {model: Spot, where: {id: spotId}}})
-            let totalScore = await Review.sum('stars',  {where: {spotId: spotId}})
-            avgScores.push((totalScore/countReviews).toFixed(2))
-        }
-        // why doesnt this work??? why cant i add a new key value inside the sequelize arary
-        // tried deep cloning/doing shallow copies, still doesnt work
-        for (let i=0; i<spots.length; i++){
-            // spots[i].description = ''
-           spots[i].avgStarRating = 10
-        }
-        // allSpots.forEach((spot,i)=> spot.avgStartRating = avgScores[i])
-        // res.json(spots)
+
+        // for (let i=0; i<spots.length; i++){
+        //     let spotObj = spots[i]
+        //     // get total number of reviews for each spot
+        //     scores[i] = 0
+        //     numReviews.push(spotObj.Reviews.length)
+        //     for (let j =0; j< spots[i].Reviews.length; j++){
+        //         let review =spots[i].Reviews[j]
+        //         scores[i] = scores[i] + review.stars
+        //     }
+        // }
+        // let newSpots = [...spots]
+        // for (let i=0; i< newSpots.length; i++){
+        //     // let spot = {...newSpots[i]}
+        //     // spot.test = 1
+        //     newSpots[i].avgStarRating = 2
+        // }
     }
 
     res.json({

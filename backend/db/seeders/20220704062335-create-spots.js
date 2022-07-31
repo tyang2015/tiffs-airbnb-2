@@ -26,7 +26,7 @@ module.exports = {
       previewImage: 'https://travel.home.sndimg.com/content/dam/images/travel/fullrights/2017/9/18/CI_Airbnb-romantic-Airbnbs-3.jpg.rend.hgtvcom.966.644.suffix/1505819731026.jpeg',
     },
     {
-      ownerId: 2,
+      ownerId: 1,
       address: 'Termina',
       city: 'San Diego',
       state: 'California',
@@ -39,7 +39,7 @@ module.exports = {
       previewImage: 'https://a0.muscache.com/im/pictures/57409785-0690-4dd9-b5aa-c60c6c63f1bf.jpg?im_w=720',
     },
     {
-      ownerId: 4,
+      ownerId: 1,
       address: 'Mulberry',
       city: 'Charlotte',
       state: 'North Carolina',

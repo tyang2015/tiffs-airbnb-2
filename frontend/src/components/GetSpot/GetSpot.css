@@ -1,43 +1,214 @@
+/* NOTE: i have a light-pastel blue background that I set somewhere... where is it? overwrote the .spot-detail-card with white */
+/* defined footer-button CSS on text */
+
+.spot-main-content-container{
+    /* background-color: salmon; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.spot-footer-container{
+    /* background-color: green; */
+    width:100%;
+    display: flex;
+    justify-content: start;
+}
+
+.spot-footer-button{
+    height: 50px;
+    background-color: black;
+    color: white;
+    border-radius:7px;
+    height: 50px;
+    width: 120px;
+    margin-right:.2%;
+
+}
+
+.spot-footer-button > .navlink{
+    color: white;
+}
+
+.spot-top-container{
+    /* background-color: lightgreen; */
+    width: 67%;
+    /* display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: flex-start; */
+    /* height: 120px; */
+    /* height: fit-content; */
+}
+
+.spot-top-container-top-half{
+    /* background-color: coral; */
+    height: 50%;
+    margin:0;
+
+}
+
+.spot-top-container-bottom-half{
+    display:flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: start;
+    /* background-color: brown; */
+    height: 50%;
+    margin-bottom: 1.2%;
+
+}
+
+
+
+/* .star-rating-container-top{
+    background-color: blue;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    width: 5.5%;
+
+} */
+
+.star-rating-container-top{
+    /* background-color: green; */
+    width: 65px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.spot-detail-item-top{
+    margin-right: 12px;
+    font-weight: 550;
+}
+
+.reviews-container-top,.city-state-country-container-top{
+    text-decoration: underline;
+    font-weight: 550;
+}
+
+
+.spot-images-container{
+    /* background-color: lightgreen; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    height: 620px;
+}
+
+.spot-preview-image-right-container{
+    display: flex;
+    flex-flow: row wrap;
+    /* background-color: yellow; */
+    height:100%;
+    justify-content:end;
+    /* width:fit-content */
+
+}
+img.spot-preview-image-small{
+    width: 48.5%;
+    height: 49%;
+    border-radius: none;
+    /* border: black 2px solid; */
+    box-sizing:border-box;
+    border-radius: 0;
+    margin-left: 1.5%;
+}
+
+.spot-preview-image-small.top{
+    margin-bottom: 1.5%;
+}
+
 /* img tag in spots index has border-radius applied, trickles to all img tags */
-.spot-preview-image{
-    width: 700px;
+.spot-preview-image-large{
+    width: 50%;
+    height: 100%;
+    border-radius: 0;
 }
 
 .spot-detail-card{
-    /* background-color: lightcyan; */
-    width: fit-content;
+    width: 67%;
+    /* width: fit-content; */
+    background-color: white;
 }
 
-.spot-detail{
-    border-top: 1px solid rgba(177, 170, 170, 0.3);
+.spot-bottom-half-info-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 3%;
+}
+
+.spot-left-text-container{
+    /* background-color: lightgreen; */
+    width: 60%;
+    display:flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    /* margin-top: 12%; */
+
+}
+
+.spot-right-text-container{
+    /* background-color: lightsalmon; */
+}
+
+div.spot-detail{
+    /* border-top: 1px solid rgba(177, 170, 170, 0.3); */
+    border: none;
     display: flex;
     justify-content: start;
+    align-items: start;
+    flex-flow: row nowrap;
+    /* border: 2px red solid; */
     /* background-color: burlywood; */
     /* border: 5px solid red; */
+    width: 90%;
 }
 
+.spot-detail.first{
+    border-top: 1px solid rgba(177, 170, 170, 0.3);
+}
+
+.spot-detail.last{
+    border-bottom: 1px solid rgba(177, 170, 170, 0.3);
+}
+
+.spot-owner-intro-container{
+    /* background-color: green; */
+    margin-top:0;
+
+}
 
 p.spot-detail-item-description{
     margin-left: 10px;
 }
 
 .spot-detail-icon-container{
+    height: 100%;
+    width:5%;
     display: flex;
     justify-content: center;
     align-items:center
+
 }
 
-table,
+/* table,
 td:not(.guests-cell) {
     border: 1px solid;
     border-collapse: collapse;
-}
+} */
 
-.guests-container{
+/* .guests-container{
     display: flex;
     justify-content: center;
     background-color: green;
-}
+} */
 
 
 /* RIGHT CARD WITH THE SPOT DETAIL AND BOOKING FORM */
@@ -54,15 +225,15 @@ td:not(.guests-cell) {
 
     /* add myself */
     width: 480px;
-
 }
 
 .top-third-container{
     display: flex;
     /* background-color: aqua; */
     justify-content: space-between;
-    align-items: flex-start;
-    height:fit-content
+    align-items: center;
+    height:fit-content;
+    flex-flow: row wrap
 }
 
 .star-rating-reviews-container{
@@ -96,33 +267,49 @@ td:not(.guests-cell) {
     height: 50px;
     width: 100%;
     background-image:radial-gradient(circle at center center, rgb(255, 56, 92) 0%, rgb(230, 30, 77) 27.5%, rgb(227, 28, 95) 40%, rgb(215, 4, 102) 57.5%, rgb(189, 30, 89) 75%, rgb(189, 30, 89) 100%);
-    border: none;
+    display: flex;
+    text-align: center;
+    color: white;
+    font-weight:550;
+    font-size:large;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
 }
 
 .second-third-container{
-    /* color: rgb(34, 34, 34) !important;
-    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif !important;
-    font-weight: 400 !important;
-    font-size: 16px !important;
-    line-height: 20px !important; */
-    border: 2px solid black;
     display: flex;
-    flex-flow: row wrap
+    flex-flow: row wrap;
+    border: 1px solid rgba(177, 170, 170, 0.7);
+    border-radius: 8px;
 }
 .spot-middle-container-top-row{
     display: flex;
     flex-direction: row;
     width: 100%;
-    background-color: green;
     justify-content: space-evenly;
     align-items: center;
 }
+
+.spot-middle-container-bottom-row{
+    /* background-color: green; */
+    display: flex;
+    justify-content: center;
+    width:50%;
+}
+
 .spot-booking-input{
-    background-color: orange;
+    /* background-color: orange; */
     display: flex;
     align-items: center;
     /* justify-content: space; */
     height: 55px;
     width: 50%;
     justify-content: center;
+    border-bottom: 1px solid rgba(177, 170, 170, 0.7);
+}
+
+
+.navlink{
+    text-decoration: none;
 }

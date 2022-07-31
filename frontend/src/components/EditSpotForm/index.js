@@ -9,7 +9,7 @@ const EditSpotForm = ({spots}) => {
     const spotObj = useSelector(state=>state.spots)
     let spot = spotObj[spotId]
 
-    console.log('Spot you own?:', spot)
+   
     // console.log('Spot from parent component:', spot)
     // you will have spotID from spot prop here
     // it is not used for CREATE
