@@ -82,7 +82,7 @@ const SpotForm = ({spot, formType, spots}) => {
         setHasSubmitted(false)
     }
     if (formType==='Update Spot' && sessionUser.id=== spot.ownerId) {
-        await dispatch(editSpot(spot.id, spot))
+        dispatch(editSpot(spot.id, spot))
         alert('Spot changes have been updated!')
         setHasSubmitted(false)
     }

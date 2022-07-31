@@ -9,27 +9,26 @@ import SpotBookings from "../SpotBookings";
 const GetSpot = ({spots, bookings}) => {
     const {spotId} = useParams();
     const dispatch = useDispatch();
-    const history = useHistory();
+    // const history = useHistory();
 
     let numReviews;
     const sessionUser = useSelector(state => state.session.user);
     const [showLngMenu, setShowLngMenu] = useState(false)
 
     const spot = spots[spotId]
-    // console.log('spots for spot id 3: ',spot)
-    // console.log("spot reviews:",spot.reviews)
-    if (spot && spot.reviews){
-        let reviews = Object.values(spot.reviews)
-        numReviews= reviews.length
+    console.log('spot on get spot id page: ',spot)
+    // console.log("spot reviews:",spot.Reviews)
+    if (spot && spot.Reviews){
+        console.log('spot.Reviews does exist!')
+        numReviews= spot.Reviews.length
+        console.log("number of reviews:", numReviews)
     }
     else {
         numReviews = 1
     }
     // console.log('current reviews for spot', spot.reviews)
-    // const numReviews = Object.values(spot?.reviews).length
     // console.log(num)
 
-    // display error msg?
     const deleteHandle = async (e) => {
         if (sessionUser.id!== spot.ownerId){
             alert('You do not have permission to delete spot')
