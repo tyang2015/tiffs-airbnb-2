@@ -35,8 +35,7 @@ const SpotForm = ({spot, formType, spots}) => {
     const errs= []
     // console.log('name:', name)
     // console.log('name length:', name.length)
-    console.log('latitude:', lat)
-    console.log('longitude:', lng)
+
     if (!name) errs.push("Please enter a valid name")
     if (name.length>50) errs.push("Name must be less than 50 characters")
     if (!address) errs.push("Please enter a valid address")

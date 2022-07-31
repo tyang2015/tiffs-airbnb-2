@@ -198,6 +198,7 @@ const spotReducer = (state= initialState, action) => {
         case CREATE_SPOT: {
             const newState = {...state}
             newState[action.payload.id] = action.payload
+            console.log('created spot New state:', newState)
             return newState
         }
         case GET_SPOT_DATA: {
