@@ -149,7 +149,7 @@ const SpotForm = ({spot, formType, spots}) => {
               </div>
               <div className='form-group spot'>
                 <input
-                  type="text"
+                  type="number"
                   value={lat}
                   onChange={e => setLat(e.target.value)}
                   placeholder='Latitude'
@@ -158,7 +158,7 @@ const SpotForm = ({spot, formType, spots}) => {
               </div>
               <div className='form-group spot'>
                 <input
-                  type="text"
+                  type="number"
                   value={lng}
                   onChange={e => setLng(e.target.value)}
                   placeholder='Longitude'
@@ -185,10 +185,11 @@ const SpotForm = ({spot, formType, spots}) => {
               </div>
               <div className='form-group last spot'>
                 <input
-                  type="text"
+                  type="number"
                   value={price}
                   onChange={e => setPrice(e.target.value)}
                   placeholder='Price'
+                  step='0.01' 
                   className='form-control spot'
                 />
               </div>
