@@ -16,21 +16,29 @@ const GetSpot = ({spots, bookings}) => {
     const [showLngMenu, setShowLngMenu] = useState(false)
 
     const spot = spots[spotId]
-    console.log('spot on get spot id page: ',spot)
+    // console.log('spot on get spot id page: ',spot)
     // console.log("spot reviews:",spot.Reviews)
     if (spot && spot.Reviews){
         console.log('spot.Reviews does exist!')
         numReviews= spot.Reviews.length
         console.log("number of reviews:", numReviews)
     }
+    // // for including reviews in redux in object form
+    // if (spot && spot.reviews){
+    //     let reviews = Object.values(spot.reviews)
+    //     numReviews= reviews.length
+    //     console.log("number of reviews:", numReviews)
+    // }
     else {
         numReviews = 1
     }
     // console.log('current reviews for spot', spot.reviews)
-    // console.log(num)
 
     const deleteHandle = async (e) => {
-        if (sessionUser.id!== spot.ownerId){
+        if (!sessionUser){
+            alert('please login to delete spot')
+        }
+        else if (sessionUser.id!== spot.ownerId){
             alert('You do not have permission to delete spot')
         } else {
             await dispatch(deleteSpot(spotId))

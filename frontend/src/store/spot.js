@@ -75,7 +75,7 @@ export const editSpot = (id, payload) => async dispatch => {
     })
     if (response.ok){
         const spot = await response.json()
-        dispatch(edit(id,spot))
+        dispatch(edit(spot))
     }
 }
 
@@ -113,10 +113,11 @@ export const getSpots = () => async dispatch => {
         let spots = await response.json()
         // let spotIdList = spots.spots.map(spot=> spot.id)
         // for (let i = 0; i< spotIdList.length; i++){
-        //     let spotId = i+1
-        //     let response2 = await fetch(`/api/spots/${spotId}/reviews`)
+        //     // let spotId = i+1
+        //     let realSpotId = spotIdList[i]
+        //     let response2 = await fetch(`/api/spots/${realSpotId}/reviews`)
         //     // get avgStarRating for each /api/spots/:spotId
-        //     let response3 = await fetch(`/api/spots/${spotId}`)
+        //     let response3 = await fetch(`/api/spots/${realSpotId}`)
         //     if (response2.ok && response3.ok) {
         //         let reviewsObj = await response2.json()
         //         let spotDetailsObj = await response3.json()
@@ -129,7 +130,8 @@ export const getSpots = () => async dispatch => {
         //         spots.spots[i].avgStarRating = avgRating
         //     }
         // }
-        
+
+
         // let newSpots = {...spots}
         // let scores = []
         // let numReviews = []
@@ -207,7 +209,9 @@ const spotReducer = (state= initialState, action) => {
         }
         case UPDATE_SPOT: {
             const newState = {...state}
+            // const newState= JSON.parse(JSON.stringify(state))
             newState[action.spot.id] = action.spot
+            console.log('new state for updating spot:', newState)
             return newState
         }
         default:

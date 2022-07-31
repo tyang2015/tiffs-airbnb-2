@@ -115,6 +115,66 @@ module.exports = {
       review: "Rich in history and has a well known military base. And great southern BBQ",
       stars: 4
     },
+    {
+      userId: 2,
+      spotId: 2,
+      review: "Rich in history and has a well known military base. And great southern BBQ",
+      stars: 4
+    },
+    {
+      userId: 2,
+      spotId: 4,
+      review: "Rich in history and has a well known military base. And great southern BBQ",
+      stars: 4
+    },
+    {
+      userId: 2,
+      spotId: 8,
+      review: "Rich in history and has a well known military base. And great southern BBQ",
+      stars: 4
+    },
+    {
+      userId: 3,
+      spotId: 9,
+      review: "Rich in history and has a well known military base. And great southern BBQ",
+      stars: 4
+    },
+    {
+      userId: 3,
+      spotId: 10,
+      review: "Rich in history and has a well known military base. And great southern BBQ",
+      stars: 4
+    },
+    {
+      userId: 4,
+      spotId: 13,
+      review: "Rich in history and has a well known military base. And great southern BBQ",
+      stars: 4
+    },
+    {
+      userId: 4,
+      spotId: 1,
+      review: "Rich in history and has a well known military base. And great southern BBQ",
+      stars: 5
+    },
+    {
+      userId: 2,
+      spotId: 1,
+      review: "Rich in history and has a well known military base. And great southern BBQ",
+      stars: 5
+    },
+    {
+      userId: 4,
+      spotId: 12,
+      review: "Rich in history and has a well known military base. And great southern BBQ",
+      stars: 4
+    },
+    {
+      userId: 1,
+      spotId: 7,
+      review: "Rich in history and has a well known military base. And great southern BBQ",
+      stars: 4
+    },
 
    ])
   },
