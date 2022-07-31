@@ -116,6 +116,7 @@ const SpotForm = ({spot, formType, spots}) => {
                   onChange={e => setAddress(e.target.value)}
                   className='form-control spot'
                   placeholder='Address'
+                  required="required"
                 />
               </div>
               <div className='form-group spot'>
@@ -127,6 +128,7 @@ const SpotForm = ({spot, formType, spots}) => {
                   onChange={e => setCity(e.target.value)}
                   placeholder="City"
                   className="form-control spot"
+                  required="required"
                 />
               </div>
               <div className='form-group spot'>
@@ -136,6 +138,7 @@ const SpotForm = ({spot, formType, spots}) => {
                   onChange={e => setState(e.target.value)}
                   placeholder='State'
                   className="form-control spot"
+                  required="required"
                 />
               </div>
               <div className='form-group spot'>
@@ -145,6 +148,7 @@ const SpotForm = ({spot, formType, spots}) => {
                   onChange={e => setCountry(e.target.value)}
                   placeholder='Country'
                   className="form-control spot"
+                  required="required"
                 />
               </div>
               <div className='form-group spot'>
@@ -154,6 +158,7 @@ const SpotForm = ({spot, formType, spots}) => {
                   onChange={e => setLat(e.target.value)}
                   placeholder='Latitude'
                   className="form-control spot"
+                  required="required"
                 />
               </div>
               <div className='form-group spot'>
@@ -163,6 +168,7 @@ const SpotForm = ({spot, formType, spots}) => {
                   onChange={e => setLng(e.target.value)}
                   placeholder='Longitude'
                   className="form-control spot"
+                  required="required"
                 />
               </div>
               <div className='form-group spot'>
@@ -172,6 +178,7 @@ const SpotForm = ({spot, formType, spots}) => {
                   onChange={e => setName(e.target.value)}
                   placeholder='Name'
                   className='form-control spot'
+                  required="required"
                 />
               </div>
               <div className='form-group spot'>
@@ -181,6 +188,7 @@ const SpotForm = ({spot, formType, spots}) => {
                   onChange={e => setDescription(e.target.value)}
                   placeholder='Description'
                   className='form-control spot'
+                  required="required"
                 />
               </div>
               <div className='form-group last spot'>
@@ -189,8 +197,10 @@ const SpotForm = ({spot, formType, spots}) => {
                   value={price}
                   onChange={e => setPrice(e.target.value)}
                   placeholder='Price'
-                  step='0.01' 
+                  step='0.01'
                   className='form-control spot'
+                  required="required"
+                  min="0.00"
                 />
               </div>
             <input type="submit" value={formType} className='submit-button'/>
