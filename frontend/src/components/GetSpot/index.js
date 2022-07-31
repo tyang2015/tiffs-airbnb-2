@@ -53,7 +53,7 @@ const GetSpot = ({spots, bookings}) => {
             return
         }
         if (sessionUser.id!==spot.ownerId){
-            alert('Only the authorized owner can view longitude & latitude coordinates')
+            alert('Only the authorized owner can see address')
             return
         }
         showAddressMenu === true? setShowAddressMenu(false): setShowAddressMenu(true)
