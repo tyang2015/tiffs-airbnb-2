@@ -13,26 +13,26 @@ const GetSpot = ({spots, bookings}) => {
 
     let numReviews;
     const sessionUser = useSelector(state => state.session.user);
-    const [showLngMenu, setShowLngMenu] = useState(false)
+    const [showAddressMenu, setShowAddressMenu] = useState(false)
 
     const spot = spots[spotId]
     // console.log('spot on get spot id page: ',spot)
     // console.log("spot reviews:",spot.Reviews)
-    if (spot && spot.Reviews){
-        console.log('spot.Reviews does exist!')
-        numReviews= spot.Reviews.length
-        console.log("number of reviews:", numReviews)
-    }
-    // // for including reviews in redux in object form
-    // if (spot && spot.reviews){
-    //     let reviews = Object.values(spot.reviews)
-    //     numReviews= reviews.length
+    // if (spot && spot.Reviews){
+    //     console.log('spot.Reviews does exist!')
+    //     numReviews= spot.Reviews.length
     //     console.log("number of reviews:", numReviews)
     // }
-    else {
-        numReviews = 1
+
+    // for including reviews in redux in object form
+    if (spot && spot.reviews){
+        let reviews = Object.values(spot.reviews)
+        numReviews= reviews.length
+        console.log("number of reviews:", numReviews)
     }
-    // console.log('current reviews for spot', spot.reviews)
+    else {
+        numReviews = 'New'
+    }
 
     const deleteHandle = async (e) => {
         if (!sessionUser){
@@ -47,7 +47,7 @@ const GetSpot = ({spots, bookings}) => {
         }
     }
 
-    const ToggleLngMenu= (e) => {
+    const ToggleAddressMenu= (e) => {
         if (!sessionUser) {
             alert('Please login to view')
             return
@@ -56,8 +56,8 @@ const GetSpot = ({spots, bookings}) => {
             alert('Only the authorized owner can view longitude & latitude coordinates')
             return
         }
-        showLngMenu === true? setShowLngMenu(false): setShowLngMenu(true)
-        // setShowLngMenu(true)
+        showAddressMenu === true? setShowAddressMenu(false): setShowAddressMenu(true)
+        // setShowAddressMenu(true)
     }
     // useEffect(()=>{
     //     set
@@ -128,19 +128,20 @@ const GetSpot = ({spots, bookings}) => {
                                         <p className='spot-detail-item-description'> Price: ${spot.price}</p>
                                     </div>
                                     <div>
-                                        <p> Show longitude and latitude coordinates</p>
+                                        <p> Show address </p>
                                         <input
                                             type='button'
-                                            onClick={ToggleLngMenu}
-                                            value={showLngMenu? "⮛": "⮙"}
+                                            onClick={ToggleAddressMenu}
+                                            value={showAddressMenu? "⮛": "⮙"}
                                             style={{border:'none', backgroundColor:'white'}}
                                         />
                                     </div>
-                                    {showLngMenu && (
+                                    {showAddressMenu && (
                                         <div className='spot-detail'>
                                             <div className= 'spot-detail-icon-container'>
-                                                <i class="fa-solid fa-location-dot"></i>                            </div>
-                                                <p className='spot-detail-item-description'> Longitude: {spot.lng} Latitude: {spot.lat}</p>
+                                                <i class="fa-solid fa-location-dot"></i>
+                                            </div>
+                                            <p className='spot-detail-item-description'>Address: {spot.address}</p>
                                         </div>
                                     )}
                                 </div>

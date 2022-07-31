@@ -59,6 +59,7 @@ const SpotForm = ({spot, formType, spots}) => {
 
     if (validationErrors.length>0){
       alert('Cannot submit data')
+      // setHasSubmitted(false)
       return
     }
 

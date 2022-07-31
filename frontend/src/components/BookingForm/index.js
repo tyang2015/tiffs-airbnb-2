@@ -46,9 +46,9 @@ const BookingForm = ({bookings, formType, booking, spots})=> {
       let errs=[]
       if (!startDate) errs.push("Please enter valid start date")
       if (!endDate) errs.push("Please enter valid end date")
-      if (endDate< startDate) errs.push("End date must come after start date")
-      if (existingStartDates.includes(startDate)) errs.push("Start date already exists for spot")
-      if (existingEndDates.includes(endDate)) errs.push("End date already exists for spot")
+      if (endDate< startDate) errs.push("endDate cannot come before startDate")
+      if (existingStartDates.includes(startDate)) errs.push("Start date conflicts with an existing booking")
+      if (existingEndDates.includes(endDate)) errs.push("End date conflicts with an existing booking")
       setValidationErrors(errs)
 
     }, [startDate, endDate])
@@ -57,10 +57,11 @@ const BookingForm = ({bookings, formType, booking, spots})=> {
     const handleSubmit = async (e)=>{
         e.preventDefault();
         setHasSubmitted(true)
-        console.log('starting dates in db:', existingStartDates)
+        // console.log('starting dates in db:', existingStartDates)
         // booking will have id already for Edit
         if (validationErrors.length>0){
           alert("Cannot submit bookings form")
+          // setHasSubmitted(false)
           return
         }
 
