@@ -672,7 +672,7 @@ router.get('/' , validateSpotQuery,async(req, res, next)=>{
          spots = await Spot.findAll({
             where,
             ...pagination,
-            // include: {model:Review}
+            include: {model:Review}
         })
 
         // for (let i=0; i<spots.length; i++){

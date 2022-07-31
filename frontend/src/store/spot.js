@@ -111,25 +111,25 @@ export const getSpots = () => async dispatch => {
     const response = await fetch('/api/spots');
     if (response.ok){
         let spots = await response.json()
-        let spotIdList = spots.spots.map(spot=> spot.id)
-        // let newSpots = spots.toJSON()
-        for (let i = 0; i< spotIdList.length; i++){
-            let spotId = i+1
-            let response2 = await fetch(`/api/spots/${spotId}/reviews`)
-            // get avgStarRating for each /api/spots/:spotId
-            let response3 = await fetch(`/api/spots/${spotId}`)
-            if (response2.ok && response3.ok) {
-                let reviewsObj = await response2.json()
-                let spotDetailsObj = await response3.json()
-                let avgRating = spotDetailsObj.avgStarRating
-                // spots.spots[i].reviews = reviewsObj.reviews
-                spots.spots[i].reviews ={}
-                reviewsObj.reviews.forEach(review=> {
-                    spots.spots[i].reviews[review.id] = review
-                })
-                spots.spots[i].avgStarRating = avgRating
-            }
-        }
+        // let spotIdList = spots.spots.map(spot=> spot.id)
+        // for (let i = 0; i< spotIdList.length; i++){
+        //     let spotId = i+1
+        //     let response2 = await fetch(`/api/spots/${spotId}/reviews`)
+        //     // get avgStarRating for each /api/spots/:spotId
+        //     let response3 = await fetch(`/api/spots/${spotId}`)
+        //     if (response2.ok && response3.ok) {
+        //         let reviewsObj = await response2.json()
+        //         let spotDetailsObj = await response3.json()
+        //         let avgRating = spotDetailsObj.avgStarRating
+        //         // spots.spots[i].reviews = reviewsObj.reviews
+        //         spots.spots[i].reviews ={}
+        //         reviewsObj.reviews.forEach(review=> {
+        //             spots.spots[i].reviews[review.id] = review
+        //         })
+        //         spots.spots[i].avgStarRating = avgRating
+        //     }
+        // }
+        
         // let newSpots = {...spots}
         // let scores = []
         // let numReviews = []

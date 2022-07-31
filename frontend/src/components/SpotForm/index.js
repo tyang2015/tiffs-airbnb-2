@@ -33,18 +33,20 @@ const SpotForm = ({spot, formType, spots}) => {
 
   useEffect(()=>{
     const errs= []
-    console.log('name:', name)
-    console.log('name length:', name.length)
+    // console.log('name:', name)
+    // console.log('name length:', name.length)
+    console.log('latitude:', lat)
+    console.log('longitude:', lng)
     if (!name) errs.push("Please enter a valid name")
     if (name.length>50) errs.push("Name must be less than 50 characters")
     if (!address) errs.push("Please enter a valid address")
     if (!city) errs.push("Please enter a valid city")
     if (!state) errs.push("Please enter a valid state")
     if (!country) errs.push("Please enter a valid country")
-    if (!lat || Number(lat)>90 || Number(lat)<-90 || Number(lat)!== 'number') errs.push("Please enter a valid latitude value")
-    if (!lng || Number(lng)>180 || Number(lng)<-180 || Number(lat)!== 'number') errs.push("Please enter a valid longitude value")
+    if (!lat || typeof Number(lat)!== 'number' || Number(lat)>90 || Number(lat)< -90) errs.push("Please enter a valid latitude value")
+    if (!lng || typeof Number(lat)!== 'number' || Number(lng)>180 || Number(lng)<-180) errs.push("Please enter a valid longitude value")
     if (!description) errs.push("Please enter a valid description")
-    if (!price || typeof Number(price)!='number' || Number(price)!='number') errs.push("Please enter a valid price")
+    if (!price || typeof Number(price)!=='number') errs.push("Please enter a valid price")
     setValidationErrors(errs)
 
   }, [address, city, state, country,lat, lng, description, price])
