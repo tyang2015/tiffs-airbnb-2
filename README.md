@@ -9,12 +9,12 @@ My project aims to clone the website Airbnb.com -- a popular living-space rental
 
 ### INSTRUCTIONS for running locally
 
-1. run ```git clone repo_link_url_address ``` to have my project downloaded to your local repo. cd into repo and run 'code .' to have it open on vscode
-2. run 'cd ..' and then 'npm i' to install packages needed to run code on heroku properly
-3. run 'cd frontend' and then 'npm i' inside frontend folder to download necessary packages from package.json
-4. run 'cd backend' and then 'npm i' inside backend folder (repeating step 2)
-5. while in the backend, run 'npm start' to start server at port 8000
-6. open another terminal from vscode and run 'npm start' to start front end server at port 3000
+1. run ```git clone repo_link_url_address``` to have my project downloaded to your local repo. cd into repo and run 'code .' to have it open on vscode
+2. run ```cd .. ``` and then ```npm i``` to install packages needed to run code on heroku properly
+3. run ```cd frontend``` and then ```npm i``` inside frontend folder to download necessary packages from package.json
+4. run ```cd backend``` and then ```npm i``` inside backend folder (repeating step 2)
+5. while in the backend, run ```npm start``` to start server at port 8000
+6. open another terminal from vscode and run ```npm start``` to start front end server at port 3000
 
 ### INSTRUCTIONS for navigating the page
 
