@@ -37,12 +37,23 @@ const BookingForm = ({bookings, formType, booking, spots, spot})=> {
         let startDate = new Date(booking.startDate)
         let endDate = new Date(booking.endDate)
 
-        let startDateString = new Date(startDate.getTime()-(startDate.getTimezoneOffset()*60000)).toISOString().split("T")[0]
-        let endDateString = new Date(endDate.getTime()-(endDate.getTimezoneOffset()*60000)).toISOString().split("T")[0]
-        // console.log('start date string type:', typeof startDateString)
-        // console.log('end date string type:', typeof endDateString)
-        existingStartDates.push(startDateString)
-        existingEndDates.push(endDateString)
+        // let startDateString = new Date(startDate.getTime()-(startDate.getTimezoneOffset()*60000)).toISOString().split("T")[0]
+        // let endDateString = new Date(endDate.getTime()-(endDate.getTimezoneOffset()*60000)).toISOString().split("T")[0]
+
+        let startDateObj = new Date(startDate.getTime()-(startDate.getTimezoneOffset()*60000))
+
+        let endDateObj = new Date(endDate.getTime()-(endDate.getTimezoneOffset()*60000))
+
+        startDateObj.setDate(startDateObj.getDate()+1)
+        endDateObj.setDate(endDateObj.getDate()+1)
+
+        let finalStart = startDateObj.toISOString().split("T")[0]
+        let finalEnd = endDateObj.toISOString().split("T")[0]
+
+        // existingStartDates.push(startDateString)
+        // existingEndDates.push(endDateString)
+        existingStartDates.push(finalStart)
+        existingEndDates.push(finalEnd)
       }
     })
 
