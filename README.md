@@ -20,7 +20,11 @@ My project aims to clone the website Airbnb.com -- a popular living-space rental
 
 1. When you are on home/splash/landing page, you will see all spots in a grid form. There are 3 links at the top ("create a spot", "view your bookings", "see all spots") where you can navigate to the CREATE "/spot/new" endpoint, GET "/users/bookings" endpoint, and GET "/spots" endpoint (which is the current homepage)
 
+![Spot homepage](./homepage-sample-photo.png)
+
 2. Click on any card to fetch the GET /spots/:spotId endpoint. You will find all the specific spot info here. 4 buttons at the bottom will inform you on exactly which feature and which CRUD is applicable. (The 'reserve' div is not a clickable button, but rather for just as display to demonstrate how it will look in the future). We will not test edit spot yet as it's not a requirement.
+
+![Spotid-page](./spot-photo.png)
 
 #### For Forms (features: spots and bookings)
 1) CREATE spot form can be accessed from the top nav bar, with the clickable link "Create a spot". 
