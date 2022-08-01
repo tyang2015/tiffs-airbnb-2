@@ -82,10 +82,10 @@ const BookingForm = ({bookings, formType, booking, spots, spot})=> {
         e.preventDefault();
         setHasSubmitted(true)
 
-        console.log('start date:', startDate)
-        console.log('end date', endDate)
-        console.log('type of startdate:', typeof startDate)
-        console.log('type of enddate:', typeof endDate)
+        // console.log('start date:', startDate)
+        // console.log('end date', endDate)
+        // console.log('type of startdate:', typeof startDate)
+        // console.log('type of enddate:', typeof endDate)
 
         // if (existingStartDates.includes(startDate) ) {
         //   alert('cannot submit: please fix start date')

@@ -68,9 +68,9 @@ function App() {
         <Route exact path= "/spots/:spotId/bookings/new">
           <CreateBookingForm bookings={bookings} spots={spots}/>
         </Route>
-        <Route exact path= "/spots/bookings/:bookingId">
+        {/* <Route exact path= "/spots/bookings/:bookingId">
           <EditBookingForm bookings={bookings} spots={spots}/>
-        </Route>
+        </Route> */}
         <Route exact path= "/spots/:spotId/bookings">
           <SpotBookings bookings={bookings}/>
         </Route>
