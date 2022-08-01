@@ -32,7 +32,7 @@ const BookingForm = ({bookings, formType, booking, spots, spot})=> {
     let existingStartDates = []
     let existingEndDates = []
     allBookings.forEach(booking=>{
-      if (booking.spotId === Number(spotId)){
+      if (booking.spotId == Number(spotId)){
         // manipulate start date here
         let startDate = new Date(booking.startDate)
         let endDate = new Date(booking.endDate)
@@ -103,12 +103,12 @@ const BookingForm = ({bookings, formType, booking, spots, spot})=> {
 
         if (formType==='Create Booking'){
           let bookingCreated = dispatch(createBooking(spotId, booking))
-          existingStartDates.push(startDate)
-          existingEndDates.push(endDate)
+          // existingStartDates.push(startDate)
+          // existingEndDates.push(endDate)
           console.log('start date after successful create:', existingStartDates)
           console.log('end date after successful create:', existingEndDates)
-          // setStartDate('')
-          // setEndDate('')
+          setStartDate('')
+          setEndDate('')
           alert('Thanks for booking!')
           setHasSubmitted(false)
           return
