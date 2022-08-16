@@ -11,11 +11,20 @@ ul.top-nav-bar{
 }
 
 .top-right-nav-bar{
-    /* background-color: aqua; */
+    background-color: aqua;
     display:flex;
     justify-content: space-between;
     align-items: center;
     width:450px;
+
+}
+
+.session-link{
+    background-color: #ff385c;
+    color:white;
+    border: none;
+    font-size: 12px;
+    border-radius: 7px;
 }
 
 div.airbnb-icon-container{

@@ -75,7 +75,6 @@ const Spots = ({spots}) =>{
                         <p> Loading spots... </p>
                     </div>
                 )}
-
             </div>
 
         // </>

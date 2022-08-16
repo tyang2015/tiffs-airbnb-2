@@ -37,6 +37,7 @@ export const login = (user) => async (dispatch) => {
   };
 
 //   phase 2
+// ADDED HERE
   export const signup = (user) => async (dispatch) => {
     const { email, password, firstName, lastName} = user;
     const response = await csrfFetch("/api/users", {
@@ -45,12 +46,13 @@ export const login = (user) => async (dispatch) => {
         email,
         password,
         firstName,
-        lastName
+        lastName,
       }),
     });
     const data = await response.json();
     // CHANGED HERE
     // console.log('data from signup:', data)
+    
     dispatch(setUser(data));
     return response;
   };

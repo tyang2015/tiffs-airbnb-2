@@ -6,21 +6,21 @@ import { createBooking, editBooking } from "../../store/booking"
 import './BookingForm.css'
 
 
-const BookingForm = ({bookings, formType, booking, spots, spot})=> {
+const BookingForm = ({bookings, formType, booking})=> {
   // it will be valid or undefined bc edit form does not have spotId in url
   // that is ok
     const {spotId, bookingId} = useParams();
     const sessionUser = useSelector(state => state.session.user);
 
-
     const dispatch = useDispatch();
     // number strings can be compared
-            // CHANGE HERE
+    // CHANGE HERE
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
     const [validationErrors, setValidationErrors] = useState([]);
     const [hasSubmitted, setHasSubmitted] = useState(false)
     const allBookings = Object.values(bookings)
+
     let spotBookings;
     if (formType==='Create Booking'){
       spotBookings = allBookings.filter(booking=> booking.spotId === Number(spotId))
@@ -82,27 +82,12 @@ const BookingForm = ({bookings, formType, booking, spots, spot})=> {
         e.preventDefault();
         setHasSubmitted(true)
 
-        // console.log('start date:', startDate)
-        // console.log('end date', endDate)
-        // console.log('type of startdate:', typeof startDate)
-        // console.log('type of enddate:', typeof endDate)
-
-        // if (existingStartDates.includes(startDate) ) {
-        //   alert('cannot submit: please fix start date')
+        // if (sessionUser.id ===spot.ownerId){
+        //   alert("Cannot book if you are the owner")
         //   return
         // }
-        // if (existingEndDates.includes(endDate) ){
-        //   alert('cannot submti: please fix end date')
-        //   return
-        // }
-
-        if (sessionUser.id ===spot.ownerId){
-          alert("Cannot book if you are the owner")
-          return
-        }
         if (validationErrors.length>0){
           alert("Cannot submit bookings form")
-          // setHasSubmitted(false)
           return
         }
 
@@ -116,8 +101,8 @@ const BookingForm = ({bookings, formType, booking, spots, spot})=> {
           let bookingCreated = dispatch(createBooking(spotId, booking))
           // existingStartDates.push(startDate)
           // existingEndDates.push(endDate)
-          console.log('start date after successful create:', existingStartDates)
-          console.log('end date after successful create:', existingEndDates)
+          // console.log('start date after successful create:', existingStartDates)
+          // console.log('end date after successful create:', existingEndDates)
           setStartDate('')
           setEndDate('')
           alert('Thanks for booking!')

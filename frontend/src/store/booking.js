@@ -80,7 +80,10 @@ export const deleteBooking = (bookingId) => async dispatch => {
 const bookingReducer = (state= {}, action) => {
     switch (action.type){
         case GET_BOOKINGS: {
-            let newState = {...state}
+            // let newState = {...state}
+            // IMPERATIVE YOU DONT SPREAD OLD STATE HERE
+            // why? because this require users authentication, and you spread the other user's info (old login) into this one
+            let newState = {}
             action.payload.bookings.forEach(booking=> newState[booking.id]= booking)
             // console.log('new State:', newState)
             return newState

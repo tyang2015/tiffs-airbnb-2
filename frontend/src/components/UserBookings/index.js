@@ -6,16 +6,19 @@ import React from 'react'
 import './Bookings.css'
 
 
-const UserBookings = ({bookings}) => {
+const UserBookings = () => {
     // when you run a dispatch it runs all of the reducers (thats why you get the errors in console for spot(multiple fetch calls))
     const dispatch = useDispatch();
     const history = useHistory();
+    const bookings = useSelector(state=> state.bookings)
     const allBookings = Object.values(bookings)
+
     // console.log("bookings data in component:", bookings)
 
     useEffect(()=>{
         dispatch(getBookings())
       }, [dispatch])
+
 
     //   <Redirect to="/users/bookings" />
     const handleDelete = (e, bookingId) => {

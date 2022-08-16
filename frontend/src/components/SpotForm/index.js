@@ -76,7 +76,7 @@ const SpotForm = ({spot, formType, spots}) => {
     }
 
     if (formType==='Create Spot'){
-        await dispatch(createSpot(spot))
+        dispatch(createSpot(spot))
         alert('New Spot Added!')
         // console.log('sucesssfully create spot!', spot)
         setHasSubmitted(false)

@@ -22,37 +22,33 @@ function App() {
   // let spots = useSelector(state=> Object.values(state.spots))
   // // object form
   const spots = useSelector(state=> state.spots)
-  const bookings = useSelector(state=>state.bookings)
 
-    const [isLoaded,setIsLoaded] = useState(false);
-    useEffect(()=>{
-      dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
-    }, [dispatch])
+  const [isLoaded,setIsLoaded] = useState(false);
+  useEffect(()=>{
+    dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
+  }, [dispatch])
+
+  // moved down here after user is restored
+  // const bookings = useSelector(state=>state.bookings)
 
     // load all spots
     useEffect(()=>{
       dispatch(getSpots())
     }, [dispatch])
 
-    // load all bookings
-    useEffect(()=>{
-      dispatch(getBookings())
-    }, [dispatch])
+    // // load all bookings
+    // useEffect(()=>{
+    //   dispatch(getBookings())
+    // }, [dispatch])
 
   return (
     <>
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
       <Switch>
-        {/* <Route exact path="/login">
-          <LoginFormPage/>
-        </Route> */}
         <Route exact path= "/">
           <Spots spots={spots}/>
         </Route>
-        {/* <Route exact path="/users">
-          <SignupFormPage/>
-        </Route> */}
         <Route exact path= "/spots/new">
           <CreateSpotForm spots={spots}/>
         </Route>
@@ -60,19 +56,19 @@ function App() {
           <EditSpotForm spots={spots}/>
         </Route>
         <Route exact path= "/spots/:spotId">
-          <GetSpot spots={spots} bookings={bookings}/>
+          <GetSpot spots={spots}/>
         </Route>
         <Route exact path= "/users/bookings">
-          <UserBookings  bookings={bookings} />
+          <UserBookings/>
         </Route>
         <Route exact path= "/spots/:spotId/bookings/new">
-          <CreateBookingForm bookings={bookings} spots={spots}/>
+          <CreateBookingForm spots={spots}/>
         </Route>
-        {/* <Route exact path= "/spots/bookings/:bookingId">
-          <EditBookingForm bookings={bookings} spots={spots}/>
-        </Route> */}
+        <Route exact path= "/spots/bookings/:bookingId">
+          <EditBookingForm spots={spots}/>
+        </Route>
         <Route exact path= "/spots/:spotId/bookings">
-          <SpotBookings bookings={bookings}/>
+          <SpotBookings/>
         </Route>
         <Route>
           <h2>Page Not Found</h2>

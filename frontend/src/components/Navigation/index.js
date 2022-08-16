@@ -10,6 +10,7 @@ import * as sessionActions from "../../store/session";
 function Navigation({ isLoaded }){
   const sessionUser = useSelector(state => state.session.user);
   const dispatch = useDispatch();
+  console.log('session user:', sessionUser)
 
   let sessionLinks;
   if (sessionUser) {
@@ -29,7 +30,7 @@ function Navigation({ isLoaded }){
         <LoginFormModal className="session-link"/>
         <SignupFormModal className="session-link"/>
         <button onClick={handleDemoLogin} className="session-link">
-          Demo User Login
+          Demo User
         </button>
         {/* <NavLink to="/users">Sign Up</NavLink> */}
         {/* <NavLink to="/login">Log In</NavLink> */}
@@ -54,6 +55,7 @@ function Navigation({ isLoaded }){
           <NavLink className={`navlink`}  exact to= '/'> See all spots </NavLink>
         </div>
 
+        
         <li className= 'inside-nav-bar top-bar' >
           <NavLink exact to="/" className={`navlink`} style={{textDecoration:'none'}}>☰</NavLink>
           {isLoaded && sessionLinks}

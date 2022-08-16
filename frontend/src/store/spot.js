@@ -113,7 +113,6 @@ export const getSpots = () => async dispatch => {
         let spots = await response.json()
         let spotIdList = spots.spots.map(spot=> spot.id)
         for (let i = 0; i< spotIdList.length; i++){
-            // let spotId = i+1
             let realSpotId = spotIdList[i]
             let response2 = await fetch(`/api/spots/${realSpotId}/reviews`)
             // get avgStarRating for each /api/spots/:spotId
@@ -130,6 +129,7 @@ export const getSpots = () => async dispatch => {
                 spots.spots[i].avgStarRating = avgRating
             }
         }
+
 
 
         // let newSpots = {...spots}

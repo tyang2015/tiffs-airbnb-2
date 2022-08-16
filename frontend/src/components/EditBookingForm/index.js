@@ -1,10 +1,13 @@
 import BookingForm from "../BookingForm";
 import { useParams } from "react-router-dom";
-import React from "react"
+import React from "react";
+import {useDispatch, useSelector} from "react-redux"
 
-const EditBookingForm = ({bookings}) => {
+const EditBookingForm = () => {
     // bookings is an object
     const {bookingId} = useParams();
+    const dispatch = useDispatch();
+    const bookings = useSelector(state=> state.bookings);
     const booking = bookings[bookingId]
 
     // const spotObj = useSelector(state=>state.spots)
