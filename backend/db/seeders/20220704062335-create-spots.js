@@ -93,8 +93,8 @@ module.exports = {
     {
       ownerId: 4,
       address: 'washington road',
-      city: 'Washington DC',
-      state: 'District of Columbia',
+      city: 'Alexandria',
+      state: 'DC',
       country: 'United States',
       lat: 80.8954,
       lng: -100.2728,

@@ -1,3 +1,32 @@
+/* .profile-button-container{
+    background-color: green;
+    display:flex;
+    justify-content:
+} */
+
 .profile-button{
-    width:
+    padding: 0px;
+    /* height: fit-content;
+    width: fit-content; */
+    background-color: white;
+    border: none;
+    margin-left: 4px;
+
+}
+
+.profile-dropdown{
+    font-size:12px;
+    background-color: coral;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: start; */
+    list-style-type: none;
+    align-items: flex-start;
+    padding-left: 0px;
+    position: relative;
+    border: 2px solid black;
+    top: 55px;
+    right: 20px;
+    width: 90px;
+
 }

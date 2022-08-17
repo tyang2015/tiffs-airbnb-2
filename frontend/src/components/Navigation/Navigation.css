@@ -11,7 +11,7 @@ ul.top-nav-bar{
 }
 
 .top-right-nav-bar{
-    background-color: aqua;
+    /* background-color: aqua; */
     display:flex;
     justify-content: space-between;
     align-items: center;
@@ -43,32 +43,74 @@ div.airbnb-icon-container{
     /* justify-self: start; */
 }
 
-li.inside-nav-bar{
-    /* padding: 70px 0;
-    margin: auto 10px;
-    border: 1px solid rgba(177, 170, 170, 0.3);
-    border-radius: 30%;
-    height: 45px;
-    width: 95px;
-    text-align: center;
-    vertical-align: center;
-    padding: 10px */
-    align-items: center;
+.three-line-home-button{
+    /* "display: block; fill: none; height: 16px; width: 16px; stroke: currentcolor; stroke-width: 3; overflow: visible;" */
+    display: block;
+    fill: none;
+    height: 16px;
+    width: 16px;
+    stroke: currentcolor;
+    stroke-width: 3;
+    overflow: visible;
+}
+
+.inside-nav-bar{
     background-color: rgb(255, 255, 255);
     color: rgb(113, 113, 113);
     column-gap: 0.83vh;
     display: flex;
-    height: 4.34vh;
+    /* height: 4.34vh; */
+    height:38px;
     justify-content: center;
-    justify-self: flex-end;
+    align-items: center;
+    /* justify-self: flex-end; */
     margin-left: auto;
     width: 4.05vw;
+    /* width: 55px; */
     border-width: 1px;
     border-style: solid;
     border-color: rgb(235, 235, 235);
     border-image: initial;
-    border-radius: 2.17vh;
-    width: 40%;
+    border-radius: 30px;
+    width: 16%;
+
+    /* background-color: red; */
+
+
+    /* background-color: red;
+    padding: 5px 5px 5px 12px; */
+
+    /* background: transparent; */
+    /* cursor: pointer;
+    margin: 0;
+    text-align: inherit;
+    background-color: var(--f-mkcy-f);
+    border: 1px solid var(--j-qkgmf);
+    border-radius: 21px;
+    transition: box-shadow 0.2s ease; */
+
+
+    /* appearance: none;
+    border: 0;
+    color: inherit;
+    display: inline-block;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+    outline: 0;
+    overflow: visible;
+    padding: 0;
+    text-decoration: none;
+    user-select: auto;
+    outline: none;
+    align-items: center;
+    color: var(--f-k-smk-x);
+    display: inline-flex;
+    height: 42px;
+    position: relative;
+    vertical-align: middle;
+    z-index: 1; */
 }
 
 .feature-links{
@@ -83,4 +125,9 @@ li.inside-nav-bar{
     right: 55px;
 
 
+}
+
+.globe-icon{
+    /* background-color: green; */
+    margin-left: 38px;
 }
