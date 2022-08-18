@@ -4,10 +4,8 @@
 } */
 
 .main-container{
-    /* background-color: green; */
-    display: flex;
-    justify-content: center;
-    /* width:100%; */
+    /* display: flex;
+    justify-content: center; */
 }
 
 .spots-main-grid-container {
@@ -18,8 +16,11 @@
     /* grid-row-gap: 30px;
     /* justify-items: center; */
     width: 83vw;
+    margin: auto;
     /* background-color: aqua; */
     /* width: fit-content; */
+    position: relative;
+    z-index: -1;
 
 }
 
