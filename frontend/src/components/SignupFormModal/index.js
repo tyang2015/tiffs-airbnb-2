@@ -14,7 +14,7 @@ function SignupFormModal({setLoginModal, loginModal, signupModal, setSignupModal
     <>
     {/* changed here */}
       <button onClick={handleSignup} className='session-link'>Sign Up</button>
-      {showModal && !loginModal && (
+      {showModal && signupModal && (
         <Modal onClose={() => setShowModal(false)}>
           <SignupForm />
         </Modal>

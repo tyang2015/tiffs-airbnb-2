@@ -4,13 +4,13 @@ import * as sessionActions from '../../store/session';
 import "./ProfileButton.css"
 import LoginFormModal from "../LoginFormModal"
 import SignupFormModal from "../SignupFormModal";
-function ProfileButton({ user }) {
+function ProfileButton({ user, signupModal, setSignupModal, loginModal, setLoginModal}) {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
-  // added here
-  const [signupModal, setSignupModal] = useState(false)
-  const [loginModal, setLoginModal] = useState(false)
-  const [profileDropdown, setProfileDropdown] = useState(false)
+  // LIFT UP THE STATE TO NAVIGATION COMPONENT
+  // const [signupModal, setSignupModal] = useState(false)
+  // const [loginModal, setLoginModal] = useState(false)
+  // const [profileMenu, setProfileMenu] = useState(false)
 
   // added here:
   const handleDemoLogin = (e) => {
@@ -19,8 +19,8 @@ function ProfileButton({ user }) {
   }
 
   const openMenu = () => {
-    // added here
-    setProfileDropdown(true)
+    // setProfileDropdown(true)
+    // setProfileMenu(true)
 
     if (showMenu) return;
     setShowMenu(true);
@@ -44,20 +44,6 @@ function ProfileButton({ user }) {
     dispatch(sessionActions.logout());
   };
 
-  // const handleLoginClick = (e) =>{
-  //   setSignupModal(false)
-  //   setLoginModal(true)
-  //   console.log('inside loginclick handler:',loginModal)
-  //   return
-  // }
-
-  // const handleSignUpClick = (e)=>{
-  //   setSignupModal(true)
-  //   setLoginModal(false)
-  //   console.log('inside signup click handler:', signupModal )
-  //   return
-  // }
-
   return (
     <>
       <button className='profile-button' onClick={openMenu}>
@@ -67,17 +53,8 @@ function ProfileButton({ user }) {
         {showMenu && (
           <>
             <div style={{width:"100vw", height: "100vh", zIndex:"100", position: "absolute", top:"0"}} onClick={()=>{setShowMenu(false)}}/>
-            <ul className="profile-dropdown" style={{zIndex: "101"}}>
+            <ul id="menu" className="profile-dropdown" style={{zIndex: "101"}}>
               <li>{user? user.email: "welcome guest"}</li>
-
-              {/* <li>
-                <LoginFormModal className="session-link"/>
-              </li>
-              <li>
-                <SignupFormModal className="session-link"/>
-              </li> */}
-              {/* <h3>Log in</h3> */}
-              {/* <h3>Sign up</h3> */}
               {user? (
               <li>
                 <button onClick={logout}>Log Out</button>
@@ -85,21 +62,17 @@ function ProfileButton({ user }) {
               ) : (
                 <>
                   <li>
-                    {/* <button onClick={()=> setLoginModal(!loginModal)} className='session-link'>Log In</button>
-                    {loginModal && (<LoginFormModal className="session-link"/>)} */}
-                    <LoginFormModal className="session-link" setLoginModal={setLoginModal} loginModal={loginModal} setSignupModal={setSignupModal} signupModal={signupModal}/>
+                    <LoginFormModal setShowMenu={setShowMenu} showMenu={showMenu} trigger={showMenu} setTrigger= {setShowMenu} className="session-link" setLoginModal={setLoginModal} loginModal={loginModal} setSignupModal={setSignupModal} signupModal={signupModal}/>
                     {/* {loginModal && (<LoginFormModal className="session-link" setLoginModal={setLoginModal} loginModal={loginModal}/>)} */}
                   </li>
                   <li>
-                    {/* <button onClick={()=> setSignupModal(!signupModal)} className='session-link'>Sign Up</button>
-                    {signupModal && (<SignupFormModal className="session-link"/>)} */}
                     <SignupFormModal className="session-link" setSignupModal={setSignupModal} signupModal={signupModal} setLoginModal={setLoginModal} loginModal={loginModal}/>
                   </li>
                   <button onClick={handleDemoLogin} className="session-link">Demo User</button>
                 </>
               )}
             </ul>
-            </>
+          </>
         )}
     </>
   );

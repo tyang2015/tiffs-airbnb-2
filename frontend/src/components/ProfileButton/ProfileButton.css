@@ -15,7 +15,7 @@
 
 }
 
-.profile-dropdown{
+ul#menu.profile-dropdown{
     font-size:12px;
     background-color: coral;
     display: flex;
@@ -24,11 +24,12 @@
     align-items: flex-start;
     padding-left: 0px;
     position: relative;
-    border: 2px solid black;
+    /* border: 2px solid black; */
     top: 20px;
-    right: 40px;
+    /* right: 100px; */
     height: 200px;
-    position: relative;
     margin-right: auto;
+    width:1000px;
+
 
 }
