@@ -73,7 +73,8 @@ function Navigation({ isLoaded }){
           {isLoaded && sessionLinks}
         </li>
       </div>
-    </ul>
+
+
     // </>
   );
 }
