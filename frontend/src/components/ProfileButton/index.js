@@ -50,7 +50,7 @@ function ProfileButton({ user, signupModal, setSignupModal, loginModal, setLogin
       </button>
         {showMenu && (
           <>
-            <div style={{width:"100vw", height: "100vh", zIndex:"100", position: "absolute", top:"0"}} onClick={()=>{setShowMenu(false)}}/>
+            <div style={{width:"250%", height: "100vh", zIndex:"100", position: "absolute", top:"0"}} onClick={()=>{setShowMenu(false)}}/>
             <ul id="menu" className="profile-dropdown" style={{zIndex: "101"}}>
               <li>{user? user.email: "welcome guest"}</li>
               {user? (
