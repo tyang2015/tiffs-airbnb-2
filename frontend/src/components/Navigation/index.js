@@ -4,24 +4,46 @@ import { useSelector } from 'react-redux';
 import ProfileButton from '../ProfileButton';
 import './Navigation.css';
 import LoginFormModal from '../LoginFormModal';
+import SignupFormModal from '../SignupFormModal';
+import * as sessionActions from "../../store/session";
+import {useState, useEffect} from "react"
 
 function Navigation({ isLoaded }){
   const sessionUser = useSelector(state => state.session.user);
+  const dispatch = useDispatch();
+  // console.log('session user:', sessionUser)
+  const [signupModal, setSignupModal] = useState(false)
+  const [loginModal, setLoginModal] = useState(false)
 
-  let sessionLinks;
-  if (sessionUser) {
-    sessionLinks = (
-      <ProfileButton user={sessionUser} />
-    );
-  } else {
-    sessionLinks = (
-      <>
-        <LoginFormModal />
-        <NavLink to="/users">Sign Up</NavLink>
-        {/* <NavLink to="/login">Log In</NavLink> */}
-      </>
-    );
-  }
+  let sessionLinks = (
+    <ProfileButton user={sessionUser} setLoginModal={setLoginModal} setSignupModal={setSignupModal} signupModal={signupModal} loginModal={loginModal}/>
+  )
+
+  // let sessionLinks;
+  // if (sessionUser) {
+  //   sessionLinks = (
+  //     <ProfileButton user={sessionUser} isLoaded={isLoaded}/>
+
+  //   );
+  // } else {
+
+  //   const handleDemoLogin = (e) => {
+  //     dispatch(sessionActions.login({ email: "tiffanyang2015@gmail.com", password:"baludf"}));
+  //     return
+  //   }
+
+  //   sessionLinks = (
+  //     <>
+  //       <LoginFormModal className="session-link"/>
+  //       <SignupFormModal className="session-link"/>
+  //       <button onClick={handleDemoLogin} className="session-link">
+  //         Demo User
+  //       </button>
+  //       {/* <NavLink to="/users">Sign Up</NavLink> */}
+  //       {/* <NavLink to="/login">Log In</NavLink> */}
+  //     </>
+  //   );
+  // }
 
   return (
     <ul className='top-nav-bar'>
@@ -34,10 +56,13 @@ function Navigation({ isLoaded }){
       </div>
     {/* added above from spots index */}
 
-      <li className= 'inside-nav-bar top-bar'>
-        <NavLink exact to="/">Home</NavLink>
-        {isLoaded && sessionLinks}
-      </li>
+{/* changed inside-nav-bar to only contain the button NOT dropdown */}
+        <li className= 'inside-nav-bar top-bar' >
+            <NavLink exact to="/" className={`navlink`} style={{textDecoration:'none'}}>
+              <svg viewBox="0 0 32 32" className='three-line-home-button' xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" focusable="false" ><g fill="none" fill-rule="nonzero"><path d="m2 16h28"></path><path d="m2 24h28"></path><path d="m2 8h28"></path></g></svg>
+            </NavLink>
+          {isLoaded && sessionLinks}
+        </li>
     </ul>
   );
 }

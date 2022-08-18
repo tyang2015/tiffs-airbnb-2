@@ -1,0 +1,35 @@
+/* .profile-button-container{
+    background-color: green;
+    display:flex;
+    justify-content:
+} */
+
+.profile-button{
+    /* fixed the moving issue! set the button height equivalent to the height of nav container (with class .inside-nav-bar) */
+    padding: 0px;
+    background-color: green;
+    border: none;
+    margin-left: 4px;
+    /* height:38px; */
+    height: 100%;
+
+}
+
+ul#menu.profile-dropdown{
+    font-size:12px;
+    background-color: coral;
+    display: flex;
+    flex-direction: column;
+    list-style-type: none;
+    align-items: flex-start;
+    padding-left: 0px;
+    position: relative;
+    /* border: 2px solid black; */
+    top: 20px;
+    /* right: 100px; */
+    height: 200px;
+    margin-right: auto;
+    width:1000px;
+
+
+}
