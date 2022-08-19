@@ -72,6 +72,7 @@ function Navigation({ isLoaded }){
             </NavLink>
           {isLoaded && sessionLinks}
           {loginModal && (<LoginFormModal loginModal={loginModal} setLoginModal={setLoginModal}/>)}
+          {signupModal && (<SignupFormModal signupModal={signupModal} setSignupModal={setSignupModal}/>)}
         </li>
       </div>
 

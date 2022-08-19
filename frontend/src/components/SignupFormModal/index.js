@@ -4,21 +4,21 @@ import { Modal } from '../../context/Modal';
 import SignupForm from './SignupForm';
 
 function SignupFormModal({setLoginModal, loginModal, signupModal, setSignupModal}) {
-  const [showModal, setShowModal] = useState(false);
+  // const [showModal, setShowModal] = useState(false);
   const handleSignup = e => {
-    setShowModal(true)
+    // setShowModal(true)
     setSignupModal(true)
-    setLoginModal(false)
+    // setLoginModal(false)
   }
   return (
     <>
     {/* changed here */}
-      <button onClick={handleSignup} className='session-link'>Sign Up</button>
-      {showModal && signupModal && (
-        <Modal onClose={() => setShowModal(false)}>
+      {/* <button onClick={handleSignup} className='session-link'>Sign Up</button> */}
+      (
+        <Modal onClose={() => setSignupModal(false)}>
           <SignupForm />
         </Modal>
-      )}
+      )
     </>
   );
 }

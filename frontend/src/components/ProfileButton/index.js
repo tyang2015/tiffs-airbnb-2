@@ -48,6 +48,10 @@ function ProfileButton({ user, signupModal, setSignupModal, loginModal, setLogin
     setLoginModal(true)
     setShowMenu(false)
   }
+  const handleSignup = e =>{
+    setSignupModal(true)
+    setShowMenu(false)
+  }
 
   return (
     <>
@@ -69,12 +73,13 @@ function ProfileButton({ user, signupModal, setSignupModal, loginModal, setLogin
                 <>
                   <li>
                     <button onClick={handleLogin}>Log In</button>
+                    <button onClick={handleSignup}>Sign Up</button>
                     {/* <LoginFormModal setShowMenu={setShowMenu} showMenu={showMenu} trigger={showMenu} setTrigger= {setShowMenu} className="session-link" setLoginModal={setLoginModal} loginModal={loginModal} setSignupModal={setSignupModal} signupModal={signupModal}/> */}
                     {/* {loginModal && (<LoginFormModal className="session-link" setLoginModal={setLoginModal} loginModal={loginModal}/>)} */}
                   </li>
-                  <li>
+                  {/* <li>
                     <SignupFormModal className="session-link" setSignupModal={setSignupModal} signupModal={signupModal} setLoginModal={setLoginModal} loginModal={loginModal}/>
-                  </li>
+                  </li> */}
                   <button onClick={handleDemoLogin} className="session-link">Demo User</button>
                 </>
               )}
