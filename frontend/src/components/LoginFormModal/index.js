@@ -3,7 +3,7 @@ import { Modal } from '../../context/Modal';
 import LoginForm from './LoginForm';
 
 
-function LoginFormModal({setLoginModal, loginModal, signupModal, setSignupModal}) {
+function LoginFormModal({setLoginModal, loginModal}) {
   // const [showModal, setShowModal] = useState(false);
   const handleLogin = e =>{
     // setTrigger(false)
@@ -19,7 +19,7 @@ function LoginFormModal({setLoginModal, loginModal, signupModal, setSignupModal}
       {/* <button onClick={handleLogin} className='session-link'>Log In</button> */}
       (
         <Modal onClose={()=> setLoginModal(false)}>
-          <LoginForm />
+          <LoginForm setLoginModal={setLoginModal} loginModal={loginModal}/>
         </Modal>
       )
     </>

@@ -3,7 +3,7 @@ import * as sessionActions from "../../store/session";
 import { useDispatch } from "react-redux";
 import './LoginForm.css'
 
-function LoginForm() {
+function LoginForm({loginModal, setLoginModal}) {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -12,18 +12,34 @@ function LoginForm() {
   // added here
   const [hasSubmitted, setHasSubmitted] = useState(false)
 
-  const handleSubmit = (e) => {
+  const handleSubmit =  async (e) => {
     e.preventDefault();
+    // added here
+    // console.log('inside handle submit')
     setHasSubmitted(true)
     setErrors([]);
-    dispatch(sessionActions.login({ email, password })).catch(
+    let response =  dispatch(sessionActions.login({ email, password }))
+    .then(
+      setLoginModal(false)
+    )
+    .catch(
       async (res) => {
         const data = await res.json();
+        console.log('data:', data)
         if (data && data.errors) setErrors(data.errors);
+
       }
     );
-    setHasSubmitted(false)
-    return
+    // if (response.ok){
+    //   console.log('success login!')
+    //   setLoginModal(false)
+    //   // console.log('data from dispatch:', finalData)
+
+    // }
+
+    // setHasSubmitted(false)
+    // added here
+    // return () =>
   };
 
   return (
