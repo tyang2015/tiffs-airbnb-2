@@ -6,11 +6,7 @@ import LoginForm from './LoginForm';
 function LoginFormModal({setLoginModal, loginModal}) {
   // const [showModal, setShowModal] = useState(false);
   const handleLogin = e =>{
-    // setTrigger(false)
     setLoginModal(true)
-    // setShowModal(true)
-    // setSignupModal(false)
-    // setShowMenu(false)
     return
   }
 
