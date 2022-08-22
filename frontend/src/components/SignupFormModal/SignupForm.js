@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import './SignupForm.css'
 import { Redirect } from "react-router-dom";
 
-function SignupForm() {
+function SignupForm({setSignupModal}) {
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
   const [email, setEmail] = useState("");
@@ -24,6 +24,9 @@ function SignupForm() {
     if (password === confirmPassword) {
       setErrors([]);
       return dispatch(sessionActions.signup({ email, firstName, lastName, password }))
+        .then(
+          setSignupModal(false)
+        )
         .catch(async (res) => {
           const data = await res.json();
         //   console.log('data')

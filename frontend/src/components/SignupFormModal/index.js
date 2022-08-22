@@ -16,7 +16,7 @@ function SignupFormModal({setLoginModal, loginModal, signupModal, setSignupModal
       {/* <button onClick={handleSignup} className='session-link'>Sign Up</button> */}
       (
         <Modal onClose={() => setSignupModal(false)}>
-          <SignupForm />
+          <SignupForm setSignupModal={setSignupModal}/>
         </Modal>
       )
     </>
