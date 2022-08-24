@@ -24,8 +24,8 @@ const SpotBookings = ()=>{
     //     dispatch(getBookings())
     // }, [dispatch])
 
-    let allBookings;
-    let bookingsForSpot;
+    // let allBookings;
+    // let bookingsForSpot;
     // let firstBooking;
     // if (bookings){
     //     allBookings = Object.values(bookings)
@@ -36,7 +36,10 @@ const SpotBookings = ()=>{
     console.log('bookings in spot bookings:', bookings)
     return (
         <>
-            {bookings.length>0? (
+            {!sessionUser && (
+                <h2>Please login to see spot booking information</h2>
+            )}
+            {bookings.length>0 && (
                 <>
                     <div className= 'spot-bookings-title-container'>
                         <i class="fa-solid fa-house"></i>
@@ -59,14 +62,15 @@ const SpotBookings = ()=>{
                             )))}
                         </div>
                     </div>
-                </>) : (
-                    <>
-                        <h2> This spot has not been booked yet </h2>
-                        {sessionUser && spot && sessionUser.id!=spot.ownerId && (
-                            <NavLink exact to={`/spots/${spotId}/bookings/new`}> Click here to book </NavLink>
-                        )}
-                    </>
-                    )
+                </>
+            )}
+            {bookings.length==0 && sessionUser &&
+                (<>
+                    <h2> This spot has not been booked yet </h2>
+                    {sessionUser && spot && sessionUser.id!=spot.ownerId && (
+                        <NavLink exact to={`/spots/${spotId}/bookings/new`}> Click here to book </NavLink>
+                    )}
+                </>)
             }
         </>
     )

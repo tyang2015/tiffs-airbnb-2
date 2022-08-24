@@ -11,7 +11,8 @@ const GetSpot = ({spots}) => {
     const {spotId} = useParams();
     const dispatch = useDispatch();
     // const history = useHistory();
-
+    console.log('spot id in getspot:', spotId)
+    console.log('spots in getspot:', spots)
 
 
     let numReviews;
@@ -19,15 +20,15 @@ const GetSpot = ({spots}) => {
     const [showAddressMenu, setShowAddressMenu] = useState(false)
 
     const spot = spots[spotId]
-
-    if (spot && spot.reviews){
-        let reviews = Object.values(spot.reviews)
-        numReviews= reviews.length
-        console.log("number of reviews:", numReviews)
+    console.log('keyed in spot:', spot)
+    if (spot && spot.Reviews.length>0){
+        // let reviews = Object.values(spot.reviews)
+        numReviews= spot.Reviews.length
     }
-    else {
-        numReviews = 'New'
-    }
+    // else {
+    //     numReviews = 'New'
+    // }
+    console.log('number reviews:', numReviews)
     const deleteHandle = async (e) => {
         if (!sessionUser){
             alert('please login to delete spot')
@@ -69,10 +70,14 @@ const GetSpot = ({spots}) => {
                             <div className='spot-top-container-bottom-half'>
                                 <div className='star-rating-container-top spot-detail-item-top'>
                                     <i class="fa-solid fa-star"></i>
-                                    <p>{spot.avgStarRating} •</p>
+                                    <p>{spot.avgStarRating==='NaN'? "New": spot.avgStarRating} •</p>
                                 </div>
                                 <div className='reviews-container-top spot-detail-item-top'>
-                                    <p> {numReviews} reviews •</p>
+                                    {numReviews? (
+                                        <p> {numReviews} reviews •</p>
+                                    ) : (
+                                        <p> No reviews •</p>
+                                    )}
                                 </div>
                                 <div className= 'city-state-country-container-top spot-detail-item-top'>
                                     <p>{spot.city}, {spot.state}, {spot.country}</p>
@@ -96,12 +101,6 @@ const GetSpot = ({spots}) => {
                             </div>
                             <div className="spot-bottom-half-info-container">
                                 <div className="spot-left-text-container">
-                                    {/* <div className='spot-detail' >
-                                        <div className= 'spot-detail-icon-container'>
-                                            <i class="fa-solid fa-house"></i>
-                                        </div>
-                                        <p className='spot-detail-item-description'> Name: {spot.name}</p>
-                                    </div> */}
                                     <h2 className='spot-owner-intro-container'> Entire home hosted by Owner {spot.ownerId}</h2>
                                     <div className='spot-detail first'>
                                         <div className= 'spot-detail-icon-container'>
@@ -147,7 +146,7 @@ const GetSpot = ({spots}) => {
                                             <div className="star-rating-reviews-container">
                                                 <div className="star-rating-container">
                                                     <i class="fa-solid fa-star"></i>
-                                                    <p> {spot.avgStarRating} •</p>
+                                                    <p> {spot.avgStarRating==='NaN'? "New": spot.avgStarRating} •</p>
                                                 </div>
                                                 <div className='reviews-container'>
                                                     <p> {numReviews} reviews </p>
@@ -177,7 +176,9 @@ const GetSpot = ({spots}) => {
                                 </div>
                             </div>
                             <div className='spot-footer-container'>
-                                <button onClick={deleteHandle} className="spot-footer-button navlink"> Delete Spot </button>
+                                {sessionUser && (
+                                    <button onClick={deleteHandle} className="spot-footer-button navlink"> Delete Spot </button>
+                                )}
                                 {sessionUser && sessionUser.id!= spot.ownerId && (
                                     <button className="spot-footer-button" >
                                         <NavLink className="navlink" exact to={`/spots/${spotId}/bookings/new`}>
@@ -185,11 +186,13 @@ const GetSpot = ({spots}) => {
                                         </NavLink>
                                     </button>
                                 )}
-                                <button className="spot-footer-button">
-                                    <NavLink className="navlink" exact to={`/spots/${spotId}/bookings`}>
-                                        Check bookings for spot
-                                    </NavLink>
-                                </button>
+                                {sessionUser && (
+                                    <button className="spot-footer-button">
+                                        <NavLink className="navlink" exact to={`/spots/${spotId}/bookings`}>
+                                            Check bookings for spot
+                                        </NavLink>
+                                    </button>
+                                )}
                                 {sessionUser && (
                                     <button className="spot-footer-button">
                                         <NavLink className="navlink" exact to={`/spots/${spotId}/edit`}>
