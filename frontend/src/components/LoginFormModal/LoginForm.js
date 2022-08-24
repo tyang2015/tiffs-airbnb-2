@@ -25,8 +25,9 @@ function LoginForm({loginModal, setLoginModal}) {
     .catch(
       async (res) => {
         const data = await res.json();
-        // console.log('data:', data)
+        console.log('data:', data)
         if (data && data.errors) setErrors(data.errors);
+        // console.log
 
       }
     );
@@ -37,9 +38,6 @@ function LoginForm({loginModal, setLoginModal}) {
 
     // }
 
-    // setHasSubmitted(false)
-    // added here
-    // return () =>
   };
 
   return (
@@ -47,11 +45,23 @@ function LoginForm({loginModal, setLoginModal}) {
       <form onSubmit={handleSubmit}>
         <div className="parent-main-container-before-form">
           <h2> Welcome to Tiff's Airbnb </h2>
-          <ul className='validation-errors'>
-            {errors.map((error, idx) => (
-              <li key={idx}>{error}</li>
-            ))}
-          </ul>
+          {errors.length>0 && hasSubmitted && (
+            <div>
+            The following errors were found:
+            <ul className='validation-errors'>
+              {errors.map((error) => (
+                <li key={error}>{error}</li>
+              ))}
+            </ul>
+          </div>
+          )}
+          {/* <ul className='validation-errors'>
+            {errors.length>0 && (
+              errors.map((error, idx) => (
+                <li key={idx}>{error}</li>
+              ))
+            )}
+          </ul> */}
           <div className="login-main-container" >
             <div className={`login-email-container form-group first`}>
                 <input
