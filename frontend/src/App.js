@@ -67,7 +67,7 @@ function App() {
         <Route exact path= "/spots/bookings/:bookingId">
           <EditBookingForm spots={spots}/>
         </Route>
-        <Route exact path= "/spots/:spotId/bookings">
+        <Route exact path= "/spots/:spotId/bookings" spots={spots}>
           <SpotBookings/>
         </Route>
         <Route>

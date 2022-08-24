@@ -7,9 +7,19 @@ const DELETE_BOOKING= 'bookings/deleteBooking';
 // ADDED HERE
 const RESET_BOOKINGS = 'bookings/resetBookings'
 
+// added here
+const GET_SPOT_BOOKINGS = 'bookings/getSpotBookings';
+
 const load = (payload) => {
     return {
         type: GET_BOOKINGS,
+        payload
+    }
+}
+
+const loadSpotBookings = (payload)=>{
+    return {
+        type: GET_SPOT_BOOKINGS,
         payload
     }
 }
@@ -49,6 +59,15 @@ export const getBookings = () => async dispatch => {
         let bookings = await response.json()
         // console.log('bookings in thunk:', bookings)
         dispatch(load(bookings))
+    }
+}
+
+// ADDED HERE
+export const getSpotBookings =(spotId)=> async dispatch => {
+    const response = await csrfFetch(`/api/spots/${spotId}/bookings`)
+    if (response.ok){
+        let bookings = await response.json()
+        dispatch(loadSpotBookings(bookings))
     }
 }
 
@@ -104,6 +123,11 @@ const bookingReducer = (state= {}, action) => {
             let newState = {}
             action.payload.bookings.forEach(booking=> newState[booking.id]= booking)
             // console.log('new State:', newState)
+            return newState
+        }
+        case GET_SPOT_BOOKINGS: {
+            let newState = {}
+            action.payload.bookings.forEach(booking=> newState[booking.id]=booking)
             return newState
         }
         case CREATE_BOOKING:{

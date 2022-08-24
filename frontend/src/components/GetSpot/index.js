@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {deleteSpot } from "../../store/spot";
 import { resetBookings } from "../../store/booking";
 import './GetSpot.css'
-import SpotBookings from "../SpotBookings";
+// import SpotBookings from "../SpotBookings";
 
 // you can key in spots, no need for reducer
 const GetSpot = ({spots}) => {
@@ -178,11 +178,13 @@ const GetSpot = ({spots}) => {
                             </div>
                             <div className='spot-footer-container'>
                                 <button onClick={deleteHandle} className="spot-footer-button navlink"> Delete Spot </button>
-                                <button className="spot-footer-button" >
-                                    <NavLink className="navlink" exact to={`/spots/${spotId}/bookings/new`}>
-                                        Click here to book
-                                    </NavLink>
-                                </button>
+                                {sessionUser && sessionUser.id!= spot.ownerId && (
+                                    <button className="spot-footer-button" >
+                                        <NavLink className="navlink" exact to={`/spots/${spotId}/bookings/new`}>
+                                            Click here to book
+                                        </NavLink>
+                                    </button>
+                                )}
                                 <button className="spot-footer-button">
                                     <NavLink className="navlink" exact to={`/spots/${spotId}/bookings`}>
                                         Check bookings for spot

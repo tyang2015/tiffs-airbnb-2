@@ -381,9 +381,9 @@ router.post('/:spotId/bookings', requireAuth, validateBooking, async(req,res,nex
 // get bookings booked by user for a given spot
 router.get('/:spotId/bookings', requireAuth, async(req, res, next)=>{
     let bookings = await Booking.findAll({
-      include: [{model: Spot}, {model:User, attributes:
+      include: [{model: Spot, attributes: ['previewImage', 'ownerId']}, {model:User, attributes:
          {exclude: ['email', 'hashedPassword', 'createdAt', 'updatedAt']}}],
-      where: {userId: req.user.id, spotId: req.params.spotId}
+      where: {spotId: req.params.spotId}
     });
 
     if (!bookings.length){
@@ -394,24 +394,24 @@ router.get('/:spotId/bookings', requireAuth, async(req, res, next)=>{
         })
     }
     // if im checking the bookings for my own place
-    for (let i = 0; i<bookings.length; i++){
-      let booking = bookings[i].toJSON()
-      if (booking.Spot.ownerId === req.user.id){
-        // console.log('owner is true')
-        delete booking.Spot
-      }
-      else {
-        // booking a different place
-        delete booking.Spot
-        delete booking.User
-        for (key in booking){
-          if (key!='spotId' && key!='startDate' && key!= 'endDate'){
-            delete booking[key]
-          }
-        }
-      }
-      bookings[i] = booking
-    }
+    // for (let i = 0; i<bookings.length; i++){
+    //   let booking = bookings[i].toJSON()
+    //   if (booking.Spot.ownerId === req.user.id){
+    //     // console.log('owner is true')
+    //     delete booking.Spot
+    //   }
+    //   else {
+    //     // booking a different place
+    //     delete booking.Spot
+    //     delete booking.User
+    //     for (key in booking){
+    //       if (key!='spotId' && key!='startDate' && key!= 'endDate'){
+    //         delete booking[key]
+    //       }
+    //     }
+    //   }
+    //   bookings[i] = booking
+    // }
 
     res.json({bookings})
   })
