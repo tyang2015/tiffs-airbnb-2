@@ -16,8 +16,11 @@ const GetSpot = ({spots}) => {
     const [showAddressMenu, setShowAddressMenu] = useState(false)
 
     const spot = spots[spotId]
-    console.log('keyed in spot:', spot)
-    if (spot && spot.Reviews.length>0){
+    console.log('spot in GetSpot:', spot)
+    if (!spot || !spot.Reviews){
+        console.log('waiting for spot')
+    }
+    else if (spot && spot.Reviews.length>0){
         numReviews= spot.Reviews.length
     }
     // else {
