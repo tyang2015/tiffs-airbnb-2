@@ -10,10 +10,6 @@ import './GetSpot.css'
 const GetSpot = ({spots}) => {
     const {spotId} = useParams();
     const dispatch = useDispatch();
-    // const history = useHistory();
-    console.log('spot id in getspot:', spotId)
-    console.log('spots in getspot:', spots)
-
 
     let numReviews;
     const sessionUser = useSelector(state => state.session.user);
@@ -22,7 +18,6 @@ const GetSpot = ({spots}) => {
     const spot = spots[spotId]
     console.log('keyed in spot:', spot)
     if (spot && spot.Reviews.length>0){
-        // let reviews = Object.values(spot.reviews)
         numReviews= spot.Reviews.length
     }
     // else {
@@ -39,7 +34,7 @@ const GetSpot = ({spots}) => {
             // changed here-- removed await. should handle cascade delete
             // ADDED HERE per dan's suggestion
             dispatch(deleteSpot(spotId))
-            dispatch(resetBookings())
+            // dispatch(resetBookings())
             alert('successfully deleted!')
             // history.push('/spots')
         }

@@ -35,6 +35,11 @@
     margin: auto 10px
 }
 
-.spot-bookings-images-container{
+.spot-bookings-images-outer-container{
     display:flex;
+    justify-content: center;
+}
+
+.spot-images-container{
+    height:300px;
 }

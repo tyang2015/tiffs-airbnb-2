@@ -1,6 +1,6 @@
 import {useDispatch, useSelector} from 'react-redux'
 import {useState, useEffect} from 'react'
-import { getBookings } from '../../store/booking'
+import { getBookings, resetBookings } from '../../store/booking'
 import { useParams } from 'react-router-dom'
 import React from 'react'
 import {NavLink} from 'react-router-dom'
@@ -18,6 +18,7 @@ const SpotBookings = ()=>{
     const firstBooking = bookings[0]
     useEffect(()=>{
         dispatch(getSpotBookings(Number(spotId)))
+        return ()=> dispatch(resetBookings())
     }, [dispatch])
     // below is user's bookings
     // useEffect(()=> {
@@ -46,10 +47,21 @@ const SpotBookings = ()=>{
                         <h2> Bookings for: {firstBooking && (firstBooking.Spot.name)} </h2>
                     </div>
                     <div>
-                        <div className={`spot-bookings-images-container`}>
-                            {firstBooking && (<img src={`${firstBooking.Spot.previewImage}`} />)}
-                            {firstBooking && (<img src={`${firstBooking.Spot.previewImage}`} />)}
-                            {firstBooking && (<img src={`${firstBooking.Spot.previewImage}`} />)}
+                        <div className={`spot-bookings-images-outer-container`}>
+                            {!firstBooking? (
+                                <div className='spot-images-container'>
+                                    <img alt='new-spot-image'/>
+                                    <img alt='new-spot-image'/>
+                                    <img alt='new-spot-image'/>
+                                </div>
+                            ):(
+                                <div className='spot-images-container'>
+                                   <img src={`${firstBooking.Spot.previewImage}`} />
+                                    <img src={`${firstBooking.Spot.previewImage}`} />
+                                    <img src={`${firstBooking.Spot.previewImage}`} />
+                                </div>
+
+                            )}
                         </div>
                         <div className='spot-bookings-grid-container'>
                             {bookings.length>0 && (bookings.map(booking=> (

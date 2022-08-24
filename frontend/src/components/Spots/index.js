@@ -59,7 +59,7 @@ const Spots = ({spots}) =>{
                                     <div className='spot-bottom-text-container'>
                                         <div className='spot-top-half-text-container'>
                                             <h3> {spot.city}, {spot.state}</h3>
-                                            <p>⭐ <span>{spot.avgStarRating==="NaN"? "New" : spot.avgStarRating}</span></p>
+                                            <p>⭐ <span>{spot.avgStarRating==="NaN" || !spot.avgStarRating? "New" : spot.avgStarRating}</span></p>
                                         </div>
                                         <div className= 'spot-bottom-half-text-container'>
                                             <p> <b>${spot.price}</b> night</p>
