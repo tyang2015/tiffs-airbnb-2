@@ -13,10 +13,9 @@
     grid-template-columns: repeat(5, 20%);
     grid-template-rows: repeat(auto-fill);
     grid-column-gap: 5px;
-    /* grid-row-gap: 30px;
+   /* \grid-row-gap: 30px; */
     width: 83vw;
-    margin: auto;
-    /* background-color: aqua; */
+    margin: 60px auto;
     /* width: fit-content; */
     position: relative;
     /* z-index: -1; */

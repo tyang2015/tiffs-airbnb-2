@@ -5,7 +5,6 @@ ul.top-nav-bar{
     display: flex;
     justify-content:space-between;
     position:relative;
-    border-bottom: 1px solid rgba(177, 170, 170, 0.3);
     align-items: center;
     /* background-color: coral; */
     width: 83vw;
