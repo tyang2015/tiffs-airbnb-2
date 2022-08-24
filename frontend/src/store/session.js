@@ -1,8 +1,13 @@
 import { csrfFetch } from "./csrf"
 
-
+// my old state should not appear and be quickly repopulated with new user data
 const SET_USER = 'user/setUser'
 const REMOVE_USER = 'user/removeUser'
+
+// added here
+// if you have reset bookings in both reducers
+const RESET_BOOKINGS_LOGOUT = 'bookings/resetBookingsLogout'
+
 
 
 const setUser = (user) =>{
@@ -16,6 +21,13 @@ const removeUser =() => {
     return {
         type: REMOVE_USER,
     }
+}
+
+const reset = (payload) => {
+  return {
+      type: RESET_BOOKINGS_LOGOUT,
+      payload
+  }
 }
 
 // thunk creator function for login
@@ -50,9 +62,6 @@ export const login = (user) => async (dispatch) => {
       }),
     });
     const data = await response.json();
-    // CHANGED HERE
-    // console.log('data from signup:', data)
-    
     dispatch(setUser(data));
     return response;
   };
@@ -65,6 +74,16 @@ export const logout = () => async (dispatch) => {
   dispatch(removeUser());
   return response;
 };
+
+// // when i logout,i should clear out the bookings data
+// export const resetBookingsLogOut = () => async dispatch => {
+//   const response = await csrfFetch(`/api/users/bookings`)
+//   if (response.ok){
+//       let bookings = await response.json()
+//       dispatch(reset(bookings))
+//   }
+// }
+
 
 //   last part in phase 1
 export const restoreUser = () => async dispatch => {
@@ -81,15 +100,26 @@ const sessionReducer = (state=initialState, action ) =>{
     let newState;
     switch (action.type){
         case SET_USER:{
+          // how to get my new data to populate automatically?
             newState = {...state}
+            // newState={}
             newState.user = action.payload
             return newState
         }
         case REMOVE_USER:{
-            newState = {...state}
+            // newState = {...state}
+            // SHOULD I CLEAR OUT BOOKINGS? =>
+            // include case inside the store BOOKINGS reducer for REMOVE_USER?
+            // can the dispatch trigger both bookings and session reducers?
+            newState={}
             newState.user = null
             return newState
         }
+        // case RESET_BOOKINGS_LOGOUT:{
+        //   let newState = {}
+        //   action.payload.bookings.forEach(booking=> newState[booking.id]= booking)
+        //   return newState
+        // }
         default:
             return state
     }

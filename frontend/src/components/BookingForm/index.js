@@ -9,6 +9,7 @@ import './BookingForm.css'
 const BookingForm = ({bookings, formType, booking})=> {
   // it will be valid or undefined bc edit form does not have spotId in url
   // that is ok
+
     const {spotId, bookingId} = useParams();
     const sessionUser = useSelector(state => state.session.user);
 
@@ -96,6 +97,7 @@ const BookingForm = ({bookings, formType, booking})=> {
           startDate,
           endDate
         }
+        console.log('booking...:',booking)
 
         if (formType==='Create Booking'){
           let bookingCreated = dispatch(createBooking(spotId, booking))

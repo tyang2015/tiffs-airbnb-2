@@ -4,14 +4,12 @@ import * as sessionActions from '../../store/session';
 import "./ProfileButton.css"
 import LoginFormModal from "../LoginFormModal"
 import SignupFormModal from "../SignupFormModal";
+import {NavLink} from "react-router-dom"
+import { resetBookings } from "../../store/booking";
+
 function ProfileButton({ user, signupModal, setSignupModal, loginModal, setLoginModal}) {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
-  // LIFT UP THE STATE TO NAVIGATION COMPONENT
-  // const [signupModal, setSignupModal] = useState(false)
-  // const [loginModal, setLoginModal] = useState(false)
-  // const [profileMenu, setProfileMenu] = useState(false)
-
   // added here:
   const handleDemoLogin = (e) => {
     dispatch(sessionActions.login({ email: "tiffanyang2015@gmail.com", password:"baludf"}));
@@ -42,6 +40,9 @@ function ProfileButton({ user, signupModal, setSignupModal, loginModal, setLogin
   const logout = (e) => {
     e.preventDefault();
     dispatch(sessionActions.logout());
+    // added here per dan's suggestion
+    dispatch(resetBookings())
+    // dispatch(sessionActions.resetBookingsLogOut())
   };
 
   const handleLogin = e =>{
@@ -64,23 +65,27 @@ function ProfileButton({ user, signupModal, setSignupModal, loginModal, setLogin
             <div style={{width:"250%", height: "100vh", zIndex:"100", position: "absolute", top:"0"}} onClick={()=>{setShowMenu(false)}}/>
 
             <ul id="menu" className="profile-dropdown" style={{zIndex: "101"}}>
-              <li>{user? user.email: "welcome guest"}</li>
               {user? (
-              <li>
-                <button onClick={logout}>Log Out</button>
-              </li>
-              ) : (
+                 <>
+                 <div className="user-profile-main-container">
+                   <p className='top-item-profile-dropdown'>{user.email}</p>
+                   <div className='user-session-nav-links'>
+                     <button className="item-profile-dropdown user">
+                       <NavLink className='navlink' exact to='/spots/new'> Create a spot </NavLink>
+                     </button>
+                     <button className="item-profile-dropdown user">
+                       <NavLink className='navlink' exact to='/users/bookings'> View your bookings </NavLink>
+                     </button>
+                     <button className="item-profile-dropdown user last-item" onClick={logout}>Log Out</button>
+                   </div>
+                 </div>
+               </>
+              ) :(
                 <>
-                  <li>
-                    <button onClick={handleLogin}>Log In</button>
-                    <button onClick={handleSignup}>Sign Up</button>
-                    {/* <LoginFormModal setShowMenu={setShowMenu} showMenu={showMenu} trigger={showMenu} setTrigger= {setShowMenu} className="session-link" setLoginModal={setLoginModal} loginModal={loginModal} setSignupModal={setSignupModal} signupModal={signupModal}/> */}
-                    {/* {loginModal && (<LoginFormModal className="session-link" setLoginModal={setLoginModal} loginModal={loginModal}/>)} */}
-                  </li>
-                  {/* <li>
-                    <SignupFormModal className="session-link" setSignupModal={setSignupModal} signupModal={signupModal} setLoginModal={setLoginModal} loginModal={loginModal}/>
-                  </li> */}
-                  <button onClick={handleDemoLogin} className="session-link">Demo User</button>
+                  <p className='top-item-profile-dropdown'>welcome guest</p>
+                  <button className="item-profile-dropdown" onClick={handleLogin}>Log In</button>
+                  <button className="item-profile-dropdown" onClick={handleSignup}>Sign Up</button>
+                  <button className="item-profile-dropdown" onClick={handleDemoLogin}>Demo User</button>
                 </>
               )}
             </ul>

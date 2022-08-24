@@ -2,6 +2,7 @@ import { useParams, useHistory, NavLink } from "react-router-dom"
 import React,{useState, useEffect} from "react"
 import { useDispatch, useSelector } from "react-redux";
 import {deleteSpot } from "../../store/spot";
+import { resetBookings } from "../../store/booking";
 import './GetSpot.css'
 import SpotBookings from "../SpotBookings";
 
@@ -35,7 +36,9 @@ const GetSpot = ({spots}) => {
             alert('You do not have permission to delete spot')
         } else {
             // changed here-- removed await. should handle cascade delete
-            await dispatch(deleteSpot(spotId))
+            // ADDED HERE per dan's suggestion
+            dispatch(deleteSpot(spotId))
+            dispatch(resetBookings())
             alert('successfully deleted!')
             // history.push('/spots')
         }
@@ -53,9 +56,6 @@ const GetSpot = ({spots}) => {
         showAddressMenu === true? setShowAddressMenu(false): setShowAddressMenu(true)
         // setShowAddressMenu(true)
     }
-    // useEffect(()=>{
-    //     set
-    // }, [showLngMenu])
 
     return (
         <>

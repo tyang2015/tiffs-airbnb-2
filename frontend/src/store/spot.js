@@ -111,44 +111,6 @@ export const getSpots = () => async dispatch => {
     const response = await fetch('/api/spots');
     if (response.ok){
         let spots = await response.json()
-        let spotIdList = spots.spots.map(spot=> spot.id)
-        for (let i = 0; i< spotIdList.length; i++){
-            let realSpotId = spotIdList[i]
-            let response2 = await fetch(`/api/spots/${realSpotId}/reviews`)
-            // get avgStarRating for each /api/spots/:spotId
-            let response3 = await fetch(`/api/spots/${realSpotId}`)
-            if (response2.ok && response3.ok) {
-                let reviewsObj = await response2.json()
-                let spotDetailsObj = await response3.json()
-                let avgRating = spotDetailsObj.avgStarRating
-                // spots.spots[i].reviews = reviewsObj.reviews
-                spots.spots[i].reviews ={}
-                reviewsObj.reviews.forEach(review=> {
-                    spots.spots[i].reviews[review.id] = review
-                })
-                spots.spots[i].avgStarRating = avgRating
-            }
-        }
-
-
-
-        // let newSpots = {...spots}
-        // let scores = []
-        // let numReviews = []
-        // for (let i=0; spots.spots.length; i++){
-        //     newSpots.spots[i].reviews = {}
-        //     numReviews.push(spots.spots[i].Reviews.length)
-        //     scores[i]=0
-        //     for (let j=0; spots.spots[i].Reviews.length; j++){
-        //         let review = spots.spots[i].Reviews[j]
-        //         if (review){
-        //             newSpots.spots[i].reviews[review.id] = review
-        //             scores[i]= scores[i]+ spots.spots[i].Reviews[j].stars
-        //         }
-        //     }
-        //     newSpots[i].avgStarRating = (scores[i]/numReviews[i]).toFixed(2)
-        // }
-        // dispatch(load(newSpots))
         dispatch(load(spots));
     }
 }
