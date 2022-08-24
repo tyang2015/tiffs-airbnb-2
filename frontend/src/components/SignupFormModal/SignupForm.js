@@ -24,7 +24,7 @@ function SignupForm({setSignupModal}) {
     if (password === confirmPassword) {
       setErrors([]);
       return dispatch(sessionActions.signup({ email, firstName, lastName, password }))
-        .then(
+        .then(()=>
           setSignupModal(false)
         )
         .catch(async (res) => {
