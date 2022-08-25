@@ -1,25 +1,34 @@
 .user-bookings-grid-container{
     display: grid;
-    grid-template-columns: repeat(4, 20%);
+    grid-template-columns: repeat(4, 22.75%);
     grid-template-rows: repeat(auto-fill);
-    grid-column-gap: 3.5%;
-    grid-row-gap: 3.5%;
+    grid-column-gap: 3%;
+    grid-row-gap: 5%;
+    /* background-color: coral; */
+    width:75vw;
+    height: 100%;
+    margin:auto;
+    /* margin-left: 0px; */
 }
 
 .user-booking-card{
     display:flex;
     /* background-color: aqua; */
-    height: 300px;
+    height: 260px;
     border-radius:50px;
     border: 2px solid rgba(177, 170, 170, 0.3);
     text-align:center;
-    width: 20vw;
+    /* width: 100%; */
     /* width:fit-content */
 }
 
 /* image container */
+/* should be same height as each card */
 .user-bookings{
     width:100%;
+    /* background-color: #0000ff; */
+    /* height:280px; */
+    height:100%
 }
 
 img.user-booking-img{
@@ -42,4 +51,14 @@ img.user-booking-img{
     display:flex;
     justify-content: center;
     align-items: center;
+}
+
+.user-bookings-main-container{
+    /* background-color: green; */
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* margin-top:100px auto; */
+    /* margin- */
 }
