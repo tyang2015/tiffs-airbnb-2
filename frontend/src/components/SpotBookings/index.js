@@ -16,6 +16,7 @@ const SpotBookings = ()=>{
     const spot = useSelector(state=> state.spots[spotId])
     const bookings = useSelector(state => Object.values(state.bookings))
     const firstBooking = bookings[0]
+
     useEffect(()=>{
         dispatch(getSpotBookings(Number(spotId)))
         return ()=> dispatch(resetBookings())

@@ -2,7 +2,7 @@ import React from "react"
 import {useDispatch, useSelector} from "react-redux"
 import BookingForm from "../BookingForm"
 import {useParams} from 'react-router-dom'
-import { getBookings } from "../../store/booking";
+import { getBookings, getSpotBookings } from "../../store/booking";
 import { useEffect } from "react";
 
 
@@ -11,8 +11,13 @@ const CreateBookingForm = ({spots}) => {
   const dispatch = useDispatch();
   const bookings = useSelector(state=>state.bookings)
 
+  // this is for users!
+  // useEffect(()=>{
+  // dispatch(getBookings())
+  // }, [dispatch])
+
   useEffect(()=>{
-  dispatch(getBookings())
+    dispatch(getSpotBookings(Number(spotId)))
   }, [dispatch])
 
   const booking = {
