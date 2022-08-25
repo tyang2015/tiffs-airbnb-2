@@ -56,6 +56,7 @@ ul#menu.profile-dropdown{
     margin-bottom:10px;
     text-align: left;
     text-decoration: none;
+    /* cursor:pointer; */
 
 }
 
@@ -85,4 +86,5 @@ ul#menu.profile-dropdown{
     margin-bottom:15px;
     text-align: left;
     text-decoration: none;
+    cursor: pointer;
 }

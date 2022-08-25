@@ -44,6 +44,16 @@ div.airbnb-icon-container{
     /* IMPORTANT: changing to absolute also affects the sibling elements! (navlinks) */
 }
 
+.airbnb-main-logo-link-container{
+    display: flex;
+    /* background-color: green; */
+    height: 60px;
+    font-size:15px;
+    width: fit-content;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .three-line-home-button{
     /* "display: block; fill: none; height: 16px; width: 16px; stroke: currentcolor; stroke-width: 3; overflow: visible;" */
     display: block;
