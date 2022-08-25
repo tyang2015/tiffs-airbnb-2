@@ -50,16 +50,16 @@ const SpotBookings = ()=>{
                     <div>
                         <div className={`spot-bookings-images-outer-container`}>
                             {!firstBooking? (
-                                <div className='spot-images-container'>
-                                    <img alt='new-spot-image'/>
-                                    <img alt='new-spot-image'/>
-                                    <img alt='new-spot-image'/>
+                                <div className='spot-bookings-images-container'>
+                                    <img className="spot-bookings-image" alt='new-spot-image'/>
+                                    <img className="spot-bookings-image" alt='new-spot-image'/>
+                                    <img className="spot-bookings-image" alt='new-spot-image'/>
                                 </div>
                             ):(
-                                <div className='spot-images-container'>
-                                   <img src={`${firstBooking.Spot.previewImage}`} />
-                                    <img src={`${firstBooking.Spot.previewImage}`} />
-                                    <img src={`${firstBooking.Spot.previewImage}`} />
+                                <div className='spot-bookings-images-container'>
+                                   <img className="spot-bookings-image" src={`${firstBooking.Spot.previewImage}`} />
+                                    <img className="spot-bookings-image" src={`${firstBooking.Spot.previewImage}`} />
+                                    <img className="spot-bookings-image" src={`${firstBooking.Spot.previewImage}`} />
                                 </div>
 
                             )}

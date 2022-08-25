@@ -38,8 +38,19 @@
 .spot-bookings-images-outer-container{
     display:flex;
     justify-content: center;
+    height:300px;
+    /* background-color: green; */
+    /* flex-direction: row;
+    flex-wrap: row wrap; */
+
 }
 
-.spot-images-container{
-    height:300px;
+.spots-bookings-images-container{
+    background-color: palegreen;
+    border: 200px red solid;
+}
+
+.spot-bookings-image{
+/* height: 25vh; */
+width:25vw;
 }
