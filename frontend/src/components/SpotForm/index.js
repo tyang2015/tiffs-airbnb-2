@@ -17,17 +17,17 @@ const SpotForm = ({spot, formType, spots}) => {
   const sessionUser = useSelector(state => state.session.user);
   const {spotId} = useParams();
 
-  const [address, setAddress] = useState('')
-  const [city, setCity] = useState('')
-  const [state, setState] = useState('')
-  const [country, setCountry ] = useState('')
-  const [lat, setLat] = useState('')
-  const [lng, setLng] = useState('')
-  const [name, setName] = useState('')
-  const [description, setDescription] = useState('')
-  const [price, setPrice] = useState('')
+  const [address, setAddress] = useState(spot.address || '')
+  const [city, setCity] = useState(spot.city || '')
+  const [state, setState] = useState(spot.state || '')
+  const [country, setCountry ] = useState(spot.country || '')
+  const [lat, setLat] = useState(spot.lat || '')
+  const [lng, setLng] = useState(spot.lng || '')
+  const [name, setName] = useState(spot.name || '')
+  const [description, setDescription] = useState(spot.description ||'')
+  const [price, setPrice] = useState(spot.price ||'')
   // adde here
-  const [previewImage, setPreviewImage] = useState('')
+  const [previewImage, setPreviewImage] = useState(spot.previewImage || '')
   const [validationErrors, setValidationErrors] = useState([])
   const [hasSubmitted, setHasSubmitted] = useState(false)
 
