@@ -9,7 +9,7 @@ import './BookingForm.css'
 const BookingForm = ({bookings, formType, booking})=> {
   // it will be valid or undefined bc edit form does not have spotId in url
   // that is ok
-
+    const history = useHistory()
     const {spotId, bookingId} = useParams();
     const sessionUser = useSelector(state => state.session.user);
 
@@ -96,6 +96,7 @@ const BookingForm = ({bookings, formType, booking})=> {
           setEndDate('')
           alert('Thanks for booking!')
           setHasSubmitted(false)
+          history.push('/users/bookings')
           return
         } else{
           let bookingUpdated = dispatch(editBooking(booking.id, booking))

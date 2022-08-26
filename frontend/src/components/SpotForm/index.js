@@ -85,11 +85,14 @@ const SpotForm = ({spot, formType, spots}) => {
         alert('New Spot Added!')
         // console.log('sucesssfully create spot!', spot)
         setHasSubmitted(false)
+        history.push('/')
     }
     if (formType==='Update Spot' && sessionUser.id=== spot.ownerId) {
         dispatch(editSpot(spot.id, spot))
         alert('Spot changes have been updated!')
         setHasSubmitted(false)
+        history.push('/')
+
     }
     if (formType==='Update Spot' && sessionUser.id!= spot.ownerId){
       // if you dont own it you cant edit it

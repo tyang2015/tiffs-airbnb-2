@@ -490,7 +490,7 @@ router.delete('/:spotId', requireAuth, async (req,res,next)=>{
 
 
 router.patch('/:spotId', requireAuth, validateSpot, async (req, res, next)=>{
-    const {address, city, state, country, lat, lng, name, description, price}= req.body
+    const {address, city, state, country, lat, lng, name, description, price, previewImage}= req.body
     // check to see if spotId is correct for req.user.id
     // console.log('req.body: ', req.body)
     const spot = await Spot.findOne({where: {ownerId: req.user.id, id: req.params.spotId}})
@@ -505,6 +505,7 @@ router.patch('/:spotId', requireAuth, validateSpot, async (req, res, next)=>{
         spot.name = !name? spot.name: name
         spot.description = !description? spot.description: description
         spot.price = !price? spot.price: price
+        spot.previewImage = !previewImage? spot.previewImage: previewImage
 
         await spot.save()
         res.json(spot)
