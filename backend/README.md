@@ -414,7 +414,8 @@ Creates and returns a new spot.
         "lng": "Longitude is not valid",
         "name": "Name must be less than 50 characters",
         "description": "Description is required",
-        "price": "Price per day is required"
+        "price": "Price per day is required",
+        "previewImage": "Preview image is required"
       }
     }
     ```
@@ -491,7 +492,8 @@ Updates and returns an existing spot.
         "lng": "Longitude is not valid",
         "name": "Name must be less than 50 characters",
         "description": "Description is required",
-        "price": "Price per day is required"
+        "price": "Price per day is required",
+        "previewImage": "Preview image is required
       }
     }
     ```
