@@ -38,11 +38,11 @@ const UserBookings = () => {
                                 <img className={`user-booking-img`} src={`${booking.Spot.previewImage}`}/>
                             </div>
                             <div className={`user-booking-text-container`}>
-                                <h3 key={booking.id}>Booking {booking.id}: {booking.Spot.name}</h3>
-                                <p> Dates: {booking.startDate} ➣ {booking.endDate}</p>
+                                <h3 className='booking-title-container' key={booking.id}>#{booking.id}: {booking.Spot.name}</h3>
+                                <p className='booking-date-container'> Dates: {booking.startDate} ➣ {booking.endDate}</p>
                             </div>
                             <div className={`user-booking-delete-container`}>
-                                <button onClick={e=>handleDelete(e,booking.id)}>
+                                <button className= "user-booking-delete-button" onClick={e=>handleDelete(e,booking.id)}>
                                     <i class="fa-solid fa-trash-can"></i>
                                 </button>
                             </div>
