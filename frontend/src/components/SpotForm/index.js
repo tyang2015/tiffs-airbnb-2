@@ -26,6 +26,8 @@ const SpotForm = ({spot, formType, spots}) => {
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
   const [price, setPrice] = useState('')
+  // adde here
+  const [previewImage, setPreviewImage] = useState('')
   const [validationErrors, setValidationErrors] = useState([])
   const [hasSubmitted, setHasSubmitted] = useState(false)
 
@@ -61,6 +63,8 @@ const SpotForm = ({spot, formType, spots}) => {
       // setHasSubmitted(false)
       return
     }
+    // added here
+    let imageUrl= previewImage
 
     spot = {
       ...spot,
@@ -76,7 +80,7 @@ const SpotForm = ({spot, formType, spots}) => {
     }
 
     if (formType==='Create Spot'){
-        dispatch(createSpot(spot))
+        dispatch(createSpot(spot, imageUrl))
         alert('New Spot Added!')
         // console.log('sucesssfully create spot!', spot)
         setHasSubmitted(false)
@@ -187,6 +191,16 @@ const SpotForm = ({spot, formType, spots}) => {
                   value={description}
                   onChange={e => setDescription(e.target.value)}
                   placeholder='Description'
+                  className='form-control spot'
+                  required="required"
+                />
+              </div>
+              <div className='form-group spot'>
+                <input
+                  type="text"
+                  value={previewImage}
+                  onChange={e => setPreviewImage(e.target.value)}
+                  placeholder='Image Url'
                   className='form-control spot'
                   required="required"
                 />
