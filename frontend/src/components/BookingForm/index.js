@@ -135,10 +135,10 @@ const BookingForm = ({bookings, formType, booking})=> {
           <div className="top-row-image-container">
             {firstSpotBooking && <img src={`${firstSpotBooking.Spot.previewImage}`} style={{borderRadius:'0'}}/>}
           </div>
-          <div className="bottom-row-image-container">
+          {/* <div className="bottom-row-image-container">
             {firstSpotBooking && <img className={`bottom-image`} src={`${firstSpotBooking.Spot.previewImage}`}/>}
             {firstSpotBooking && <img className={`bottom-image`} src={`${firstSpotBooking.Spot.previewImage}`}/>}
-          </div>
+          </div> */}
         </div>
         <div>
           <form onSubmit={handleSubmit} >

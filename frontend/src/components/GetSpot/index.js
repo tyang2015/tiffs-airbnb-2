@@ -174,7 +174,7 @@ const GetSpot = ({spots}) => {
                                 </div>
                             </div>
                             <div className='spot-footer-container'>
-                                {sessionUser && (
+                                {sessionUser && sessionUser.id=== spot.ownerId && (
                                     <button onClick={deleteHandle} className="spot-footer-button navlink"> Delete Spot </button>
                                 )}
                                 {sessionUser && sessionUser.id!= spot.ownerId && (
@@ -191,7 +191,7 @@ const GetSpot = ({spots}) => {
                                         </NavLink>
                                     </button>
                                 )}
-                                {sessionUser && (
+                                {sessionUser && sessionUser.id=== spot.ownerId && (
                                     <button className="spot-footer-button">
                                         <NavLink className="navlink" exact to={`/spots/${spotId}/edit`}>
                                             Edit spot
