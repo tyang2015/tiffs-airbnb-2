@@ -76,11 +76,12 @@ const SpotForm = ({spot, formType, spots}) => {
       lng,
       name,
       description,
-      price
+      price,
+      previewImage
     }
 
     if (formType==='Create Spot'){
-        dispatch(createSpot(spot, imageUrl))
+        dispatch(createSpot(spot))
         alert('New Spot Added!')
         // console.log('sucesssfully create spot!', spot)
         setHasSubmitted(false)

@@ -528,10 +528,12 @@ router.patch('/:spotId', requireAuth, validateSpot, async (req, res, next)=>{
 
 
 router.post('/', requireAuth, validateSpot, async (req,res, next)=>{
-    const {address, city, state, country, lat, lng, name, description, price}= req.body
-    let newSpot = await Spot.create({ownerId: req.user.id, address, city, state, country, lat, lng, name, description, price})
+    // include preview image here (regardless of what they say)
+    const {address, city, state, country, lat, lng, name, description, price, previewImage}= req.body
+    let newSpot = await Spot.create({ownerId: req.user.id, address, city, state, country, lat, lng, name, description, price, previewImage})
     res.statusCode=201
-    let newRecord = await Spot.findOne({attributes: {exclude: ['previewImage']}, where: {id: newSpot.id}})
+    // let newRecord = await Spot.findOne({attributes: {exclude: ['previewImage']}, where: {id: newSpot.id}})
+    let newRecord = await Spot.findOne({ where: {id: newSpot.id}})
     return res.json(newRecord)
 });
 

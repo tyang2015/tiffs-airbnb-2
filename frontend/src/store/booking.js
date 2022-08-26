@@ -57,6 +57,10 @@ export const getBookings = () => async dispatch => {
     const response = await csrfFetch(`/api/users/bookings`)
     if (response.ok){
         let bookings = await response.json()
+        // let userBookingForSpot;
+        // let userSpotBookings = bookings.filter(booking=> booking.spotId===)
+        // let imageUrl= bookings.bookings[0].Spot.previewImage
+        // let response2 = await csrfFetch(`/api/`)
         // console.log('bookings in thunk:', bookings)
         dispatch(load(bookings))
     }

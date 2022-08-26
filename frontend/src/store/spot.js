@@ -80,7 +80,7 @@ export const editSpot = (id, payload) => async dispatch => {
 }
 
 // payload = object SUBMITTED from form
-export const createSpot = (payload, imageUrl) => async dispatch => {
+export const createSpot = (payload) => async dispatch => {
     // console.log('inside CreateSpot thunk creator')
     let response = await csrfFetch('/api/spots', {
         method:'POST',
@@ -89,22 +89,26 @@ export const createSpot = (payload, imageUrl) => async dispatch => {
     })
     if (response.ok){
         const spot = await response.json()
-        console.log('spot in thunk:..', spot)
-        let spotId = spot.id
-        let response2 = await csrfFetch(`/api/spots/${spotId}/images`, {
-            method: "POST",
-            headers:{'Content-Type': 'application/json'},
-            body: JSON.stringify({url: imageUrl})
-        })
-        if (response2.ok){
-            const imageObj = await response2.json()
-            console.log('image object in thunk:', imageObj)
-            // return the spot AND the preview image from reducer
-            // attach the object value from newImage key from imageObj
-            spot.previewImage = imageObj.newImage.url
-            dispatch(create(spot))
-        }
+        dispatch(create(spot))
     }
+    // if (response.ok){
+    //     const spot = await response.json()
+    //     console.log('spot in thunk:..', spot)
+    //     let spotId = spot.id
+    //     let response2 = await csrfFetch(`/api/spots/${spotId}/images`, {
+    //         method: "POST",
+    //         headers:{'Content-Type': 'application/json'},
+    //         body: JSON.stringify({url: imageUrl})
+    //     })
+    //     if (response2.ok){
+    //         const imageObj = await response2.json()
+    //         console.log('image object in thunk:', imageObj)
+    //         // return the spot AND the preview image from reducer
+    //         // attach the object value from newImage key from imageObj
+    //         spot.previewImage = imageObj.newImage.url
+    //         dispatch(create(spot))
+    //     }
+    // }
 }
 
 // getting spot details for 1 Spot
