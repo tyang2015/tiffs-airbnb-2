@@ -33,11 +33,15 @@ const SpotForm = ({spot, formType, spots}) => {
 
   const allSpots = Object.values(spots)
 
+  function isImage(url) {
+    return /\.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(url);
+  }
+
   useEffect(()=>{
     const errs= []
     // console.log('name:', name)
     // console.log('name length:', name.length)
-
+    if (!isImage(previewImage)) errs.push("Please enter a valid image url")
     if (!name) errs.push("Please enter a valid name")
     if (name.length>50) errs.push("Name must be less than 50 characters")
     if (!address) errs.push("Please enter a valid address")
@@ -50,7 +54,7 @@ const SpotForm = ({spot, formType, spots}) => {
     if (!price || typeof Number(price)!=='number') errs.push("Please enter a valid price")
     setValidationErrors(errs)
 
-  }, [address, city, state, name, country,lat, lng, description, price])
+  }, [address, city, state, name, country,lat, lng, description, price, previewImage])
 
   const handleSubmit = async (e)=>{
     e.preventDefault();

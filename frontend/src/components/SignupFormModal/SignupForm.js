@@ -16,6 +16,7 @@ function SignupForm({setSignupModal}) {
 
   if (sessionUser) return <Redirect to="/" />;
 
+
   // added here
 //   const [hasSubmitted, setHasSubmitted] = useState(false)
 
