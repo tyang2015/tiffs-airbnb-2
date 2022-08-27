@@ -142,11 +142,11 @@ const BookingForm = ({bookings, formType, booking, spot})=> {
           {spot && (<img className="spot-booking-image" src={`${spot.previewImage}`} style={{borderRadius:'0'}}/>)}
         </div>
         <div className="booking-form-container" >
-          <form onSubmit={handleSubmit} >
+          <form onSubmit={handleSubmit} style={{height:'380px'}}>
             <fieldset style={{height: '100%'}}>
               <h2> {formType} </h2>
                 <div >
-                  <div >
+                  <div className="form-group first">
                     <input
                       type="date"
                       value={startDate}
@@ -156,7 +156,7 @@ const BookingForm = ({bookings, formType, booking, spot})=> {
                     style={{width: '150px'}}
                     />
                   </div>
-                  <div>
+                  <div className="form-group last">
                       <input
                         type="date"
                         value={endDate}

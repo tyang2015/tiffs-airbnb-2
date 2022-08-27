@@ -25,6 +25,7 @@ input.booking.form-control{
     font-size: 1rem;
     font-weight: 400;
 }
+
 /*
 .booking-input-container{
     background-color: blue;
@@ -38,6 +39,7 @@ input.booking.form-control{
     /* align-items: center; */
     flex-direction: row;
     width: fit-content;
+    height:400px;
     /* height: 100vh;
     width:100vw; */
     /* background-color: coral; */
@@ -55,6 +57,7 @@ input.booking.form-control{
 
 .spot-booking-image{
     width: 460px;
+    height: 400px;
 }
 
 .top-row-image-container{
@@ -74,7 +77,7 @@ input.booking.form-control{
 
 }
 
-img.bottom-image{
+/* img.bottom-image{
     width:50%;
     margin-bottom: 0;
     border-radius: 0;
@@ -82,4 +85,4 @@ img.bottom-image{
     position:relative;
     bottom:50px;
 
-}
+} */
