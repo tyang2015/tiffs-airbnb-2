@@ -47,7 +47,7 @@ function SignupForm({setSignupModal}) {
             <ul className='validation-errors'>
                 {errors.length>0 && (errors.map((error, idx) => <li key={idx}>{error}</li>))}
             </ul>
-            <div className={`signup-email-container form-group first`}>
+            <div style={{width: '90%'}} className={`signup-email-container form-group first`}>
                 <input
                     type="text"
                     value={email}
@@ -57,7 +57,7 @@ function SignupForm({setSignupModal}) {
                     placeholder= 'Email'
                 />
             </div>
-            <div className={`signup-firstname-container form-group`}>
+            <div style={{width: '90%'}}className={`signup-firstname-container form-group`}>
                 <input
                 type="text"
                 value={firstName}
@@ -67,7 +67,7 @@ function SignupForm({setSignupModal}) {
                 placeholder = 'firstName'
                 />
             </div>
-            <div className={`signup-lastname-container form-group`}>
+            <div style={{width: '90%'}} className={`signup-lastname-container form-group`}>
                 <input
                 type="text"
                 value={lastName}
@@ -77,7 +77,7 @@ function SignupForm({setSignupModal}) {
                 placeholder = "lastName"
                 />
             </div>
-            <div className={`signup-password-container form-group`}>
+            <div style={{width: '90%'}} className={`signup-password-container form-group`}>
                 <input
                 type="password"
                 value={password}
@@ -87,7 +87,7 @@ function SignupForm({setSignupModal}) {
                 className="form-control signup"
                 />
             </div>
-            <div className={`signup-confirm-password-container form-group last`}>
+            <div style={{width: '90%'}} className={`signup-confirm-password-container form-group last`}>
                 <input
                 type="password"
                 value={confirmPassword}
@@ -97,7 +97,7 @@ function SignupForm({setSignupModal}) {
                 className="form-control signup"
                 />
             </div>
-            <button type="submit" className="submit-button login">Sign Up</button>
+            <button style={{width: '480px'}} type="submit" className="submit-button login">Sign Up</button>
         </div>
     </form>
     );

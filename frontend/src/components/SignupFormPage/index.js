@@ -44,6 +44,8 @@ function SignupFormPage() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
+          className="signup-first-input"
+
         />
       </label>
       <label>
