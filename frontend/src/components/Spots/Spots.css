@@ -13,6 +13,7 @@
     grid-template-columns: repeat(4, 25%);
     grid-template-rows: repeat(auto-fill);
     grid-column-gap: 11.5px;
+    grid-row-gap: 15px;
     /* width: 85vw; */
     width: fit-content;
     margin-top: 80px;
@@ -39,7 +40,7 @@
     justify-content: start;
     align-items: center;
     /* width:fit-content; */
-    width: 260px;
+    width: 270px;
     /* background-color: coral;
     border: 2px black solid; */
     /* BECAUSE ITS COLUMN, justify content is now used for vertical alignment */
@@ -94,7 +95,7 @@
     /* CHANGE HEIGHT BACK TO 280PX AFTER PRESENTATION */
     /* height: 260px; */
     max-height: 300px;
-    height: 250px;
+    height: 270px;
 
     /* height: 250; */
 
