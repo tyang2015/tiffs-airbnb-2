@@ -51,11 +51,17 @@ const BookingForm = ({bookings, formType, booking})=> {
       }
     })
 
-    console.log("start dates before submit:", existingStartDates)
-    console.log("end dates before submit:", existingEndDates)
+    // console.log("start dates before submit:", existingStartDates)
+    // console.log("end dates before submit:", existingEndDates)
 
     useEffect(()=>{
+      console.log('triggering use effect...')
       let errs=[]
+      let today = new Date();
+      let actualStartDate = new Date(startDate)
+      if (actualStartDate<today) errs.push("Start date cannot be in the past")
+      // console.log('today:..', today)
+      // console.log('start date...', startDate)
       if (!startDate) errs.push("Please enter valid start date")
       if (!endDate) errs.push("Please enter valid end date")
       if (endDate< startDate) errs.push("endDate cannot come before startDate")
