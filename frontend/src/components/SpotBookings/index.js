@@ -38,53 +38,55 @@ const SpotBookings = ()=>{
     console.log('bookings in spot bookings:', bookings)
     return (
         <>
-            {!sessionUser && (
-                <h2>Please login to see spot booking information</h2>
-            )}
-            {bookings.length>0 && (
-                <>
-                    <div className= 'spot-bookings-title-container'>
-                        <i class="fa-solid fa-house"></i>
-                        <h2> Bookings for: {firstBooking && (firstBooking.Spot.name)} </h2>
-                    </div>
-                    <div>
-                        <div className={`spot-bookings-images-outer-container`}>
-                            {!firstBooking? (
-                                <div className='spot-bookings-images-container'>
-                                    <img className="spot-bookings-image" alt='new-spot-image'/>
-                                    <img className="spot-bookings-image" alt='new-spot-image'/>
-                                    <img className="spot-bookings-image" alt='new-spot-image'/>
-                                </div>
-                            ):(
-                                <div className='spot-bookings-images-container'>
-                                   <img className="spot-bookings-image" src={`${firstBooking.Spot.previewImage}`} />
+            {/* <div> */}
+                {!sessionUser && (
+                    <h2>Please login to see spot booking information</h2>
+                )}
+                {bookings.length>0 && (
+                    <div className='spot-bookings-main-container2'>
+                        <div className= 'spot-bookings-title-container'>
+                            <i class="fa-solid fa-house"></i>
+                            <h2> Bookings for: {firstBooking && (firstBooking.Spot.name)} </h2>
+                        </div>
+                        <div className='spot-bookings-content-container'>
+                            <div className={`spot-bookings-images-outer-container`}>
+                                {!firstBooking? (
+                                    <div className='spot-bookings-images-container'>
+                                        <img className="spot-bookings-image" alt='new-spot-image'/>
+                                        <img className="spot-bookings-image" alt='new-spot-image'/>
+                                        <img className="spot-bookings-image" alt='new-spot-image'/>
+                                    </div>
+                                ):(
+                                    <div className='spot-bookings-images-container'>
                                     <img className="spot-bookings-image" src={`${firstBooking.Spot.previewImage}`} />
-                                    <img className="spot-bookings-image" src={`${firstBooking.Spot.previewImage}`} />
-                                </div>
+                                        <img className="spot-bookings-image" src={`${firstBooking.Spot.previewImage}`} />
+                                        <img className="spot-bookings-image" src={`${firstBooking.Spot.previewImage}`} />
+                                    </div>
 
-                            )}
-                        </div>
-                        <div className='spot-bookings-grid-container'>
-                            {bookings.length>0 && (bookings.map(booking=> (
-                                <div className={`booking-detail-card`} key={booking.id} >
-                                    <h2> Booking #{booking.id}</h2>
-                                    <p> Hosted by Owner {booking.Spot.ownerId}</p>
-                                    <p> {booking.startDate} ➣ {booking.endDate}</p>
-                                    {/* <p> To: {booking.endDate}</p> */}
-                                </div>
-                            )))}
+                                )}
+                            </div>
+                            <div className='spot-bookings-grid-container'>
+                                {bookings.length>0 && (bookings.map(booking=> (
+                                    <div className={`booking-detail-card`} key={booking.id} >
+                                        <h2> Booking #{booking.id}</h2>
+                                        <p> Hosted by Owner {booking.Spot.ownerId}</p>
+                                        <p> {booking.startDate} ➣ {booking.endDate}</p>
+                                        {/* <p> To: {booking.endDate}</p> */}
+                                    </div>
+                                )))}
+                            </div>
                         </div>
                     </div>
-                </>
-            )}
-            {bookings.length==0 && sessionUser &&
-                (<>
-                    <h2> This spot has not been booked yet </h2>
-                    {sessionUser && spot && sessionUser.id!=spot.ownerId && (
-                        <NavLink exact to={`/spots/${spotId}/bookings/new`}> Click here to book </NavLink>
-                    )}
-                </>)
-            }
+                )}
+                {bookings.length==0 && sessionUser &&
+                    (<>
+                        <h2> This spot has not been booked yet </h2>
+                        {sessionUser && spot && sessionUser.id!=spot.ownerId && (
+                            <NavLink exact to={`/spots/${spotId}/bookings/new`}> Click here to book </NavLink>
+                        )}
+                    </>)
+                }
+            {/* </div> */}
         </>
     )
 }
