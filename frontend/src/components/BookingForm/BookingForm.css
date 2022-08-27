@@ -6,7 +6,7 @@
     /* position: relative; */
     background: #edf2f5;
     border-bottom: 1px solid #e6edf1;
-    width: 400px;
+    /* width: 400px; */
 }
 
 input.booking.form-control{
@@ -31,24 +31,30 @@ input.booking.form-control{
     border: 20px red solid;
 } */
 
-
-
 .spot-bookings-main-container{
     display:flex;
     /* background-color: rgb(204, 236, 236); */
     justify-content:start;
-    height: 100vh;
-    width:100vw;
+    /* align-items: center; */
+    flex-direction: row;
+    width: fit-content;
+    /* height: 100vh;
+    width:100vw; */
+    /* background-color: coral; */
 }
 
 .images-container{
     /* background-color: green; */
-    width: 30%;
+    /* width: 30%; */
     height: fit-content;
     display:flex;
     flex-direction: column;
     justify-content: center;
 
+}
+
+.spot-booking-image{
+    width: 460px;
 }
 
 .top-row-image-container{

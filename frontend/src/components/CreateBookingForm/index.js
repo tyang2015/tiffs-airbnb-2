@@ -25,9 +25,9 @@ const CreateBookingForm = ({spots}) => {
     endDate: ''
   }
   const spot = spots[spotId]
-  console.log('spot in bookings:', spot)
+  // console.log('spot in bookings:', spot)
   return (
-    <BookingForm booking={booking} spots={spots} formType={'Create Booking'} bookings={bookings} spot={spot}/>
+    <BookingForm booking={booking} formType={'Create Booking'} bookings={bookings} spot={spot}/>
   )
 
 }

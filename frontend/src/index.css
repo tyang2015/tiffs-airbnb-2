@@ -134,6 +134,7 @@ p.spot-detail-item-description{
 
 .navlink{
     text-decoration: none;
+    color: rgb(113, 113, 113);
 }
 
 ul.validation-errors{

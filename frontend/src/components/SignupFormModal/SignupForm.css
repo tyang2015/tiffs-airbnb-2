@@ -17,7 +17,7 @@ input.form-control.signup {
 }
 
 div.form-group{
-    width: 100%;
+    /* width: 100%; */
     /* background-color: ; */
     border: 1px solid rgba(177, 170, 170, 0.8)
 }

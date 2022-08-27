@@ -44,7 +44,7 @@ const Spots = ({spots}) =>{
     }, [spots])
 
     return (
-        // <div className="main-container">
+        <div className="main-container">
             <div className="spots-main-grid-container">
                 {!loading && allSpots.length>0 ? (
                     <>
@@ -78,7 +78,7 @@ const Spots = ({spots}) =>{
                     </div>
                 )}
             </div>
-        // </div>
+        </div>
 
     )
 }

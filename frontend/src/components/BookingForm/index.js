@@ -6,9 +6,10 @@ import { createBooking, editBooking } from "../../store/booking"
 import './BookingForm.css'
 
 
-const BookingForm = ({bookings, formType, booking})=> {
+const BookingForm = ({bookings, formType, booking, spot})=> {
   // it will be valid or undefined bc edit form does not have spotId in url
   // that is ok
+  console.log('spot:', spot)
     const history = useHistory()
     const {spotId, bookingId} = useParams();
     const sessionUser = useSelector(state => state.session.user);
@@ -51,11 +52,10 @@ const BookingForm = ({bookings, formType, booking})=> {
       }
     })
 
-    // console.log("start dates before submit:", existingStartDates)
-    // console.log("end dates before submit:", existingEndDates)
+    console.log("start dates before submit:", existingStartDates)
+    console.log("end dates before submit:", existingEndDates)
 
     useEffect(()=>{
-      console.log('triggering use effect...')
       let errs=[]
       let today = new Date();
       let actualStartDate = new Date(startDate)
@@ -139,20 +139,14 @@ const BookingForm = ({bookings, formType, booking})=> {
       )}
       <div className='spot-bookings-main-container'>
         <div className='images-container'>
-          <div className="top-row-image-container">
-            {firstSpotBooking && <img src={`${firstSpotBooking.Spot.previewImage}`} style={{borderRadius:'0'}}/>}
-          </div>
-          {/* <div className="bottom-row-image-container">
-            {firstSpotBooking && <img className={`bottom-image`} src={`${firstSpotBooking.Spot.previewImage}`}/>}
-            {firstSpotBooking && <img className={`bottom-image`} src={`${firstSpotBooking.Spot.previewImage}`}/>}
-          </div> */}
+          {spot && (<img className="spot-booking-image" src={`${spot.previewImage}`} style={{borderRadius:'0'}}/>)}
         </div>
-        <div>
+        <div className="booking-form-container" >
           <form onSubmit={handleSubmit} >
-            <fieldset>
+            <fieldset style={{height: '100%'}}>
               <h2> {formType} </h2>
-                <div className= 'booking-input-container'>
-                  <div className="form-group first booking">
+                <div >
+                  <div >
                     <input
                       type="date"
                       value={startDate}
@@ -162,7 +156,7 @@ const BookingForm = ({bookings, formType, booking})=> {
                     style={{width: '150px'}}
                     />
                   </div>
-                  <div className="form-group last booking">
+                  <div>
                       <input
                         type="date"
                         value={endDate}
@@ -177,7 +171,6 @@ const BookingForm = ({bookings, formType, booking})=> {
             </fieldset>
           </form>
         </div>
-
       </div>
 
         {/* <h2> All Bookings You Created: </h2>
