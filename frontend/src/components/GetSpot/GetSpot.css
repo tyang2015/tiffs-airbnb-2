@@ -123,6 +123,10 @@ img.spot-preview-image-small{
     margin-bottom: 1.5%;
 }
 
+/* .spot-preview-image-small.right{
+    border-radius: 0 10px 0 0;
+} */
+
 /* img tag in spots index has border-radius applied, trickles to all img tags */
 .spot-preview-image-large{
     width: 50%;

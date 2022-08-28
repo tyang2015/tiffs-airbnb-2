@@ -88,13 +88,13 @@ const GetSpot = ({spots}) => {
                     <>
                         <div className='spot-detail-card'>
                             <div className="spot-images-container">
-                                <img className='spot-preview-image-large' src={`${spot.previewImage}`} alt={`${spot.name} picture`}/>
+                                <img style={{borderRadius:"10px 0 0 10px"}}className='spot-preview-image-large' src={`${spot.previewImage}`} alt={`${spot.name} picture`}/>
                                 <div className='spot-preview-image-right-container'>
                                     {/* refactor to do this in a for loop for i=4 images */}
                                     <img className='spot-preview-image-small top' src={`${spot.previewImage}`} alt={`${spot.name} picture`}></img>
-                                    <img className='spot-preview-image-small top' src={`${spot.previewImage}`} alt={`${spot.name} picture`}></img>
+                                    <img style={{borderRadius:"0 10px 0 0"}} className='spot-preview-image-small top right' src={`${spot.previewImage}`} alt={`${spot.name} picture`}></img>
                                     <img className='spot-preview-image-small bottom' src={`${spot.previewImage}`} alt={`${spot.name} picture`}></img>
-                                    <img className='spot-preview-image-small bottom' src={`${spot.previewImage}`} alt={`${spot.name} picture`}></img>
+                                    <img style={{borderRadius:"0 0 10px 0"}} className='spot-preview-image-small bottom right' src={`${spot.previewImage}`} alt={`${spot.name} picture`}></img>
                                 </div>
                             </div>
                             <div className="spot-bottom-half-info-container">
