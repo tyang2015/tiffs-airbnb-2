@@ -51,6 +51,7 @@ const BookingForm = ({bookings, formType, booking, spot})=> {
         existingEndDates.push(finalEnd)
       }
     })
+    // console.log('start date:', startDate)
 
     console.log("start dates before submit:", existingStartDates)
     console.log("end dates before submit:", existingEndDates)
@@ -59,6 +60,7 @@ const BookingForm = ({bookings, formType, booking, spot})=> {
       let errs=[]
       let today = new Date();
       let actualStartDate = new Date(startDate)
+      actualStartDate.setDate(actualStartDate.getDate()+1)
       if (actualStartDate<today) errs.push("Start date cannot be in the past")
       // console.log('today:..', today)
       // console.log('start date...', startDate)

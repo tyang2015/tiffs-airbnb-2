@@ -10,6 +10,7 @@ import './GetSpot.css'
 const GetSpot = ({spots}) => {
     const {spotId} = useParams();
     const dispatch = useDispatch();
+    let history= useHistory()
 
     let numReviews;
     const sessionUser = useSelector(state => state.session.user);
@@ -39,7 +40,7 @@ const GetSpot = ({spots}) => {
             dispatch(deleteSpot(spotId))
             // dispatch(resetBookings())
             alert('successfully deleted!')
-            // history.push('/spots')
+            history.push('/')
         }
     }
 
