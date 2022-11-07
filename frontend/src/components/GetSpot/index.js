@@ -1,32 +1,35 @@
 import { useParams, useHistory, NavLink } from "react-router-dom"
 import React,{useState, useEffect} from "react"
 import { useDispatch, useSelector } from "react-redux";
-import {deleteSpot } from "../../store/spot";
+import {deleteSpot, getSpots } from "../../store/spot";
 import { resetBookings } from "../../store/booking";
 import './GetSpot.css'
+import GetReviews from "../GetReviews";
 // import SpotBookings from "../SpotBookings";
 
 // you can key in spots, no need for reducer
-const GetSpot = ({spots}) => {
+const GetSpot = () => {
     const {spotId} = useParams();
     const dispatch = useDispatch();
     let history= useHistory()
 
     let numReviews;
     const sessionUser = useSelector(state => state.session.user);
+    const spots = useSelector(state=> Object.values(state.spots))
     const [showAddressMenu, setShowAddressMenu] = useState(false)
 
+    useEffect(()=> {
+      dispatch(getSpots())
+    }, [dispatch])
+
     const spot = spots[spotId]
-    console.log('spot in GetSpot:', spot)
-    if (!spot || !spot.Reviews){
-        console.log('waiting for spot')
-    }
-    else if (spot && spot.Reviews.length>0){
-        numReviews= spot.Reviews.length
-    }
-    // else {
-    //     numReviews = 'New'
+    // if (!spot || !spot.Reviews){
+    //     console.log('waiting for spot')
     // }
+    // else if (spot && spot.Reviews.length>0){
+    //     numReviews= spot.Reviews.length
+    // }
+
     console.log('number reviews:', numReviews)
     const deleteHandle = async (e) => {
         if (!sessionUser){
@@ -35,10 +38,7 @@ const GetSpot = ({spots}) => {
         else if (sessionUser.id!== spot.ownerId){
             alert('You do not have permission to delete spot')
         } else {
-            // changed here-- removed await. should handle cascade delete
-            // ADDED HERE per dan's suggestion
             dispatch(deleteSpot(spotId))
-            // dispatch(resetBookings())
             alert('successfully deleted!')
             history.push('/')
         }
@@ -56,6 +56,7 @@ const GetSpot = ({spots}) => {
         showAddressMenu === true? setShowAddressMenu(false): setShowAddressMenu(true)
         // setShowAddressMenu(true)
     }
+    console.log('spot in get spot page:::', spot)
 
     return (
         <>
@@ -81,6 +82,30 @@ const GetSpot = ({spots}) => {
                                 <div className= 'city-state-country-container-top spot-detail-item-top'>
                                     <p>{spot.city}, {spot.state}, {spot.country}</p>
                                 </div>
+                                {sessionUser && sessionUser.id=== spot.ownerId && (
+                                    <button onClick={deleteHandle} className="spot-footer-button navlink"> Delete Spot </button>
+                                )}
+                                {sessionUser && sessionUser.id!= spot.ownerId && (
+                                    <button className="spot-footer-button" >
+                                        <NavLink className="navlink" exact to={`/spots/${spotId}/bookings/new`}>
+                                            Click here to book
+                                        </NavLink>
+                                    </button>
+                                )}
+                                {sessionUser && (
+                                    <button className="spot-footer-button">
+                                        <NavLink className="navlink" exact to={`/spots/${spotId}/bookings`}>
+                                            Check bookings for spot
+                                        </NavLink>
+                                    </button>
+                                )}
+                                {sessionUser && sessionUser.id=== spot.ownerId && (
+                                    <button className="spot-footer-button">
+                                        <NavLink className="navlink" exact to={`/spots/${spotId}/edit`}>
+                                            Edit spot
+                                        </NavLink>
+                                    </button>
+                                )}
                             </div>
                         </>
                     )}
@@ -119,7 +144,7 @@ const GetSpot = ({spots}) => {
                                         </div>
                                         <p className='spot-detail-item-description'> Price: ${spot.price}</p>
                                     </div>
-                                    <div>
+                                    {/* <div>
                                         <p> Show address </p>
                                         <input
                                             type='button'
@@ -135,7 +160,7 @@ const GetSpot = ({spots}) => {
                                             </div>
                                             <p className='spot-detail-item-description'>Address: {spot.address}</p>
                                         </div>
-                                    )}
+                                    )} */}
                                 </div>
                                 <div className="spot-right-text-container">
                                     <div className="spot-detail-container-2">
@@ -174,31 +199,9 @@ const GetSpot = ({spots}) => {
                                     </div>
                                 </div>
                             </div>
+                            <GetReviews spot={spot}/>
                             <div className='spot-footer-container'>
-                                {sessionUser && sessionUser.id=== spot.ownerId && (
-                                    <button onClick={deleteHandle} className="spot-footer-button navlink"> Delete Spot </button>
-                                )}
-                                {sessionUser && sessionUser.id!= spot.ownerId && (
-                                    <button className="spot-footer-button" >
-                                        <NavLink className="navlink" exact to={`/spots/${spotId}/bookings/new`}>
-                                            Click here to book
-                                        </NavLink>
-                                    </button>
-                                )}
-                                {sessionUser && (
-                                    <button className="spot-footer-button">
-                                        <NavLink className="navlink" exact to={`/spots/${spotId}/bookings`}>
-                                            Check bookings for spot
-                                        </NavLink>
-                                    </button>
-                                )}
-                                {sessionUser && sessionUser.id=== spot.ownerId && (
-                                    <button className="spot-footer-button">
-                                        <NavLink className="navlink" exact to={`/spots/${spotId}/edit`}>
-                                            Edit spot
-                                        </NavLink>
-                                    </button>
-                                )}
+
                             </div>
                         </div>
                     </>
