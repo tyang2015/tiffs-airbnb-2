@@ -18,7 +18,7 @@ My project aims to clone the website Airbnb.com -- a popular living-space rental
 
 ### INSTRUCTIONS for navigating the page
 
-1. When you are on home/splash/landing page, you will see all spots in a grid form. There are 3 links at the top ("create a spot", "view your bookings", "see all spots") where you can navigate to the CREATE "/spot/new" endpoint, GET "/users/bookings" endpoint, and GET "/spots" endpoint (which is the current homepage)
+1. When you are on home/splash/landing page, you will see all spots in a grid form. There are 3 links at the top ("create a spot", "view your bookings", "see all spots") in the profile dropdown menu where you can navigate to the CREATE "/spot/new" endpoint, GET "/users/bookings" endpoint, and GET "/spots" endpoint (which is the current homepage)
 
 ![Spot homepage](./homepage-sample-photo.png)
 
@@ -27,6 +27,6 @@ My project aims to clone the website Airbnb.com -- a popular living-space rental
 ![Spotid-page](./spot-photo.png)
 
 #### For Forms (features: spots and bookings)
-1) CREATE spot form can be accessed from the top nav bar, with the clickable link "Create a spot". 
+1) CREATE spot form can be accessed profile menu dropdown, with the clickable link "Create a spot". 
 2) EDIT spot form can be accessed at the bottom of the "/spots/:spotId" page .
-2) CREATE booking form (from /spots/:spotId/bookings/new) can be accessed near the same location as #2,  at the bottom of the "/spots/:spotId" page.
+2) CREATE booking form (from /spots/:spotId/bookings/new) can be accessed near the same location as #2,  at the bottom of the "/spots/:spotId" page, or on the spot bookings page (if there are no bookings).
