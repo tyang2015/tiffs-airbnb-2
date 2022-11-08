@@ -151,6 +151,12 @@ const validateSpotQuery = [
       .withMessage("Max price must be greater than 0"),
       handleValidationErrors
 ]
+// ADDED: get spot images
+router.get('/:spotId/images', requireAuth, async (req, res, next) => {
+  const images = await Image.findAll({include: {model: Spot}, where: {spotId: req.params.spotId}})
+  res.json({images: images})
+
+})
 
 // add an image to a spot based on the spot's id
 router.post('/:spotId/images', requireAuth, async (req,res,next)=>{
@@ -193,9 +199,7 @@ router.post('/:spotId/images', requireAuth, async (req,res,next)=>{
         reviewId,
         url
     })
-    res.json({
-        newImage
-    })
+    res.json(newImage)
 
 });
 
