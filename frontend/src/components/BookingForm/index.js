@@ -9,7 +9,7 @@ import './BookingForm.css'
 const BookingForm = ({ date, bookings, formType, booking, spot})=> {
   // it will be valid or undefined bc edit form does not have spotId in url
   // that is ok
-  console.log('spot:', spot)
+  // console.log('spot:', spot)
     const history = useHistory()
     const {spotId, bookingId} = useParams();
     const sessionUser = useSelector(state => state.session.user);
@@ -51,10 +51,77 @@ const BookingForm = ({ date, bookings, formType, booking, spot})=> {
         existingEndDates.push(finalEnd)
       }
     })
-    // console.log('start date:', startDate)
 
     console.log("start dates before submit:", existingStartDates)
     console.log("end dates before submit:", existingEndDates)
+
+    const validDates = () => {
+      // returns last 2 digits
+      let startMonth;
+      let startDay;
+      let endMonth;
+      let endDay;
+      if (date[0].getMonth() < 10){
+        startMonth = `0`+ String(date[0].getMonth())
+      } else startMonth = String(date[0].getMonth())
+      if (date[0].getDate() < 10){
+        startDay = `0`+ String(date[0].getDate())
+      } else startDay = String(date[0].getDate())
+      if (date[1].getMonth() < 10){
+        endMonth = `0`+ String(date[1].getMonth())
+      } else endMonth = String(date[1].getMonth())
+      if (date[1].getDate() < 10){
+        endDay = `0`+ String(date[1].getDate())
+      } else endDay = String(date[1].getDate())
+
+
+
+      const startDateInput = String(date[0].getYear()) + startMonth + startDay
+      const endDateInput = String(date[1].getYear()) + endMonth + endDay
+
+      for (let bookingId in bookings){
+        let startMonth;
+        let startDay;
+        let endMonth;
+        let endDay;
+
+        let exStartDate = new Date(bookings[bookingId].startDate)
+        let exEndDate = new Date(bookings[bookingId].endDate)
+        exStartDate.setDate(exStartDate.getDate() + 1)
+        exEndDate.setDate(exEndDate.getDate() + 1)
+
+        if (exStartDate.getMonth() < 10){
+          startMonth = `0`+ String(exStartDate.getMonth())
+        } else startMonth = String(exStartDate.getMonth())
+        if (exStartDate.getDate() < 10){
+          startDay = `0`+ String(exStartDate.getDate())
+        } else startDay = String(exStartDate.getDate())
+        if (exEndDate.getMonth() < 10){
+          endMonth = `0`+ String(exEndDate.getMonth())
+        } else endMonth = String(exEndDate.getMonth())
+        if (exEndDate.getDate() < 10){
+          endDay = `0`+ String(exEndDate.getDate())
+        } else endDay = String(exEndDate.getDate())
+
+        const newStartDate = String(exStartDate.getYear()) + startMonth + startDay
+        const newEndDate = String(exEndDate.getYear()) + endMonth + endDay
+
+        console.log("existing start:", newStartDate)
+        console.log("existing end:", newEndDate)
+        console.log("your start date:", startDateInput)
+        console.log("your end date:", endDateInput)
+
+        if ((startDateInput >= newStartDate && startDateInput<= newEndDate) || (
+          endDateInput >= newStartDate && endDateInput <= newEndDate
+        )) {
+          return false
+        } else return true
+      }
+    }
+
+    if(date.length>0){
+      console.log("VALID DATES?---------", validDates())
+    }
 
     useEffect(()=>{
       let errs=[]
@@ -152,13 +219,14 @@ const BookingForm = ({ date, bookings, formType, booking, spot})=> {
     return (
       <div className="spot-middle-container-top-row">
         <div className='spot-booking-input'>
-            check in
-            {date.length>0 && (<div>{convertCheckInDateDisplay()} </div>)}
-            {!date.length && (<div> </div>)}
+            <div>check in</div>
+            {date.length>0 && (<div className="checkin-box">{convertCheckInDateDisplay()} </div>)}
+            {!date.length && (<div className="checkin-box"> </div>)}
         </div>
         <div className='spot-booking-input' >
-            check out
-            {date.length>0 && (<div>{convertCheckOutDateDisplay()} </div>)}
+            <div>check out</div>
+            {date.length>0 && (<div className="checkout-box">{convertCheckOutDateDisplay()} </div>)}
+            {!date.length && (<div className="checkout-box"> </div>)}
         </div>
       </div>
     )

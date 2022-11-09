@@ -77,6 +77,17 @@ input.booking.form-control{
 
 }
 
+.spot-booking-input{
+  display: flex;
+  flex-direction: column ;
+  align-items: flex-start;
+}
+.checkin-box, .checkout-box{
+  height: 100%;
+  /* background-color: lightblue; */
+  width: 100%;
+}
+
 /* img.bottom-image{
     width:50%;
     margin-bottom: 0;
