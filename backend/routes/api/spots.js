@@ -160,8 +160,10 @@ router.get('/:spotId/images', requireAuth, async (req, res, next) => {
 
 // add an image to a spot based on the spot's id
 router.post('/:spotId/images', requireAuth, async (req,res,next)=>{
+    console.log("INSIDE CORRECT ROUTE FOR CREATE SPOT IMAGE IN BACKEND")
     let reviewId = null;
     const {url} = req.body
+    console.log("req.body in post image route::::", req.body)
     console.log("user id:", req.user.id )
     let spot = await Spot.findOne({
         include: [{model: Review}],
@@ -196,10 +198,13 @@ router.post('/:spotId/images', requireAuth, async (req,res,next)=>{
     }
     let newImage = await Image.create({
         spotId: req.params.spotId,
-        reviewId,
+        // reviewId,
         url
     })
-    res.json(newImage)
+    res.statusCode = 201
+    let imageToSend = await Image.findOne({where: {id: newImage.id}})
+    console.log("image to send:::", imageToSend.toJSON())
+    res.json(imageToSend.toJSON())
 
 });
 
@@ -454,7 +459,7 @@ router.get('/:spotId/reviews', async (req,res, next)=>{
     let reviews = await Review.findAll({
         include: [
         {model: User, attributes: {exclude: ['createdAt', 'updatedAt', 'email', 'hashedPassword']}},
-        {model: Image, attributes: ['url']},
+        // {model: Image, attributes: ['url']},
         {model: Spot, attributes: {exclude: ['description', 'createdAt', 'updatedAt', 'previewImage']}}
     ],
         where: {spotId: req.params.spotId}
