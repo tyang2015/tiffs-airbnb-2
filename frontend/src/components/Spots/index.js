@@ -9,10 +9,15 @@ import './Spots.css'
 import ClipLoader from "react-spinners/ClipLoader"
 
 
-const Spots = ({spots}) =>{
+const Spots = () =>{
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(true);
-    const allSpots = Object.values(spots)
+    const allSpots= useSelector(state => Object.values(state.spots))
+    // const allSpots = Object.values(spots)
+
+    useEffect(()=> {
+      dispatch(getSpots())
+    }, [dispatch])
     // let spots = useSelector(state=> Object.values(state.spots))
 
     // triggers this in the first stage. end state useSelector triggers render
@@ -41,7 +46,7 @@ const Spots = ({spots}) =>{
     useEffect(()=>{
         setLoading(true)
         if (allSpots.length>0) setLoading(false)
-    }, [spots])
+    }, [allSpots])
 
     return (
         <div className="main-container">

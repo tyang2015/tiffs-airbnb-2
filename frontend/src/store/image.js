@@ -37,6 +37,7 @@ export const getSpotImages = (spotId) => async dispatch => {
   const response = await csrfFetch(`/api/spots/${spotId}/images`)
   if (response.ok){
     let images = await response.json()
+    console.log("IMAGES FROM SPOT in thunk:", images)
     dispatch(loadSpotImages(images))
     return images
   }
@@ -59,7 +60,7 @@ export const createSpotImage = (spotId, payload) => async dispatch => {
 
 // // MUST ADD THIS IN BACKEND
 export const updateSpotImage = (imageId, payload) => async dispatch => {
-  const response = await csrfFetch(```/api/images/${imageId}`, {
+  const response = await csrfFetch(`/api/images/${imageId}`, {
     method: 'PATCH',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(payload)

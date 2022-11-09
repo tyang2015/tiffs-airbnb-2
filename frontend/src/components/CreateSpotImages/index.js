@@ -46,6 +46,7 @@ const CreateSpotImages = () => {
     }
   }, [spot])
 
+  console.log("SPOT IMAGES IN CREATE SPOTE IMAGES:", images)
   // increment this each time you upload an image
   // useEffect(()=> {
   //   setImageCounter(images.length)

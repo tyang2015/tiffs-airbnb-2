@@ -5,6 +5,13 @@ import {deleteSpot, getSpots } from "../../store/spot";
 import { resetBookings } from "../../store/booking";
 import './GetSpot.css'
 import GetReviews from "../GetReviews";
+import { getSpotImages } from "../../store/image";
+import ffErrorPic from "./images/spot-image-error-pic.jpg"
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
+import SpotBookings from "../SpotBookings";
+import CreateBookingForm from "../CreateBookingForm";
+
 // import SpotBookings from "../SpotBookings";
 
 // you can key in spots, no need for reducersdf
@@ -15,11 +22,15 @@ const GetSpot = () => {
 
     let numReviews;
     const sessionUser = useSelector(state => state.session.user);
-    const spots = useSelector(state=> Object.values(state.spots))
+    const spots = useSelector(state=> state.spots)
+    const allSpots = Object.values(spots)
+    const spotImages = useSelector(state=> Object.values(state.images))
     const [showAddressMenu, setShowAddressMenu] = useState(false)
-
+    // const [value, onChange] = useState(new Date());
+    const [date,setDate ] = useState(new Date())
     useEffect(()=> {
       dispatch(getSpots())
+      dispatch(getSpotImages(spotId))
     }, [dispatch])
 
     const spot = spots[spotId]
@@ -29,6 +40,7 @@ const GetSpot = () => {
     // else if (spot && spot.Reviews.length>0){
     //     numReviews= spot.Reviews.length
     // }
+    console.log("spot iamges:", spotImages)
 
     console.log('number reviews:', numReviews)
     const deleteHandle = async (e) => {
@@ -106,6 +118,13 @@ const GetSpot = () => {
                                         </NavLink>
                                     </button>
                                 )}
+                                {sessionUser && sessionUser.id=== spot.ownerId && (
+                                    <button className="spot-footer-button">
+                                        <NavLink className="navlink" exact to={`/spots/${spotId}/images/new`}>
+                                            Update Images for Spot
+                                        </NavLink>
+                                    </button>
+                                )}
                             </div>
                         </>
                     )}
@@ -114,13 +133,19 @@ const GetSpot = () => {
                     <>
                         <div className='spot-detail-card'>
                             <div className="spot-images-container">
-                                <img style={{borderRadius:"10px 0 0 10px"}}className='spot-preview-image-large' src={`${spot.previewImage}`} alt={`${spot.name} picture`}/>
+                                <img style={{borderRadius:"10px 0 0 10px"}} className='spot-preview-image-large' src={`${spot.previewImage}`} alt={`${spot.name} picture`}
+                                  onError={e => { e.currentTarget.src = ffErrorPic; }}
+                                />
                                 <div className='spot-preview-image-right-container'>
-                                    {/* refactor to do this in a for loop for i=4 images */}
-                                    <img className='spot-preview-image-small top' src={`${spot.previewImage}`} alt={`${spot.name} picture`}></img>
+                                    {spotImages.length> 0 && spotImages.map(image => (
+                                      <img src={image.url}  className="spot-image-card"
+                                        onError={e => { e.currentTarget.src = ffErrorPic; }}
+                                      />
+                                    ))}
+                                    {/* <img className='spot-preview-image-small top' src={`${spot.previewImage}`} alt={`${spot.name} picture`}></img>
                                     <img style={{borderRadius:"0 10px 0 0"}} className='spot-preview-image-small top right' src={`${spot.previewImage}`} alt={`${spot.name} picture`}></img>
                                     <img className='spot-preview-image-small bottom' src={`${spot.previewImage}`} alt={`${spot.name} picture`}></img>
-                                    <img style={{borderRadius:"0 0 10px 0"}} className='spot-preview-image-small bottom right' src={`${spot.previewImage}`} alt={`${spot.name} picture`}></img>
+                                    <img style={{borderRadius:"0 0 10px 0"}} className='spot-preview-image-small bottom right' src={`${spot.previewImage}`} alt={`${spot.name} picture`}></img> */}
                                 </div>
                             </div>
                             <div className="spot-bottom-half-info-container">
@@ -162,9 +187,10 @@ const GetSpot = () => {
                                         </div>
                                     )} */}
                                 </div>
+
                                 <div className="spot-right-text-container">
                                     <div className="spot-detail-container-2">
-                                        <h3> FOR DISPLAY ONLY: Will redo later</h3>
+                                        {/* <h3> FOR DISPLAY ONLY: Will redo later</h3> */}
                                         <div className="top-third-container">
                                             <p> <b style={{fontSize: '24px'}}>${spot.price}</b> night</p>
                                             <div className="star-rating-reviews-container">
@@ -178,27 +204,52 @@ const GetSpot = () => {
                                             </div>
                                         </div>
                                         <div className="second-third-container">
-                                            <div className="spot-middle-container-top-row">
+                                          <CreateBookingForm date={date} spots={spots}/>
+                                            {/* <div className="spot-middle-container-top-row">
                                                 <div className='spot-booking-input'>
                                                     check in
                                                 </div>
                                                 <div className='spot-booking-input' >
                                                     check out
                                                 </div>
-                                            </div>
-                                            <div className="spot-middle-container-bottom-row">
-                                                {/* replace p with button tag later */}
-                                                <p>guests</p>
-                                            </div>
+                                            </div> */}
+
                                         </div>
                                         <div className="'last-third-container">
                                             <div className="reserve-submit-button">
                                                 Reserve
                                             </div>
                                         </div>
+                                        <div style={{height: "3em", display: "flex", alignItems: 'center', justifyContent: "center"}}>
+                                          You won't be charged yet
+                                        </div>
+                                        <div className="get-spot-price-breakdown-container">
+                                          <div className="get-spot-price-breakdown-first-row price-row">
+                                            <div className="price-breakdown-label">${spot.price}x *BOOKED DAYS* nights</div>
+                                            <div>${spot.price * 5}</div>
+                                          </div>
+                                          <div className="get-spot-price-breakdown-second-row price-row">
+                                            <div className="price-breakdown-label">Cleaning fee</div>
+                                            <div>$90</div>
+                                          </div>
+                                          <div className="get-spot-price-breakdown-third-row price-row">
+                                            <div className="price-breakdown-label">Service fee</div>
+                                            <div>$325</div>
+                                          </div>
+                                        </div>
+                                        <div className='get-spot-price-breakdown-total-container'>
+                                          <div>Total before taxes</div>
+                                          <div>$9999</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            <Calendar
+                                  onChange={setDate}
+                                  value={date}
+                                  selectRange={true}
+                                  showDoubleView={true}
+                                />
                             <GetReviews spot={spot}/>
                             <div className='spot-footer-container'>
 

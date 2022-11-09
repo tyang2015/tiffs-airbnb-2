@@ -6,7 +6,7 @@ import { getBookings, getSpotBookings } from "../../store/booking";
 import { useEffect } from "react";
 
 
-const CreateBookingForm = ({spots}) => {
+const CreateBookingForm = ({spots, date}) => {
   const {spotId} = useParams();
   const dispatch = useDispatch();
   const bookings = useSelector(state=>state.bookings)
@@ -27,7 +27,7 @@ const CreateBookingForm = ({spots}) => {
   const spot = spots[spotId]
   // console.log('spot in bookings:', spot)
   return (
-    <BookingForm booking={booking} formType={'Create Booking'} bookings={bookings} spot={spot}/>
+    <BookingForm date={date} booking={booking} formType={'Create Booking'} bookings={bookings} spot={spot}/>
   )
 
 }

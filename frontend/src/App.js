@@ -17,6 +17,8 @@ import CreateBookingForm from "./components/CreateBookingForm";
 import EditBookingForm from "./components/EditBookingForm";
 import CreateReviewForm from "./components/CreateReviewForm";
 import EditReviewForm from "./components/EditReviewForm";
+import CreateSpotImages from "./components/CreateSpotImages";
+import UpdateSpotImage from "./components/UpdateSpotImage";
 
 function App() {
   const dispatch = useDispatch();
@@ -77,6 +79,12 @@ function App() {
         </Route>
         <Route exact path= "/spots/:spotId/reviews/:reviewId">
           <EditReviewForm/>
+        </Route>
+        <Route exact path= "/spots/:spotId/images/new">
+          <CreateSpotImages/>
+        </Route>
+        <Route exact path= "/spots/:spotId/images/:imageId/edit">
+          <UpdateSpotImage/>
         </Route>
         <Route>
           <h2>Page Not Found</h2>

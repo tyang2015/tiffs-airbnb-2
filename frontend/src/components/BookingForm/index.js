@@ -6,7 +6,7 @@ import { createBooking, editBooking } from "../../store/booking"
 import './BookingForm.css'
 
 
-const BookingForm = ({bookings, formType, booking, spot})=> {
+const BookingForm = ({ date, bookings, formType, booking, spot})=> {
   // it will be valid or undefined bc edit form does not have spotId in url
   // that is ok
   console.log('spot:', spot)
@@ -73,6 +73,29 @@ const BookingForm = ({bookings, formType, booking, spot})=> {
 
     }, [startDate, endDate])
 
+    const convertCheckInDateDisplay = () => {
+      let startingDate = date[0].toLocaleString('en-US', {
+        month: "numeric",
+        day: 'numeric',
+        year: "numeric",
+      })
+      // let endingDate = date[1].toLocaleString('en-US', {
+      //   month: "numeric",
+      //   day: 'numeric',
+      //   year: "numeric",
+      // })
+      return startingDate
+    }
+
+    const convertCheckOutDateDisplay = () => {
+      let endingDate = date[1].toLocaleString('en-US', {
+        month: "numeric",
+        day: 'numeric',
+        year: "numeric",
+      })
+      return endingDate
+    }
+
 
     const handleSubmit = async (e)=>{
         e.preventDefault();
@@ -126,66 +149,69 @@ const BookingForm = ({bookings, formType, booking, spot})=> {
     //     </div>
     //   )
     // }
-
     return (
-      <>
-      {hasSubmitted && validationErrors.length>0 && (
-        <div>
-          The following errors were found:
-          <ul className='validation-errors'>
-            {validationErrors.map((error) => (
-              <li key={error}>{error}</li>
-            ))}
-          </ul>
+      <div className="spot-middle-container-top-row">
+        <div className='spot-booking-input'>
+            check in
+            {date.length>0 && (<div>{convertCheckInDateDisplay()} </div>)}
+            {!date.length && (<div> </div>)}
         </div>
-      )}
-      <div className='spot-bookings-main-container'>
-        <div className='images-container'>
-          {spot && (<img className="spot-booking-image" src={`${spot.previewImage}`} style={{borderRadius:'0'}}/>)}
-        </div>
-        <div className="booking-form-container" >
-          <form onSubmit={handleSubmit} style={{height:'380px'}}>
-            <fieldset style={{height: '100%'}}>
-              <h2> {formType} </h2>
-                <div >
-                  <div className="form-group first">
-                    <input
-                      type="date"
-                      value={startDate}
-                      onChange={e => setStartDate(e.target.value)}
-                      placeholder= 'start date'
-                      className='form-control booking'
-                    style={{width: '150px'}}
-                    />
-                  </div>
-                  <div className="form-group last">
-                      <input
-                        type="date"
-                        value={endDate}
-                        onChange={e => setEndDate(e.target.value)}
-                        placeholder='end date'
-                        className='form-control booking'
-                        style={{width: '150px'}}
-                      />
-                  </div>
-                </div>
-              <input type="submit" value={formType} className='submit-button'/>
-            </fieldset>
-          </form>
+        <div className='spot-booking-input' >
+            check out
+            {date.length>0 && (<div>{convertCheckOutDateDisplay()} </div>)}
         </div>
       </div>
-
-        {/* <h2> All Bookings You Created: </h2>
-        <div>
-          {allBookings && allBookings.map(booking =>(
-            <div key={booking.id}>
-               <h3>Booking {booking.id}: {booking.Spot.name}</h3>
-               <p> Dates: {booking.startDate}  TO  {booking.endDate}</p>
-            </div>
-           ))}
-        </div> */}
-      </>
     )
+
+    // return (
+    //   <>
+    //   {hasSubmitted && validationErrors.length>0 && (
+    //     <div>
+    //       The following errors were found:
+    //       <ul className='validation-errors'>
+    //         {validationErrors.map((error) => (
+    //           <li key={error}>{error}</li>
+    //         ))}
+    //       </ul>
+    //     </div>
+    //   )}
+    //   <div className='spot-bookings-main-container'>
+    //     <div className='images-container'>
+    //       {spot && (<img className="spot-booking-image" src={`${spot.previewImage}`} style={{borderRadius:'0'}}/>)}
+    //     </div>
+    //     <div className="booking-form-container" >
+    //       <form onSubmit={handleSubmit} style={{height:'380px'}}>
+    //         <fieldset style={{height: '100%'}}>
+    //           <h2> {formType} </h2>
+    //             <div >
+    //               <div className="form-group first">
+    //                 <input
+    //                   type="date"
+    //                   value={startDate}
+    //                   onChange={e => setStartDate(e.target.value)}
+    //                   placeholder= 'start date'
+    //                   className='form-control booking'
+    //                 style={{width: '150px'}}
+    //                 />
+    //               </div>
+    //               <div className="form-group last">
+    //                   <input
+    //                     type="date"
+    //                     value={endDate}
+    //                     onChange={e => setEndDate(e.target.value)}
+    //                     placeholder='end date'
+    //                     className='form-control booking'
+    //                     style={{width: '150px'}}
+    //                   />
+    //               </div>
+    //             </div>
+    //           <input type="submit" value={formType} className='submit-button'/>
+    //         </fieldset>
+    //       </form>
+    //     </div>
+    //   </div>
+    //   </>
+    // )
 }
 
 export default BookingForm
