@@ -7,7 +7,7 @@ import './GetSpot.css'
 import GetReviews from "../GetReviews";
 // import SpotBookings from "../SpotBookings";
 
-// you can key in spots, no need for reducer
+// you can key in spots, no need for reducersdf
 const GetSpot = () => {
     const {spotId} = useParams();
     const dispatch = useDispatch();

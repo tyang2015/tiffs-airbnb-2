@@ -1,0 +1,115 @@
+.update-spot-image-main-container-with-back-button{
+  display: flex;
+  flex-direction: column;
+  width: 60em;
+  margin:auto
+}
+
+
+.update-spot-image-main-container{
+  width: 60em;
+  height: 30em;
+  margin: auto;
+  display: flex;
+
+}
+
+.update-spot-image-back-to-all-photos-container{
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  height: 3.5em;
+}
+
+.update-spot-image-left-pane{
+  width: 65%;
+  position: relative;
+}
+
+.update-spot-image-pic{
+  width: 100%;
+}
+
+.update-spot-image-right-pane{
+  width: 35%;
+
+}
+
+.edit-spot-image-input-edit-button-container{
+  /* background-color: lightblue; */
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  top: -26.5em;
+}
+
+
+div.edit-spot-image-button{
+  background-color: white;
+  left: none;
+  /* bottom: 1.4em;
+  right: 1.4em; */
+
+  height: 58px;
+  width: 60px;
+  position:absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* top: 1.4em;
+  left: 1.4em; */
+  opacity: 85%;
+  border-radius: 50%;
+  border: 1px white solid;
+  cursor: pointer;
+}
+
+input[type="file"].edit-spot-button-input-file-upload-button{
+  position: absolute;
+  z-index: 50;
+  background-color: lightcoral;
+  /* height: 100%; */
+  box-sizing: border-box;
+  /* curs */
+
+  background-color: lightblue;
+  /* width: fit-content; */
+  display: flex;
+  flex-direction: column;
+  height:31em;
+  box-sizing: border-box;
+  position:absolute;
+  width: 100%;
+	text-align: right;
+	opacity: 0;
+	/* z-index: 2; */
+  cursor: pointer;
+}
+
+.update-spot-image-update-delete-container{
+  height:50px;
+  display: flex;
+  flex-direction: row;
+  width: fit-content;
+  padding-top: 1em;
+  padding-left: 1em;
+}
+
+.update-spot-photo-button, .delete-spot-photo-button{
+  height: 50px;
+  background-color: black;
+  color: white;
+  border-radius:7px;
+  width: 104px;
+  font-weight: 550;
+  font-size: 14px;
+  display:flex;
+  align-items: center;
+  margin-right:.2%;
+  cursor: pointer;
+
+}
+
+.delete-spot-photo-button{
+  margin-left: 1em;
+}
