@@ -152,7 +152,7 @@ const validateSpotQuery = [
       handleValidationErrors
 ]
 // ADDED: get spot images
-router.get('/:spotId/images', requireAuth, async (req, res, next) => {
+router.get('/:spotId/images', async (req, res, next) => {
   const images = await Image.findAll({include: {model: Spot}, where: {spotId: req.params.spotId}})
   res.json({images: images})
 
@@ -166,7 +166,7 @@ router.post('/:spotId/images', requireAuth, async (req,res,next)=>{
     console.log("req.body in post image route::::", req.body)
     console.log("user id:", req.user.id )
     let spot = await Spot.findOne({
-        include: [{model: Review}],
+        // include: [{model: Review}],
         where: {id: req.params.spotId}
     });
     // there should only be either 0 or 1 item in Reviews array
@@ -193,9 +193,9 @@ router.post('/:spotId/images', requireAuth, async (req,res,next)=>{
     //         ownerReviewId = review.userId
     //     }
     // }
-    if (spot.Reviews.length){
-        reviewId = spot.Reviews[0].id
-    }
+    // if (spot.Reviews.length){
+    //     reviewId = spot.Reviews[0].id
+    // }
     let newImage = await Image.create({
         spotId: req.params.spotId,
         // reviewId,
@@ -324,7 +324,7 @@ router.patch('/bookings/:bookingId',
 });
 
 
-router.post('/:spotId/bookings', requireAuth, validateBooking, async(req,res,next)=>{
+router.post('/:spotId/bookings', requireAuth ,validateBooking, async(req,res,next)=>{
     let spot = await Spot.findOne({include: {model:Booking},
         where: {id: req.params.spotId}
     })
@@ -388,7 +388,7 @@ router.post('/:spotId/bookings', requireAuth, validateBooking, async(req,res,nex
 
 
 // get bookings booked by user for a given spot
-router.get('/:spotId/bookings', requireAuth, async(req, res, next)=>{
+router.get('/:spotId/bookings', async(req, res, next)=>{
     let bookings = await Booking.findAll({
       include: [{model: Spot, attributes: ['previewImage', 'ownerId']}, {model:User, attributes:
          {exclude: ['email', 'hashedPassword', 'createdAt', 'updatedAt']}}],
@@ -578,7 +578,7 @@ router.get('/:spotId', async (req, res, next)=>{
     res.json(newSpot)
 });
 
-router.get('/' , validateSpotQuery,async(req, res, next)=>{
+router.get('/',  async(req, res, next)=>{
     let {page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice} = req.query
     // console.log("req.query:", req.query)
     // const spotIds = []

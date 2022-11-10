@@ -76,25 +76,3 @@ fieldset.spot-fieldset-container{
     line-height: 1.15;
 
 }
-
-.form-group.spot{
-    /* background-color: green; */
-    width: 90%;
-}
-
-.form-control.spot{
-    border: none;
-    padding: 0;
-    font-size: 20px;
-    border-radius: 0;
-    /* background-color: green; */
-
-    display: block;
-    width: 80%;
-    height: 20px;
-
-    padding: 0.375rem 0.75rem;
-    font-size: 1rem;
-    font-weight: 400;
-
-}

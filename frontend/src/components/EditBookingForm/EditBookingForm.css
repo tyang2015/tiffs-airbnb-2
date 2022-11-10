@@ -1,0 +1,70 @@
+.update-bookings-main-outer-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: 50em;
+  width: 100vw;
+}
+
+
+.update-bookings-main-container{
+  display: flex;
+  flex-direction: row;
+  width: fit-content;
+  height: 100%;
+  /* background-color: lightblue; */
+  align-items: flex-start;
+  justify-content: center;
+  /* margi */
+}
+
+.spot-detail-container-2.update-booking-container{
+  height:fit-content;
+  padding: 0 24px;
+}
+
+.react-calendar{
+  height: fit-content;
+  /* width: 400px; */
+  max-width: 100%;
+  background-color: #fff;
+  color: #222;
+  border:none;
+  border-radius: 8px;
+  /* box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2); */
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.125em;
+  width: 38.5em;
+}
+
+/* div.react-calendar__month-view{
+  width:20em
+} */
+
+.get-spot-price-breakdown-total-container{
+    font-weight: 550;
+    font-size: 16px;
+    display: flex;
+    justify-content: space-between;
+    height: 2em;
+    align-items: flex-start;
+    margin-top: 1em;
+}
+
+.update-bookings-title-container{
+  height: 5.5em;
+  display: flex;
+  justify-content: flex-start;
+  width: 1180px;
+  align-items: center;
+  box-sizing: border-box;
+  font-weight: 700;
+  margin-top: 5em;
+  font-size: 26px;
+}
+
+.original-booking-date-container{
+  /* width: 100%; */
+  width: 1180px;
+}

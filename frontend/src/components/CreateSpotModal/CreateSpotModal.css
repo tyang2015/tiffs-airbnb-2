@@ -1,0 +1,43 @@
+.create-spot-form-container{
+  background-color: aliceblue;
+  width: 90%;
+  margin: auto;
+}
+
+.form-group.spot{
+  /* background-color: green; */
+  /* width: 90%; */
+  width: 28em;
+  margin:auto
+}
+
+.form-control.spot{
+  border: none;
+  padding: 0;
+  font-size: 20px;
+  border-radius: 0;
+
+  display: block;
+  width: 100%;
+  height: 20px;
+
+  padding: 0.375rem 0;
+  font-size: 1rem;
+  font-weight: 400;
+  padding-left: 7px;
+  box-sizing: border-box;
+  height: 40px;
+
+}
+
+.create-spot-form-content-container{
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: auto;
+}
+
+.create-spot.submit-button{
+  margin-top: 2em;
+}

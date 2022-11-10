@@ -34,7 +34,7 @@ const remove = (id) => {
 
 // MUST ADD THIS IN BACKEND
 export const getSpotImages = (spotId) => async dispatch => {
-  const response = await csrfFetch(`/api/spots/${spotId}/images`)
+  const response = await fetch(`/api/spots/${spotId}/images`)
   if (response.ok){
     let images = await response.json()
     console.log("IMAGES FROM SPOT in thunk:", images)
@@ -44,6 +44,7 @@ export const getSpotImages = (spotId) => async dispatch => {
 }
 
 export const createSpotImage = (spotId, payload) => async dispatch => {
+  console.log("PAYLOAD IN THUNK FOR CREATE:", payload)
   const response = await csrfFetch(`/api/spots/${spotId}/images`, {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
@@ -52,6 +53,7 @@ export const createSpotImage = (spotId, payload) => async dispatch => {
   })
   if (response.ok){
     const image = await response.json()
+    console.log("Image id from thunkk:", image.id)
     console.log('CREATED IMAGE IN THUNK:', image)
     dispatch(create(image))
     return image
@@ -92,12 +94,13 @@ const imageReducer = (state=initialState, action) => {
     }
     case CREATE_SPOT_IMAGE: {
       let newState = {...state}
-      action.payload.id = action.payload
+      newState[action.payload.id] = action.payload
+      console.log("new state from create img reducer:", newState)
       return newState
     }
     case UPDATE_SPOT_IMAGE: {
       let newState = {...state}
-      action.payload.id = action.payload
+      newState[action.payload.id] = action.payload
       return newState
     }
     case DELETE_SPOT_IMAGE: {

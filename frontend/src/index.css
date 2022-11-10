@@ -37,8 +37,7 @@ fieldset{
     border-top-right-radius: 7px;
 }
 
-/* each input div box  */
-.form-group {
+/* .form-group {
     overflow: hidden;
     margin-bottom: 0;
     padding: 15px 15px;
@@ -46,14 +45,6 @@ fieldset{
     position: relative;
     background: #edf2f5;
     border-bottom: 1px solid #e6edf1;
-    /* width: 100px; */
-    /* background-color: green; */
-    /* width:80% */
-}
-
-/* *, :after, :before {
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
 } */
 
 body{

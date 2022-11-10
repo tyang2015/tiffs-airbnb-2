@@ -1,0 +1,15 @@
+#modal-content.create-spot-modal-content{
+  height: 45em;
+  width: 39em;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  z-index: 202
+
+}
+
+
+#modal-background.create-spot-modal-background{
+  z-index:201
+}

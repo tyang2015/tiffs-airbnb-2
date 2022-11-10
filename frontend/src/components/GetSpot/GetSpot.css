@@ -70,7 +70,7 @@
     align-items: flex-start;
     justify-content: start;
     /* background-color: brown; */
-    height: 50%;
+    height: 3em;
     margin-bottom: 1.2%;
 
 }
@@ -83,16 +83,17 @@
     align-items: center;
     justify-content: center;
     width: 5.5%;
+    star-rating-container
 
 } */
 
 .star-rating-container-top{
     /* background-color: green; */
-    width: 65px;
     display: flex;
     flex-flow: row wrap;
     justify-content: space-between;
     align-items: center;
+    width: fit-content;
 }
 
 .spot-detail-item-top{
@@ -239,9 +240,12 @@ td:not(.guests-cell) {
     /* you can change the height and width of this container */
     display: block;
     box-sizing: border-box;
-
     /* add myself */
     width: 480px;
+}
+
+.spot-detail-container-2.create-booking{
+  width: 400px;
 }
 
 .top-third-container{
@@ -257,7 +261,7 @@ td:not(.guests-cell) {
     /* background-color: green; */
     display: flex;
     align-items: center;
-    width: 30%;
+    width: fit-content;
     justify-content: space-between;
 }
 
@@ -266,7 +270,7 @@ td:not(.guests-cell) {
     justify-content: end;
     align-items: center;
     /* background-color: coral; */
-    width:90%;
+    width:fit-content;
     flex-flow: row wrap;
 }
 
@@ -276,7 +280,7 @@ td:not(.guests-cell) {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    width: 80%;
+    width: fit-content;
 }
 
 .reserve-submit-button{
@@ -292,6 +296,8 @@ td:not(.guests-cell) {
     justify-content: center;
     align-items: center;
     margin-top: 20px;
+    border: none;
+    cursor: pointer;
 }
 
 .second-third-container{
@@ -361,3 +367,73 @@ td:not(.guests-cell) {
   align-items: flex-end;
   margin-top: 1em;
 }
+
+/* .calendar{
+  background-color: lightblue;
+} */
+
+.booked-date{
+  background-color: lightgoldenrodyellow;
+  text-decoration:line-through;
+  font-weight: 700;
+}
+
+.normal-date{
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+/* .wednesday{
+  color: "purple";
+  font-weight: 700;
+  background-color: lightblue;
+  height: 100%;
+  width: 100%;
+  text-decoration: underline;
+} */
+
+.booked{
+  color: "purple";
+  font-weight: 700;
+  background-color: lightblue;
+  height: 100%;
+  width: 100%;
+  text-decoration: underline;
+}
+
+.city-state-country-container-top.spot-detail-item-top{
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.spot-detail-item-top{
+  width: fit-content;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+abbr[title] {
+  text-decoration: none;
+}
+
+.get-spot-no-images-posted-container{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  border: 1.5px solid #F7F7F7;
+  box-sizing: border-box;
+}
+
+
+/* .star-rating-container-top.spot-detail-item-top{
+  width: fit-content;
+  height: 100%;
+  display: flex;
+  align-items: center;
+} */

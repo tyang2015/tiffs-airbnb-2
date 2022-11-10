@@ -15,19 +15,16 @@ import pfp9 from "./images/pfp9.jpg"
 import pfp11 from "./images/pfp11.jpg"
 import pfp13 from "./images/pfp13.jpg"
 import pfp14 from "./images/pfp14.jpg"
-// import pfp16 from "./images/pfp16.jpg"
+import { useTriggerUpdateReview } from "../../context/TriggerUpdateReview"
 
 const pfpUrls = [pfp1, pfp2, pfp4, pfp5, pfp6, pfp8, pfp9, pfp11, pfp13, pfp14 ]
 
-// create a review base on following restrictions:
-// already have a review for spot => spot.r
-// never booked for spot
-// in both cases:
+
 const ReviewForm = ({reviews,reviewObj, spotId, formType}) => {
-    console.log("REVIEW OBJECT:", reviewObj)
     const dispatch = useDispatch();
     const history= useHistory();
     const sessionUser = useSelector(state => state.session.user);
+    const { triggerUpdate, setTriggerUpdate } = useTriggerUpdateReview();
     let [review, setReview] = useState('')
 
     const [stars, setStars] = useState(null);
@@ -96,6 +93,7 @@ const ReviewForm = ({reviews,reviewObj, spotId, formType}) => {
             console.log('in correct formType')
             dispatch(editReview(reviewObj))
             alert('review has been updated!')
+            setTriggerUpdate(!triggerUpdate)
             setHasSubmitted(false)
             setStars(null)
             setReview('')

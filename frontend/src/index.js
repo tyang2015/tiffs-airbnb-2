@@ -9,6 +9,7 @@ import configureStore from "./store/index"
 import { restoreCSRF, csrfFetch } from './store/csrf';
 import * as sessionActions from './store/session';
 import { ModalProvider } from "./context/Modal";
+import TriggerUpdateReviewProvider from './context/TriggerUpdateReview';
 
 
 const store = configureStore();
@@ -30,9 +31,11 @@ function Root() {
   return (
     <Provider store={store}>
       <ModalProvider>
-        <BrowserRouter>
-          <App/>
-        </BrowserRouter>
+        <TriggerUpdateReviewProvider>
+          <BrowserRouter>
+            <App/>
+          </BrowserRouter>
+        </TriggerUpdateReviewProvider>
       </ModalProvider>
     </Provider>
   )

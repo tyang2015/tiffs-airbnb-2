@@ -65,10 +65,10 @@ function App() {
         <Route exact path= "/users/bookings">
           <UserBookings/>
         </Route>
-        <Route exact path= "/spots/:spotId/bookings/new">
+        {/* <Route exact path= "/spots/:spotId/bookings/new">
           <CreateBookingForm spots={spots}/>
-        </Route>
-        <Route exact path= "/spots/bookings/:bookingId">
+        </Route> */}
+        <Route exact path= "/spots/:spotId/bookings/:bookingId">
           <EditBookingForm spots={spots}/>
         </Route>
         <Route exact path= "/spots/:spotId/bookings" spots={spots}>

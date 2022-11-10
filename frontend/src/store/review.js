@@ -41,9 +41,10 @@ const loadUserReviews = (payload) => {
 }
 
 export const getSpotReviews = (spotId) => async dispatch => {
-    const response = await csrfFetch(`/api/spots/${spotId}/reviews`)
+    const response = await fetch(`/api/spots/${spotId}/reviews`)
     if (response.ok){
         let reviews= await response.json()
+        console.log("REVIEWS from thunk:", reviews)
         dispatch(loadSpotReviews(reviews))
         return reviews
     }

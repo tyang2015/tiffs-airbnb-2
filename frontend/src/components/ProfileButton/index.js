@@ -6,10 +6,12 @@ import LoginFormModal from "../LoginFormModal"
 import SignupFormModal from "../SignupFormModal";
 import {NavLink} from "react-router-dom"
 import { resetBookings } from "../../store/booking";
+import CreateSpotModal from "../CreateSpotModal";
 
 function ProfileButton({ user, signupModal, setSignupModal, loginModal, setLoginModal}) {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
+  const [spotModal, setSpotModal] = useState(false)
   // added here:
   const handleDemoLogin = (e) => {
     dispatch(sessionActions.login({ email: "tiffanyang2015@gmail.com", password:"baludf"}));
@@ -70,8 +72,8 @@ function ProfileButton({ user, signupModal, setSignupModal, loginModal, setLogin
                  <div className="user-profile-main-container">
                    <p className='top-item-profile-dropdown'>{user.email}</p>
                    <div className='user-session-nav-links'>
-                     <button className="item-profile-dropdown user">
-                       <NavLink className='navlink' exact to='/spots/new'> Create a spot </NavLink>
+                     <button onClick={()=> setSpotModal(true) } className="item-profile-dropdown user">
+                       Create a spot
                      </button>
                      <button className="item-profile-dropdown user">
                        <NavLink className='navlink' exact to='/users/bookings'> View your bookings </NavLink>
@@ -79,6 +81,7 @@ function ProfileButton({ user, signupModal, setSignupModal, loginModal, setLogin
                      <button className="item-profile-dropdown user last-item" onClick={logout}>Log Out</button>
                    </div>
                  </div>
+                 {spotModal && (<CreateSpotModal setSpotModal={setSpotModal}/>)}
                </>
               ) :(
                 <>

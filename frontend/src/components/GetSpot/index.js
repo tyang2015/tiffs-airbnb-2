@@ -9,9 +9,11 @@ import { getSpotImages } from "../../store/image";
 import ffErrorPic from "./images/spot-image-error-pic.jpg"
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-import SpotBookings from "../SpotBookings";
+// import SpotBookings from "../SpotBookings";
 import CreateBookingForm from "../CreateBookingForm";
-
+import {getSpotBookings } from "../../store/booking";
+import { getSpotReviews } from "../../store/review";
+import chocoboPic from "./images/chocobo1.jpg"
 // import SpotBookings from "../SpotBookings";
 
 // you can key in spots, no need for reducersdf
@@ -25,24 +27,24 @@ const GetSpot = () => {
     const spots = useSelector(state=> state.spots)
     const allSpots = Object.values(spots)
     const spotImages = useSelector(state=> Object.values(state.images))
+    const bookings = useSelector(state=> Object.values(state.bookings))
+    const reviews = useSelector(state=> Object.values(state.reviews))
     const [showAddressMenu, setShowAddressMenu] = useState(false)
-    // const [value, onChange] = useState(new Date());
     const [date,setDate ] = useState(new Date())
+    let allBookings = bookings
+
     useEffect(()=> {
       dispatch(getSpots())
-      dispatch(getSpotImages(spotId))
+      dispatch(getSpotImages(Number(spotId)))
+      dispatch(getSpotBookings(Number(spotId)))
+      dispatch(getSpotReviews(Number(spotId)))
     }, [dispatch])
 
     const spot = spots[spotId]
-    // if (!spot || !spot.Reviews){
-    //     console.log('waiting for spot')
-    // }
-    // else if (spot && spot.Reviews.length>0){
-    //     numReviews= spot.Reviews.length
-    // }
-    console.log("spot iamges:", spotImages)
 
-    console.log('number reviews:', numReviews)
+    console.log("spot iamges:", spotImages)
+    // console.log('number reviews:', numReviews)
+
     const deleteHandle = async (e) => {
         if (!sessionUser){
             alert('please login to delete spot')
@@ -70,6 +72,39 @@ const GetSpot = () => {
     }
     console.log('spot in get spot page:::', spot)
 
+    if (date.length>0){
+      console.log("newly formatted start date:", date[0])
+      console.log("newly formatted start date:", date[1])
+    }
+
+    const convertDateToLocal = (dateStr) => {
+      let dateObj = new Date(dateStr)
+      dateObj.setDate(dateObj.getDate() + 1)
+      return dateObj
+    }
+
+    const calcNightsBooked = () => {
+      if (date.length>0){
+        let newStart = new Date(date[0])
+        let newEnd = new Date(date[1])
+        let timeDiff= Math.ceil(((newStart.getTime() - newEnd.getTime()) / (1000 * 3600 * 24)))
+        return Math.abs(timeDiff)
+      } else {
+        return null
+      }
+    }
+
+    const calcTotalPrice = (spotPrice) => {
+      return Math.round(spotPrice * calcNightsBooked(), 2)
+    }
+
+
+    const convertIntoComparableDates = (dateObj) => {
+      // const offset = dateObj.getTimezoneOffset()
+      // dateObj = new Date(dateObj.getTime() - (offset*60*1000))
+      return dateObj.toISOString().split('T')[0]
+    }
+
     return (
         <>
             <div className='spot-main-content-container'>
@@ -80,11 +115,11 @@ const GetSpot = () => {
                                 Spot details for {spot.name}
                             </h1>
                             <div className='spot-top-container-bottom-half'>
-                                <div className='star-rating-container-top spot-detail-item-top'>
+                                <div style={{width: "fit-content"}} className='star-rating-container-top spot-detail-item-top'>
                                     <i class="fa-solid fa-star"></i>
                                     <p>{spot.avgStarRating==='NaN'? "New": spot.avgStarRating} •</p>
                                 </div>
-                                <div className='reviews-container-top spot-detail-item-top'>
+                                <div style={{width: "fit-content"}} className='reviews-container-top spot-detail-item-top'>
                                     {numReviews? (
                                         <p> {numReviews} reviews •</p>
                                     ) : (
@@ -92,7 +127,7 @@ const GetSpot = () => {
                                     )}
                                 </div>
                                 <div className= 'city-state-country-container-top spot-detail-item-top'>
-                                    <p>{spot.city}, {spot.state}, {spot.country}</p>
+                                    <div>{spot.city}, {spot.state}, {spot.country}</div>
                                 </div>
                                 {sessionUser && sessionUser.id=== spot.ownerId && (
                                     <button onClick={deleteHandle} className="spot-footer-button navlink"> Delete Spot </button>
@@ -136,17 +171,21 @@ const GetSpot = () => {
                                 <img style={{borderRadius:"10px 0 0 10px"}} className='spot-preview-image-large' src={`${spot.previewImage}`} alt={`${spot.name} picture`}
                                   onError={e => { e.currentTarget.src = ffErrorPic; }}
                                 />
-                                <div className='spot-preview-image-right-container'>
-                                    {spotImages.length> 0 && spotImages.map(image => (
-                                      <img src={image.url}  className="spot-image-card"
-                                        onError={e => { e.currentTarget.src = ffErrorPic; }}
-                                      />
-                                    ))}
-                                    {/* <img className='spot-preview-image-small top' src={`${spot.previewImage}`} alt={`${spot.name} picture`}></img>
-                                    <img style={{borderRadius:"0 10px 0 0"}} className='spot-preview-image-small top right' src={`${spot.previewImage}`} alt={`${spot.name} picture`}></img>
-                                    <img className='spot-preview-image-small bottom' src={`${spot.previewImage}`} alt={`${spot.name} picture`}></img>
-                                    <img style={{borderRadius:"0 0 10px 0"}} className='spot-preview-image-small bottom right' src={`${spot.previewImage}`} alt={`${spot.name} picture`}></img> */}
-                                </div>
+                                {spotImages.length>0 && (
+                                  <div className='spot-preview-image-right-container'>
+                                      {spotImages.map(image => (
+                                        <img src={image.url}  className="spot-image-card"
+                                          onError={e => { e.currentTarget.src = ffErrorPic; }}
+                                        />
+                                      ))}
+                                  </div>
+                                )}
+                                {spotImages.length == 0 && (
+                                  <div className="get-spot-no-images-posted-container">
+                                    <div style={{fontWeight: '450'}}> No images posted </div>
+                                    <img style={{height: "70px", width: '50px', marginLeft: '1em'}} src={chocoboPic} />
+                                  </div>
+                                )}
                             </div>
                             <div className="spot-bottom-half-info-container">
                                 <div className="spot-left-text-container">
@@ -189,21 +228,23 @@ const GetSpot = () => {
                                 </div>
 
                                 <div className="spot-right-text-container">
-                                    <div className="spot-detail-container-2">
+                                    <div className="spot-detail-container-2 create-booking">
                                         {/* <h3> FOR DISPLAY ONLY: Will redo later</h3> */}
                                         <div className="top-third-container">
                                             <p> <b style={{fontSize: '24px'}}>${spot.price}</b> night</p>
                                             <div className="star-rating-reviews-container">
-                                                <div className="star-rating-container">
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <p> {spot.avgStarRating==='NaN'? "New": spot.avgStarRating} •</p>
-                                                </div>
-                                                <div className='reviews-container'>
-                                                    <p> {numReviews} reviews </p>
-                                                </div>
+                                              <div className="star-rating-container">
+                                                  <i class="fa-solid fa-star"></i>
+                                                  <div style={{display:"flex", alignItems: "center", width: '2.8em', flexWrap: "nowrap"}}>
+                                                      {spot.avgStarRating==='NaN'? "New": spot.avgStarRating} •
+
+                                                  </div>
+                                              </div>
+                                              <div className='reviews-container'>
+                                                  <div> {numReviews} reviews </div>
+                                              </div>
                                             </div>
                                         </div>
-                                        <div className="second-third-container">
                                           <CreateBookingForm date={date} spots={spots}/>
                                             {/* <div className="spot-middle-container-top-row">
                                                 <div className='spot-booking-input'>
@@ -213,20 +254,18 @@ const GetSpot = () => {
                                                     check out
                                                 </div>
                                             </div> */}
-
-                                        </div>
-                                        <div className="'last-third-container">
+                                        {/* <div className="'last-third-container">
                                             <div className="reserve-submit-button">
                                                 Reserve
                                             </div>
-                                        </div>
+                                        </div> */}
                                         <div style={{height: "3em", display: "flex", alignItems: 'center', justifyContent: "center"}}>
                                           You won't be charged yet
                                         </div>
                                         <div className="get-spot-price-breakdown-container">
                                           <div className="get-spot-price-breakdown-first-row price-row">
-                                            <div className="price-breakdown-label">${spot.price}x *BOOKED DAYS* nights</div>
-                                            <div>${spot.price * 5}</div>
+                                            <div className="price-breakdown-label">${spot.price}x {calcNightsBooked()} nights</div>
+                                            <div>${calcTotalPrice(spot.price)}</div>
                                           </div>
                                           <div className="get-spot-price-breakdown-second-row price-row">
                                             <div className="price-breakdown-label">Cleaning fee</div>
@@ -239,18 +278,41 @@ const GetSpot = () => {
                                         </div>
                                         <div className='get-spot-price-breakdown-total-container'>
                                           <div>Total before taxes</div>
-                                          <div>$9999</div>
+                                          <div>${90 + 325 + calcTotalPrice(spot.price)}</div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <Calendar
-                                  onChange={setDate}
-                                  value={date}
-                                  selectRange={true}
-                                  showDoubleView={true}
+                            <div style={{}}>
+                              <Calendar
+                                onChange={setDate}
+                                value={date}
+                                selectRange={true}
+                                showDoubleView={true}
+                                view="month"
+                                className="calendar"
+                                minDate={new Date()}
+                                // maxDate={new Date().setFullYear(date.getFullYear()+1)}
+                                tileClassName={({date,view})=>{
+                                  // if (view === 'month' && date.getDay() === 3) return 'booked'
+                                  // else return null
+                                  allBookings.map(booking =>{
+                                    let exStartDate = convertIntoComparableDates(new Date(booking.startDate))
+                                    let exEndDate = convertIntoComparableDates(new Date(booking.endDate))
+                                    let calendarDate = convertIntoComparableDates(new Date(date))
+                                    // console.log('calendar date:', calendarDate)
+                                    // console.log("start date inside tileClass functionL", exStartDate)
+                                    // console.log("end date inside tileClass functionL", exEndDate)
+                                    // console.log("calendar date:", calendarDate)
+                                    if ((calendarDate>= exStartDate && calendarDate<= exEndDate)){
+                                      console.log("calendar date is booked")
+                                      return "booked-date"
+                                    } else return "normal-date"
+                                  })
+                                }}
                                 />
-                            <GetReviews spot={spot}/>
+                            </div>
+                            <GetReviews reviews={reviews} spot={spot} />
                             <div className='spot-footer-container'>
 
                             </div>

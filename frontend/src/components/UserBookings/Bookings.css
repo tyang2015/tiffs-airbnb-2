@@ -24,6 +24,10 @@ button.user-booking-delete-button{
     height: 100%;
     margin:auto;
     /* margin-left: 0px; */
+
+    width: 80em;
+    height: 100vh;
+    margin: auto;
 }
 
 .user-booking-card{
