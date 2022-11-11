@@ -5,6 +5,7 @@ import {useDispatch, useSelector} from "react-redux"
 import { getSpotBookings } from "../../store/booking";
 import { getSpots } from "../../store/spot";
 import UpdateBookingForm from "./UpdateBookingForm";
+import "./EditBookingForm.css"
 
 const EditBookingForm = () => {
     // bookings is an object

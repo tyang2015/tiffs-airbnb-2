@@ -227,24 +227,12 @@ const BookingForm = ({ date, bookings, formType, booking, spot})=> {
 
         if (formType==='Create Booking'){
           let bookingCreated = dispatch(createBooking(spotId, booking))
-          // existingStartDates.push(startDate)
-          // existingEndDates.push(endDate)
-          // console.log('start date after successful create:', existingStartDates)
-          // console.log('end date after successful create:', existingEndDates)
-          // setStartDate('')
-          // setEndDate('')
+
           alert('Thanks for booking!')
           setHasSubmitted(false)
           history.push('/users/bookings')
           return
         }
-        // else{
-        //   let bookingUpdated = dispatch(editBooking(booking.id, booking))
-        //   alert('Your booking has been rescheduled!')
-        //   setHasSubmitted(false)
-        //   history.push('/users/bookings')
-        //   return
-        // }
     }
 
     return (

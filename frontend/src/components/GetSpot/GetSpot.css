@@ -7,7 +7,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 70.5rem;
+    width: 85em;
     margin: 0 auto;
 }
 
@@ -15,11 +15,11 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, 1fr);
-  grid-column-gap: .8em;
-  grid-row-gap: .8em;
+  grid-column-gap: .70em;
+  grid-row-gap: .6em;
   width:100%;
   background-color: lightblue;
-  height: 35rem;
+  height: 40em;
   margin-left: 0.7em;
 }
 
@@ -75,6 +75,19 @@
 
 }
 
+.get-spot-formatted-dates-container{
+  color: #717188;
+  font-weight: 400;
+  font-size:18px
+}
+
+.spot-right-text-parent-container{
+  background-color: lightgoldenrodyellow;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+}
+
 
 
 /* .star-rating-container-top{
@@ -112,7 +125,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: row;
-    height: 35rem;
+    height: 40em;
 }
 
 /* .spot-preview-image-right-container{
@@ -153,12 +166,18 @@ img.spot-preview-image-small{
     width: 100%;
     background-color: white;
 }
+.spot-bottom-half-info-main-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 3%;
+}
 
 .spot-bottom-half-info-container{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin-top: 3%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 3%;
 }
 
 .spot-left-text-container{
@@ -169,12 +188,9 @@ img.spot-preview-image-small{
     justify-content: start;
     align-items: start;
     /* margin-top: 12%; */
-
+    margin-bottom: 4em;
 }
 
-.spot-right-text-container{
-    /* background-color: lightsalmon; */
-}
 
 div.spot-detail{
     /* border-top: 1px solid rgba(177, 170, 170, 0.3); */
@@ -245,7 +261,12 @@ td:not(.guests-cell) {
 }
 
 .spot-detail-container-2.create-booking{
-  width: 400px;
+  width: 475px;
+  /* position:sticky; */
+  position: sticky;
+  bottom: 1rem;
+  align-self: flex-end;
+  /* top:30p */
 }
 
 .top-third-container{
@@ -378,10 +399,10 @@ td:not(.guests-cell) {
   font-weight: 700;
 }
 
-.normal-date{
+/* .normal-date{
   font-weight: 700;
   text-decoration: underline;
-}
+} */
 
 /* .wednesday{
   color: "purple";
@@ -430,6 +451,9 @@ abbr[title] {
   box-sizing: border-box;
 }
 
+.react-calendar__month-view__days__day--weekend{
+  color: #B0B0B0;
+}
 
 /* .star-rating-container-top.spot-detail-item-top{
   width: fit-content;

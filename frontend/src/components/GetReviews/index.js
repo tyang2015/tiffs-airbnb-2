@@ -55,8 +55,7 @@ const GetReviews = ({spot}) =>{
           console.log("DATA.REVIEWS", data)
           return data.reviews
         })
-        if (!allRatings || allRatings.length ==0){
-          setAvgStarRating("No")
+        if (!newReviews){
           return
         }
         let allRatings = newReviews.map(review => review.stars)
@@ -134,16 +133,16 @@ const GetReviews = ({spot}) =>{
                 <img src={pfpUrls[i%pfpUrls.length]} className='review-pfp'/>
                 <div className="spot-reviews-card-container-top-row-reviewer-info-right-container">
                   <div style={{width: "100%", textOverflow:"ellipsis"}}>
-                    {(<div>{ review.User.firstName}</div>)}
+                    {(<div>{ review?.User?.firstName}</div>)}
                   </div>
                   <div style={{width: "100%", textOverflow:"ellipsis"}}>
-                    {getDate(review.createdAt)}
+                    {getDate(review?.createdAt)}
                   </div>
                 </div>
                 {(sessionUser && sessionUser.id == review.userId ) && (
                   <div className="update-delete-review-container">
                     <div className="review-button-container">
-                      <NavLink to={{pathname:`/spots/${spotId}/reviews/${review.id}`, state: {review}}}>
+                      <NavLink to={{pathname:`/spots/${spotId}/reviews/${review?.id}`, state: {review}}}>
                         <i class="fa-solid fa-pen-to-square"></i>
                       </NavLink>
                     </div>

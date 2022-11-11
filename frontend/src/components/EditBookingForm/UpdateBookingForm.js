@@ -179,6 +179,7 @@ const UpdateBookingForm = ({booking, bookings, spot, formType}) => {
       <div className="update-bookings-main-container">
         {/* <div className="update-bookings-booking-container"> */}
         <Calendar
+          style={{margin:"auto"}}
           onChange={setDate}
           value={date}
           selectRange={true}
