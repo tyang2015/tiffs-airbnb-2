@@ -204,7 +204,8 @@ router.post('/:spotId/images', requireAuth, async (req,res,next)=>{
     res.statusCode = 201
     let imageToSend = await Image.findOne({where: {id: newImage.id}})
     console.log("image to send:::", imageToSend.toJSON())
-    res.json(imageToSend.toJSON())
+    // res.json(imageToSend.toJSON())
+    res.json(newImage.toJSON())
 
 });
 

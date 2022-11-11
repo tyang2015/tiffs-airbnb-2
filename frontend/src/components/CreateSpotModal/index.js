@@ -5,7 +5,7 @@ import { Modal } from "../../context/CreateSpotModal";
 import SpotForm from "./SpotForm";
 import { getSpots } from "../../store/spot";
 
-const CreateSpotModal = ({setSpotModal}) => {
+const CreateSpotModal = ({setSpotModal, formType}) => {
   const dispatch = useDispatch();
   // const spots = useSelector(state=> Objectstate.spots)
   // const spot = spots[]
@@ -16,7 +16,7 @@ const CreateSpotModal = ({setSpotModal}) => {
 
   return (
     <Modal onClose={()=> setSpotModal(false)}>
-      <SpotForm formType="Create Spot" setSpotModal={setSpotModal}/>
+      <SpotForm formType={formType} setSpotModal={setSpotModal}/>
     </Modal>
   )
 

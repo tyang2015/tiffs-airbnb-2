@@ -24,10 +24,17 @@
 .update-spot-image-left-pane{
   width: 65%;
   position: relative;
+  height: 436.77px
 }
 
 .update-spot-image-pic{
   width: 100%;
+  height: 436.777;
+  min-height: 436.77;
+  max-height: 436.77;
+  /* height: 31em;
+  min-height: 31em;
+  max-height:31em; */
 }
 
 .update-spot-image-right-pane{
@@ -67,23 +74,18 @@ div.edit-spot-image-button{
 input[type="file"].edit-spot-button-input-file-upload-button{
   position: absolute;
   z-index: 50;
-  background-color: lightcoral;
   /* height: 100%; */
   box-sizing: border-box;
-  /* curs */
-
-  background-color: lightblue;
-  /* width: fit-content; */
   display: flex;
   flex-direction: column;
-  height:31em;
+  height:100%;
   box-sizing: border-box;
-  position:absolute;
   width: 100%;
 	text-align: right;
-	opacity: 0;
+	/* opacity: 0; */
 	/* z-index: 2; */
   cursor: pointer;
+  top: -18px;
 }
 
 .update-spot-image-update-delete-container{

@@ -81,7 +81,7 @@ function ProfileButton({ user, signupModal, setSignupModal, loginModal, setLogin
                      <button className="item-profile-dropdown user last-item" onClick={logout}>Log Out</button>
                    </div>
                  </div>
-                 {spotModal && (<CreateSpotModal setSpotModal={setSpotModal}/>)}
+                 {spotModal && (<CreateSpotModal formType={"Create a Spot"} setSpotModal={setSpotModal}/>)}
                </>
               ) :(
                 <>

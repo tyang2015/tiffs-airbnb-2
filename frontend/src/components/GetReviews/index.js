@@ -142,7 +142,7 @@ const GetReviews = ({spot}) =>{
                 {(sessionUser && sessionUser.id == review.userId ) && (
                   <div className="update-delete-review-container">
                     <div className="review-button-container">
-                      <NavLink to={{pathname:`/spots/${spotId}/reviews/${review?.id}`, state: {review}}}>
+                      <NavLink style={{color: "black"}} to={{pathname:`/spots/${spotId}/reviews/${review?.id}`, state: {review}}}>
                         <i class="fa-solid fa-pen-to-square"></i>
                       </NavLink>
                     </div>
@@ -172,7 +172,7 @@ const GetReviews = ({spot}) =>{
           </div>
         )}
         {sessionUser && sessionUser.id != spot.ownerId && (
-          <div className="create-review-container">
+          <div className="create-review-container" style={{marginBottom: "3em"}}>
             <NavLink to={`/spots/${spotId}/reviews/new`}>
               <div style={{marginTop: "2em", display: 'flex', textAlign: "center"}} className="spot-footer-button create-a-review-button">
                 Create a Review

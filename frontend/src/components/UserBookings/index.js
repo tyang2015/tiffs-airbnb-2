@@ -43,29 +43,31 @@ const UserBookings = () => {
                 <h2> Your bookings </h2>
                 <div className={`user-bookings-grid-container`}>
                     {allBookings.map(booking => (
-                      <NavLink key={booking.id} to={`/spots/${booking.Spot.id}`} className="navlink">
-                        <div key={booking.id} className={`user-booking-card`}>
+                      <div key={booking.id} className={`user-booking-card`}>
                             <div className={`user-bookings`}>
                                 <img className={`user-booking-img`} src={`${booking.Spot.previewImage}`}/>
                             </div>
-                            <div className={`user-booking-text-container`}>
-                                <h3 className='booking-title-container' key={booking.id}>#{booking.id}: {booking.Spot.name}</h3>
-                                <p className='booking-date-container'> Dates: {displayDates(booking.startDate)} ➣ {displayDates(booking.endDate)}</p>
-                            </div>
-                            <div className={`user-booking-delete-container`}>
-                              <button className= "user-booking-delete-button" onClick={e=>handleDelete(e,booking.id)}>
-                                  <i class="fa-solid fa-trash-can"></i>
-                              </button>
-                              <div>
-                                <NavLink to={`/spots/${booking.Spot.id}/bookings/${booking.id}`}>
-                                  <button className= "user-booking-update-button">
-                                    <i class="fa-sharp fa-solid fa-pencil"></i>
-                                  </button>
-                                </NavLink>
+                            <div className='user-bookings-right-pane-container'>
+                              <NavLink key={booking.id} to={`/spots/${booking.Spot.id}`} className="navlink">
+                                <div className={`user-booking-text-container`}>
+                                    <h3 className='booking-title-container' key={booking.id}>#{booking.id}: {booking.Spot.name}</h3>
+                                    <p className='booking-date-container'> Dates: {displayDates(booking.startDate)} ➣ {displayDates(booking.endDate)}</p>
+                                </div>
+                              </NavLink>
+                              <div className={`user-booking-delete-container`}>
+                                <button className= "user-booking-delete-button" onClick={e=>handleDelete(e,booking.id)}>
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </button>
+                                <div>
+                                  <NavLink to={`/spots/${booking.Spot.id}/bookings/${booking.id}`}>
+                                    <button className= "user-booking-update-button">
+                                      <i class="fa-sharp fa-solid fa-pencil"></i>
+                                    </button>
+                                  </NavLink>
+                                </div>
                               </div>
                             </div>
                         </div>
-                      </NavLink>
                     ))}
                 </div>
             </div>

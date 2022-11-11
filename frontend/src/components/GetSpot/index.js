@@ -16,6 +16,8 @@ import { getSpotReviews } from "../../store/review";
 import chocoboPic from "./images/chocobo1.jpg"
 import MapContainer from "../Maps";
 import SplashFooter from "../SplashFooter";
+import EditSpotForm from "../EditSpotForm";
+import CreateSpotModal from "../CreateSpotModal";
 // import EditBook
 // import SpotBookings from "../SpotBookings";
 
@@ -33,6 +35,7 @@ const GetSpot = () => {
     const bookings = useSelector(state=> Object.values(state.bookings))
     const reviews = useSelector(state=> Object.values(state.reviews))
     const [showAddressMenu, setShowAddressMenu] = useState(false)
+    const [spotModal, setSpotModal] = useState(false)
     const [date,setDate ] = useState(new Date())
     let allBookings = bookings
 
@@ -147,18 +150,21 @@ const GetSpot = () => {
                                     </button>
                                 )}
                                 {sessionUser && sessionUser.id=== spot.ownerId && (
-                                    <button className="spot-footer-button">
-                                        <NavLink className="navlink" exact to={`/spots/${spotId}/edit`}>
+                                    <button className="spot-footer-button" onClick={()=> setSpotModal(true)}>
+                                        {/* <NavLink className="navlink" exact to={`/spots/${spotId}/edit`}> */}
                                             Edit spot
-                                        </NavLink>
+                                        {/* </NavLink> */}
                                     </button>
                                 )}
                                 {sessionUser && sessionUser.id=== spot.ownerId && (
-                                    <button className="spot-footer-button">
+                                    <button className="spot-footer-button" >
                                         <NavLink className="navlink" exact to={`/spots/${spotId}/images/new`}>
                                             Update Images for Spot
                                         </NavLink>
                                     </button>
+                                )}
+                                {spotModal && (
+                                  <CreateSpotModal setSpotModal={setSpotModal} formType={"Edit a Spot"}/>
                                 )}
                             </div>
                         </>

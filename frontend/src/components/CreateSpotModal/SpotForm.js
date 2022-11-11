@@ -82,14 +82,14 @@ const SpotForm = ({spot, formType, setSpotModal}) => {
       previewImage
     }
 
-    if (formType==='Create Spot'){
+    if (formType==='Create a Spot'){
         dispatch(createSpot(spot))
         alert('New Spot Added!')
         setSpotModal(false)
         setHasSubmitted(false)
         history.push('/')
     }
-    if (formType==='Update Spot' && sessionUser.id=== spot.ownerId) {
+    if (formType==='Edit a Spot') {
         dispatch(editSpot(spot.id, spot))
         alert('Spot changes have been updated!')
         setHasSubmitted(false)
