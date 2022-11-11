@@ -18,8 +18,7 @@
   grid-column-gap: .70em;
   grid-row-gap: .6em;
   width:100%;
-  background-color: lightblue;
-  height: 34em;
+  height: 31em;
   margin-left: 0.7em;
 }
 
@@ -78,11 +77,12 @@
 .get-spot-formatted-dates-container{
   color: #717188;
   font-weight: 400;
-  font-size:18px
+  font-size:18px;
+  margin-bottom: 18px;
 }
 
 .spot-right-text-parent-container{
-  background-color: lightgoldenrodyellow;
+  /* background-color: lightgoldenrodyellow; */
   display: flex;
   justify-content: space-around;
   align-items: flex-start;
@@ -125,7 +125,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: row;
-    height: 34em;
+    height: 31em;
 }
 
 /* .spot-preview-image-right-container{
@@ -181,12 +181,12 @@ img.spot-preview-image-small{
   justify-content: space-between;
   /* margin-top: 3%; */
   /* width: 46em; */
-  width: 40em;
+  width: 48em;
 }
 
 .spot-left-text-container{
     /* background-color: lightgreen; */
-    width: 60%;
+    width:100%;
     display:flex;
     flex-direction: column;
     justify-content: start;
@@ -398,9 +398,9 @@ td:not(.guests-cell) {
 } */
 
 .booked-date{
-  background-color: lightgoldenrodyellow;
   text-decoration:line-through;
   font-weight: 700;
+  color:#DDDDDD;
 }
 
 /* .normal-date{
@@ -459,9 +459,9 @@ abbr[title] {
   color: #B0B0B0;
 }
 
-/* .star-rating-container-top.spot-detail-item-top{
-  width: fit-content;
-  height: 100%;
+.blank-image{
   display: flex;
   align-items: center;
-} */
+  justify-content: center;
+  border: 1.5px solid #DDDDDD;
+}

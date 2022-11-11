@@ -4,6 +4,7 @@ const usersRouter = require('./users.js');
 const spotsRouter = require('./spots.js')
 const reviewsRouter = require('./reviews.js')
 const imagesRouter = require('./images.js')
+const mapsRouter = require("./maps")
 const { restoreUser, requireAuth } = require('../../utils/auth.js');
 
 router.use(restoreUser);
@@ -15,7 +16,7 @@ router.use('/users', usersRouter);
 router.use('/spots', spotsRouter);
 router.use('/reviews', reviewsRouter)
 router.use('/images', imagesRouter)
-
+router.use('/maps', mapsRouter);
 // app.use('/users', require('./routes/user'))
 
 

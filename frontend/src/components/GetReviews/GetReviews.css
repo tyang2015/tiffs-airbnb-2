@@ -1,3 +1,14 @@
+
+.get-reviews-main-outer-container{
+  border-top: 1.5px solid #DDDDDD;
+  border-bottom: 1.5px solid #DDDDDD;
+  /* background-color: lightcyan; */
+  margin-top: 5em;
+
+
+}
+
+
 .reviews-main-container{
   /* background-color: lightblue; */
   border-top: 1px solid #e7e7e7;

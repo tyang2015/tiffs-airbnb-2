@@ -73,11 +73,12 @@
 
 /* CSS CALENDAR  */
 .react-calendar--doubleView {
-  width: 700px;
+  width: 720px;
 }
 .react-calendar--doubleView .react-calendar__viewContainer {
   display: flex;
   margin: -0.5em;
+  width: 720px;
 }
 .react-calendar--doubleView .react-calendar__viewContainer > * {
   width: 50%;
@@ -255,3 +256,24 @@
   color: black;
   font-weight: 550;
  }
+
+ .react-calendar__navigation__label{
+  display: flex;
+  position: relative;
+  left: 10px;
+  justify-content:space-between;
+  align-items: center;
+  width:10em;
+  font-weight: 550;
+  font-size: 18px;
+  color:#252525;
+ }
+.react-calendar__navigation__label__divider{
+  display: none;
+}
+
+
+
+.react-calendar__navigation button:disabled{
+  display: none;
+}

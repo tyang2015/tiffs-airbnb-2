@@ -1,0 +1,56 @@
+.marker-parent-container{
+  /* background-color: blue; */
+  z-index: 1;
+  /* height:fit-content;
+  width: fit-content; */
+  height: 150px;
+  width: 150px;
+  position: relative;
+  top: 38.25%;
+  left: 42.75%;
+}
+
+
+.marker-container{
+  height:150px;
+  width: 150px;
+  position: absolute;
+  z-index: 2;
+  background-color: #E51D59;
+  opacity: 16%;
+  /* display: flex;
+  align-items: center;
+  justify-content: center; */
+  border-radius: 50%;
+
+  /* top: 47.5%;
+  left: 47.25%; */
+}
+
+
+.marker{
+  box-sizing: border-box;
+  background-color: rgba(229, 29, 89, 1);
+  border-radius: 50%;
+  height:68px;
+  width: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  z-index: 3;
+  top: 28.25%;
+  left: 28%;
+
+
+    /* top: 50%;
+    left: 50%;
+    width: 18px;
+    height: 18px;
+    background-color: #000;
+    border: 2px solid #fff;
+    border-radius: 100%;
+    user-select: none;
+    transform: translate(-50%, -50%); */
+
+}

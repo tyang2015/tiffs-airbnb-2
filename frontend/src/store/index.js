@@ -5,13 +5,15 @@ import bookingReducer from './booking'
 import spotReducer from './spot'
 import reviewReducer from "./review";
 import imageReducer from "./image";
+import mapsReducer from "./maps";
 
 const rootReducer = combineReducers({
     session: sessionReducer,
     spots: spotReducer,
     bookings: bookingReducer,
     reviews: reviewReducer,
-    images: imageReducer
+    images: imageReducer,
+    maps: mapsReducer
 })
 
 let enhancer;

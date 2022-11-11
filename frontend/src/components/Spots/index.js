@@ -7,6 +7,7 @@ import {NavLink} from "react-router-dom"
 import React from 'react'
 import './Spots.css'
 import ClipLoader from "react-spinners/ClipLoader"
+import SplashFooter from '../SplashFooter'
 
 
 const Spots = () =>{
@@ -83,6 +84,7 @@ const Spots = () =>{
                     </div>
                 )}
             </div>
+            <SplashFooter/>
         </div>
 
     )

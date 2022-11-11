@@ -1,0 +1,112 @@
+.splashpage-footer{
+  display: flex;
+  justify-content: space-between;
+  width: 100vw;
+  height: 2.5em;
+  background-color: white;
+  margin-top: 6em;
+  border-top: 1.5px solid #DDDDDD ;
+  /* padding-top:.5em; */
+  position: fixed;
+  bottom:0;
+}
+
+
+.footer-github-link-container{
+  height: 40px;
+  /* background-color: green; */
+  width: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer-linkedin-link-container{
+  height: 40px;
+  width: 10em;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  /* background-color: lightgoldenrodyellow; */
+  flex-wrap: nowrap;
+}
+
+.github-container{
+  /* background-color: lightcoral; */
+  height: 100%;
+  width: fit-content;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.linked-in-svg-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* background-color: lightgreen; */
+  height:100%;
+  width: 28%;
+}
+
+.splashpage-footer-left-container{
+  /* background-color: lightblue; */
+  display: flex;
+  width: 50rem;
+  height: 100%;
+  flex-direction: row;
+  margin-left: 4em;
+}
+
+.left-container-item.first-item{
+  display: flex;
+  flex-direction: row;
+  width: fit-content;
+  height: 100%;
+  /* background-color: lightcoral; */
+  align-items: center;
+  flex-wrap: nowrap;
+
+}
+
+.disclaimer-text{
+  display: flex;
+  align-items: center;
+}
+
+.splashpage-footer-right-container{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width:32em;
+}
+
+.right-container-item{
+  display: flex;
+  align-items: center;
+}
+
+.linked-in-container{
+  display: flex;
+  flex-direction: row;
+}
+
+.link{
+  font-weight: 450;
+  color:black;
+  text-decoration: none;
+}
+
+.splash-right-container-item{
+  /* background-color: lightgoldenrodyellow; */
+  width: 12em;
+  display: flex;
+  flex-direction:row ;
+}
+
+.tiffany-profile-container{
+  width: 50px;
+  height: 50px;
+  background-color: lightcoral;
+}

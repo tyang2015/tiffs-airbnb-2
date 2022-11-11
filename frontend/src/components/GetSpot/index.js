@@ -14,6 +14,8 @@ import CreateBookingForm from "../CreateBookingForm";
 import {getSpotBookings } from "../../store/booking";
 import { getSpotReviews } from "../../store/review";
 import chocoboPic from "./images/chocobo1.jpg"
+import MapContainer from "../Maps";
+import SplashFooter from "../SplashFooter";
 // import EditBook
 // import SpotBookings from "../SpotBookings";
 
@@ -171,10 +173,14 @@ const GetSpot = () => {
                                 />
                                 {spotImages.length>0 && (
                                   <div className='spot-preview-image-right-container'>
-                                      {spotImages.map(image => (
+                                      {spotImages.map((image,i) => (
                                         <img src={image.url}  className="spot-image-card"
+                                        style={{borderTopRightRadius:i==1? "10px": "0", borderBottomRightRadius: i==3? "10px": "0"}}
                                           onError={e => { e.currentTarget.src = ffErrorPic; }}
                                         />
+                                      ))}
+                                      {spotImages.length<4 && Array(4 - spotImages.length).fill(1).map( i => (
+                                        <div className="spot-image-card blank-image"> No image here </div>
                                       ))}
                                   </div>
                                 )}
@@ -225,9 +231,9 @@ const GetSpot = () => {
                                           </div>
                                       )} */}
                                   </div>
-                                  <div>
+                                  <div style={{width: "44rem"}}>
                                     <div>
-                                      <div style={{fontWeight: "550", fontSize: '28px', backgroundColor: "lightcoral", alignItems:"center"}}>
+                                      <div style={{fontWeight: "550", fontSize: '28px', alignItems:"center"}}>
                                         {calcNightsBooked()} nights at {spot.name}
                                         {date.length && (
                                           <div className="get-spot-formatted-dates-container">
@@ -264,6 +270,7 @@ const GetSpot = () => {
                                       }}
                                       />
                                   </div>
+
                               </div>
                               <div className="spot-right-text-parent-container">
                                 {/* <div className="spot-right-text-container"> */}
@@ -285,19 +292,6 @@ const GetSpot = () => {
                                           </div>
                                       </div>
                                         <CreateBookingForm date={date} spots={spots}/>
-                                          {/* <div className="spot-middle-container-top-row">
-                                              <div className='spot-booking-input'>
-                                                  check in
-                                              </div>
-                                              <div className='spot-booking-input' >
-                                                  check out
-                                              </div>
-                                          </div> */}
-                                      {/* <div className="'last-third-container">
-                                          <div className="reserve-submit-button">
-                                              Reserve
-                                          </div>
-                                      </div> */}
                                       <div style={{height: "3em", display: "flex", alignItems: 'center', justifyContent: "center"}}>
                                         You won't be charged yet
                                       </div>
@@ -324,13 +318,16 @@ const GetSpot = () => {
                               </div>
                             </div>
                             <GetReviews reviews={reviews} spot={spot} />
-                            <div className='spot-footer-container'>
-
+                            <div style={{marginBottom: "5em", paddingTop: "4em"}}>
+                              <div style={{fontSize: "26px", fontWeight: "550", marginBottom: "1.5rem"}}>Where you'll be</div>
+                              <div style={{fontSize: "20px", marginBottom: "1.5em"}}>{spot?.city}, {spot.state}, {spot.country}</div>
+                              <MapContainer lng={spot? spot.lng: ""} lat={spot? spot.lat:""}/>
                             </div>
                         </div>
                     </>
                 )}
             </div>
+          {/* <SplashFooter/> */}
         </>
     )
 }
