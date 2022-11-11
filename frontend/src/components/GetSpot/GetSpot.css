@@ -7,7 +7,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 85em;
+    width: 72em;
     margin: 0 auto;
 }
 
@@ -19,7 +19,7 @@
   grid-row-gap: .6em;
   width:100%;
   background-color: lightblue;
-  height: 40em;
+  height: 34em;
   margin-left: 0.7em;
 }
 
@@ -125,7 +125,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: row;
-    height: 40em;
+    height: 34em;
 }
 
 /* .spot-preview-image-right-container{
@@ -170,14 +170,18 @@ img.spot-preview-image-small{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin-top: 3%;
+  /* margin-top: 3%; */
+  margin-top: 3.6em;
+
 }
 
 .spot-bottom-half-info-container{
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin-top: 3%;
+  /* margin-top: 3%; */
+  /* width: 46em; */
+  width: 40em;
 }
 
 .spot-left-text-container{
@@ -261,7 +265,7 @@ td:not(.guests-cell) {
 }
 
 .spot-detail-container-2.create-booking{
-  width: 475px;
+  width: 400px;
   /* position:sticky; */
   position: sticky;
   bottom: 1rem;

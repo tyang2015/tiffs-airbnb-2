@@ -73,7 +73,7 @@
 
 /* CSS CALENDAR  */
 .react-calendar--doubleView {
-  width: 800px;
+  width: 700px;
 }
 .react-calendar--doubleView .react-calendar__viewContainer {
   display: flex;
@@ -246,7 +246,7 @@
   margin: 0;
   border: 0;
   outline: none;
-  height: 4em;
+  height: 3.72em;
  }
 
  .react-calendar__tile--now {
