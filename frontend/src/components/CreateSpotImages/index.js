@@ -270,7 +270,7 @@ const CreateSpotImages = () => {
             </div>
           {/* )) } */}
         </div>
-        <button type='submit'> Submit </button>
+        <button type='submit' className="create-spot-photo-button"> Submit </button>
       </form>
     </div>
   )

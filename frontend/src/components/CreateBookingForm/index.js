@@ -11,11 +11,6 @@ const CreateBookingForm = ({spots, date}) => {
   const dispatch = useDispatch();
   const bookings = useSelector(state=>state.bookings)
 
-  // this is for users!
-  // useEffect(()=>{
-  // dispatch(getBookings())
-  // }, [dispatch])
-
   useEffect(()=>{
     dispatch(getSpotBookings(Number(spotId)))
   }, [dispatch])
@@ -26,6 +21,7 @@ const CreateBookingForm = ({spots, date}) => {
   }
   const spot = spots[spotId]
   // console.log('spot in bookings:', spot)
+  // console.log("Bookings:::", bookings)
   return (
     <BookingForm date={date} booking={booking} formType={'Create Booking'} bookings={bookings} spot={spot}/>
   )

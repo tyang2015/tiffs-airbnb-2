@@ -11,5 +11,4 @@
 #modal-background.delete-review-modal-background{
   background-color: rgba(0, 0, 0, 0.2);
   position: absolute;
-  /* z-index: 10; */
 }

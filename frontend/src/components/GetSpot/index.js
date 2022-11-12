@@ -18,6 +18,7 @@ import MapContainer from "../Maps";
 import SplashFooter from "../SplashFooter";
 import EditSpotForm from "../EditSpotForm";
 import CreateSpotModal from "../CreateSpotModal";
+import { useTriggerUpdateReview } from "../../context/TriggerUpdateReview";
 // import EditBook
 // import SpotBookings from "../SpotBookings";
 
@@ -27,13 +28,15 @@ const GetSpot = () => {
     const dispatch = useDispatch();
     let history= useHistory()
 
-    let numReviews;
+    // let numReviews;
     const sessionUser = useSelector(state => state.session.user);
     const spots = useSelector(state=> state.spots)
     const allSpots = Object.values(spots)
     const spotImages = useSelector(state=> Object.values(state.images))
     const bookings = useSelector(state=> Object.values(state.bookings))
     const reviews = useSelector(state=> Object.values(state.reviews))
+    const { triggerUpdate, setTriggerUpdate } = useTriggerUpdateReview();
+    const [avgStarRating, setAvgStarRating] = useState('')
     const [showAddressMenu, setShowAddressMenu] = useState(false)
     const [spotModal, setSpotModal] = useState(false)
     const [date,setDate ] = useState(new Date())
@@ -48,8 +51,68 @@ const GetSpot = () => {
 
     const spot = spots[spotId]
 
-    console.log("spot iamges:", spotImages)
+    // console.log("Spot bookingss:", bookings)
+    // console.log("spot iamges:", spotImages)
     // console.log('number reviews:', numReviews)
+
+    // FOR CREATE a review
+    useEffect(()=> {
+      if (reviews.length == 0){
+        setAvgStarRating("No")
+      }
+      const getNewReviews = async () => {
+        let totalStars;
+        let newReviews = await dispatch(getSpotReviews(spotId)).then(data=> {
+          if (!data || data.length ===0 ){
+            setAvgStarRating("No")
+            return
+          }
+          console.log("DATA.REVIEWS", data)
+          return data.reviews
+        })
+        if (!newReviews){
+          return
+        }
+        let allRatings = newReviews.map(review => review.stars)
+        let userIds = newReviews.map(review=> review.user_id)
+        if (allRatings && allRatings.length> 0){
+          totalStars = allRatings.reduce( (accum, cur)=> accum + cur)
+        } else {
+          setAvgStarRating("No")
+        }
+        let avgRating = (totalStars/(allRatings.length)).toFixed(2)
+        setAvgStarRating(avgRating)
+        if (userIds?.length>0 && userIds.includes(sessionUser.id)) {
+          alert("Looks like you have already submitted a review. Only new customers can submit a review.")
+        }
+      }
+      getNewReviews()
+    } , [reviews?.length])
+
+        // for updating a review, only avgRating should change
+    useEffect(()=> {
+      // console.log("USE EFFECT TRIGGERED after update review")
+      const updateRating = async ()=> {
+        let newReviews = await dispatch(getSpotReviews(spotId)).then(data=>{
+          return data.reviews
+        })
+        let totalStars;
+        let allRatings = newReviews.map(review => review.stars)
+        if (allRatings && allRatings.length> 0){
+          totalStars = allRatings.reduce( (accum, cur)=> accum + cur)
+        } else {
+          setAvgStarRating("No")
+        }
+        // console.log('total stars insideL', totalStars)
+        let avgRating = (totalStars/(allRatings.length)).toFixed(2)
+        setAvgStarRating(avgRating)
+
+      }
+      updateRating()
+
+    }, [triggerUpdate])
+
+
 
     const deleteHandle = async (e) => {
         if (!sessionUser){
@@ -120,11 +183,11 @@ const GetSpot = () => {
                             <div className='spot-top-container-bottom-half'>
                                 <div style={{width: "fit-content"}} className='star-rating-container-top spot-detail-item-top'>
                                     <i class="fa-solid fa-star"></i>
-                                    <p>{spot.avgStarRating==='NaN'? "New": spot.avgStarRating} •</p>
+                                    <p>{avgStarRating} •</p>
                                 </div>
                                 <div style={{width: "fit-content"}} className='reviews-container-top spot-detail-item-top'>
-                                    {numReviews? (
-                                        <p> {numReviews} reviews •</p>
+                                    {reviews?.length>0? (
+                                        <p> {reviews.length} reviews •</p>
                                     ) : (
                                         <p> No reviews •</p>
                                     )}
@@ -288,12 +351,12 @@ const GetSpot = () => {
                                             <div className="star-rating-container">
                                                 <i class="fa-solid fa-star"></i>
                                                 <div style={{display:"flex", alignItems: "center", width: '2.8em', flexWrap: "nowrap"}}>
-                                                    {spot.avgStarRating==='NaN'? "New": spot.avgStarRating} •
+                                                    {avgStarRating} •
 
                                                 </div>
                                             </div>
                                             <div className='reviews-container'>
-                                                <div> {numReviews} reviews </div>
+                                                <div> {reviews?.length>0? reviews.length: 0} reviews </div>
                                             </div>
                                           </div>
                                       </div>
@@ -323,7 +386,7 @@ const GetSpot = () => {
                                 {/* </div> */}
                               </div>
                             </div>
-                            <GetReviews reviews={reviews} spot={spot} />
+                            <GetReviews reviews={reviews} spot={spot} avgStarRating={avgStarRating}/>
                             <div style={{marginBottom: "5em", paddingTop: "4em"}}>
                               <div style={{fontSize: "26px", fontWeight: "550", marginBottom: "1.5rem"}}>Where you'll be</div>
                               <div style={{fontSize: "20px", marginBottom: "1.5em"}}>{spot?.city}, {spot.state}, {spot.country}</div>

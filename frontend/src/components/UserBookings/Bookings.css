@@ -94,3 +94,13 @@ img.user-booking-img{
   flex-direction: column;
   justify-content: space-around;
 }
+
+.user-bookings-no-bookings-main-container{
+  width: 100vw;
+  height: 50em;
+  display: flex;
+  flex-direction: row;
+  margin: auto;
+  align-items: center;
+  justify-content: center;
+}

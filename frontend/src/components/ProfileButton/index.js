@@ -14,7 +14,7 @@ function ProfileButton({ user, signupModal, setSignupModal, loginModal, setLogin
   const [spotModal, setSpotModal] = useState(false)
   // added here:
   const handleDemoLogin = (e) => {
-    dispatch(sessionActions.login({ email: "tiffanyang2015@gmail.com", password:"baludf"}));
+    dispatch(sessionActions.login({ email: "tiffany@gmail.com", password:"password"}));
     return
   }
 

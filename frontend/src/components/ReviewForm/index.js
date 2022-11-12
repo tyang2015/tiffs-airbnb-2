@@ -26,16 +26,11 @@ const ReviewForm = ({reviews,reviewObj, spotId, formType}) => {
     const sessionUser = useSelector(state => state.session.user);
     const { triggerUpdate, setTriggerUpdate } = useTriggerUpdateReview();
     let [review, setReview] = useState('')
-
     const [stars, setStars] = useState(null);
     const [hasSubmitted, setHasSubmitted] = useState(false)
     const [hover, setHover] = useState(null);
     const [validationErrors, setValidationErrors] = useState([])
-    // let reviewArr= Object.values(reviews)
-    // console.log('reviews in form:', reviews)
-    // console.log('current user id:', sessionUser.id)
-    // console.log('sessionUser in review form:', sessionUser)
-    // if (!sessionUser) history.push('/')
+
     useEffect(()=> {
       let profilePic = document.getElementById("review-pfp")
       profilePic.setAttribute('src', pfpUrls[Math.floor(Math.random()* pfpUrls.length)] )
@@ -47,10 +42,7 @@ const ReviewForm = ({reviews,reviewObj, spotId, formType}) => {
         if (reviews){
             for (let i = 0; i< reviews.length;i++){
                 let currReview= reviews[i]
-                if (!sessionUser){
-                    // alert('please login to write a review')
-                    return
-                }
+                if (!sessionUser) return
                 else if (sessionUser.id === currReview.userId){
                     errors.push("User already has a review for this spot")
                 }
@@ -89,8 +81,6 @@ const ReviewForm = ({reviews,reviewObj, spotId, formType}) => {
             history.push(`/spots/${spotId}`)
             return
         } else {
-            // console.log('TO DO')
-            console.log('in correct formType')
             dispatch(editReview(reviewObj))
             alert('review has been updated!')
             setTriggerUpdate(!triggerUpdate)
@@ -129,6 +119,7 @@ const ReviewForm = ({reviews,reviewObj, spotId, formType}) => {
                     // style={{width:"200px", height: "200px"}}
                     onChange={e=>setReview(e.target.value)}
                     value={review}
+                    required={true}
                     />
               </div>
               <div style={{margin: "1.2em 0"}}>

@@ -34,7 +34,7 @@ fieldset{
 .form-group.last {
     margin-bottom:20px;
     border-bottom-left-radius: 7px;
-    border-top-right-radius: 7px;
+    border-bottom-right-radius: 7px;
 }
 
 /* .form-group {

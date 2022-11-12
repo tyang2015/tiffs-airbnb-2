@@ -24,78 +24,23 @@ import { useTriggerUpdateReview } from "../../context/TriggerUpdateReview";
 // BY SPOT
 const pfpUrls = [pfp1, pfp2, pfp4, pfp5, pfp6, pfp7, pfp8, pfp9, pfp10, pfp11, pfp12, pfp13, pfp14]
 
-const GetReviews = ({spot}) =>{
+const GetReviews = ({spot, avgStarRating}) =>{
     let {spotId}= useParams();
     const dispatch = useDispatch()
     let sessionUser = useSelector(state=> state.session.user)
     let reviews = useSelector(state=> Object.values(state.reviews))
     const [deleteReviewModal, setDeleteReviewModal] = useState(false)
-    const [avgStarRating, setAvgStarRating] = useState('')
+    // const [avgStarRating, setAvgStarRating] = useState('')
     // const [triggerUpdate, setTriggerUpdate] = useState(false)
     const [reviewObj, setReviewObj] = useState(null)
-    const { triggerUpdate, setTriggerUpdate } = useTriggerUpdateReview();
+    // const { triggerUpdate, setTriggerUpdate } = useTriggerUpdateReview();
     console.log("GET REVIEWS:", reviews)
 
     useEffect(()=> {
       dispatch(getSpotReviews(spotId))
     }, [dispatch])
 
-    // FOR CREATE a review
-    useEffect(()=> {
-      if (reviews.length == 0){
-        setAvgStarRating("No")
-      }
-      const getNewReviews = async () => {
-        let totalStars;
-        let newReviews = await dispatch(getSpotReviews(spotId)).then(data=> {
-          if (!data || data.length ===0 ){
-            setAvgStarRating("No")
-            return
-          }
-          console.log("DATA.REVIEWS", data)
-          return data.reviews
-        })
-        if (!newReviews){
-          return
-        }
-        let allRatings = newReviews.map(review => review.stars)
-        let userIds = newReviews.map(review=> review.user_id)
-        if (allRatings && allRatings.length> 0){
-          totalStars = allRatings.reduce( (accum, cur)=> accum + cur)
-        } else {
-          setAvgStarRating("No")
-        }
-        let avgRating = (totalStars/(allRatings.length)).toFixed(2)
-        setAvgStarRating(avgRating)
-        if (userIds?.length>0 && userIds.includes(sessionUser.id)) {
-          alert("Looks like you have already submitted a review. Only new customers can submit a review.")
-        }
-      }
-      getNewReviews()
-    } , [reviews?.length])
 
-      // for updating a review, only avgRating should change
-  useEffect(()=> {
-    console.log("USE EFFECT TRIGGERED after update review")
-    const updateRating = async ()=> {
-      let newReviews = await dispatch(getSpotReviews(spotId)).then(data=>{
-        return data.reviews
-      })
-      let totalStars;
-      let allRatings = newReviews.map(review => review.stars)
-      if (allRatings && allRatings.length> 0){
-        totalStars = allRatings.reduce( (accum, cur)=> accum + cur)
-      } else {
-        setAvgStarRating("No")
-      }
-      // console.log('total stars insideL', totalStars)
-      let avgRating = (totalStars/(allRatings.length)).toFixed(2)
-      setAvgStarRating(avgRating)
-
-    }
-    updateRating()
-
-  }, [triggerUpdate])
 
 
 
@@ -107,12 +52,9 @@ const GetReviews = ({spot}) =>{
       })
       return convertedLocalTime
     }
-    console.log('REVIEWS FOR SPOT::', reviews)
-    console.log("user:", sessionUser)
 
-    const calcNewRating = () => {
 
-    }
+
 
     return (
       <div className="get-reviews-main-outer-container">

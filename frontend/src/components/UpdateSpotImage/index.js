@@ -28,10 +28,7 @@ const UpdateSpotImage = () => {
     setErrors(errs)
   }, [preview])
 
-  // let photoNum;
-  // if (images.length>0){
-  //   photoNum = images.map(image=> image.url).indexOf(image.url)
-  // }
+
   console.log('photo number:')
   // console.log("image arrayyy:", images.map(image=> image.url))
   console.log("imagess:", images)
@@ -50,7 +47,9 @@ const UpdateSpotImage = () => {
       setPreview(undefined)
       return
     }
+
     const objectUrl = URL.createObjectURL(imageFilePath)
+    console.log("objectURL in update:", objectUrl)
     setPreview(objectUrl)
 
   return () => URL.revokeObjectURL(objectUrl)
@@ -112,9 +111,6 @@ const UpdateSpotImage = () => {
     return
 
   }
-
-
-
 
 
   return (

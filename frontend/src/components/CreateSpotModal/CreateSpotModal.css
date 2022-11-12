@@ -1,7 +1,17 @@
+.spot-form-outer-container{
+  width: 90%;
+  height: 100%;
+  /* background-color: lightgoldenrodyellow; */
+  margin:auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
 .create-spot-form-container{
   background-color: aliceblue;
   width: 90%;
-  margin: auto;
+  margin: 0px auto;
 }
 
 .form-group.spot{
@@ -40,4 +50,26 @@
 
 .create-spot.submit-button{
   margin-top: 2em;
+}
+
+.validation-errors.create-update-spot-form{
+  /* background-color: lightblue; */
+}
+
+.validation-errors-outer-container{
+  /* background-color: lightcoral; */
+  width: 90%;
+  margin: 0px auto;
+  color:red;
+  height: 72px;
+  max-height: 72px;
+  min-height: 72px;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: row;
+  margin-bottom: 1.2em;
+  height: fit-content;
+  margin-top: 1.2em;
+  /* margin-bottom: .5em; */
+  /* width;/ */
 }

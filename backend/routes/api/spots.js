@@ -389,7 +389,7 @@ router.post('/:spotId/bookings', requireAuth ,validateBooking, async(req,res,nex
 
 
 // get bookings booked by user for a given spot
-router.get('/:spotId/bookings', async(req, res, next)=>{
+router.get('/:spotId/bookings', requireAuth , async(req, res, next)=>{
     let bookings = await Booking.findAll({
       include: [{model: Spot}, {model:User, attributes:
          {exclude: ['email', 'hashedPassword', 'createdAt', 'updatedAt']}}],

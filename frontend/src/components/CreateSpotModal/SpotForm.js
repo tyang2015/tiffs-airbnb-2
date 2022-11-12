@@ -9,6 +9,7 @@ import './CreateSpotModal.css'
 
 
 const SpotForm = ({spot, formType, setSpotModal}) => {
+  console.log("SPOT IN UPDATE FORM:", spot)
   // spots is just used to test CREATE
   const dispatch = useDispatch();
   const history = useHistory();
@@ -99,17 +100,16 @@ const SpotForm = ({spot, formType, setSpotModal}) => {
   }
 
     return (
-      <>
-      {validationErrors.length>0 && hasSubmitted && (
-        <div>
-          The following errors were found:
-          <ul className='validation-errors'>
-            {validationErrors.map((error) => (
-              <li key={error}>{error}</li>
-            ))}
-          </ul>
+      <div className="spot-form-outer-container">
+        <div className="validation-errors-outer-container">
+          {validationErrors.length>0 && hasSubmitted && (
+              <div className='validation-errors create-update-spot-form'>
+                {validationErrors.map((error) => (
+                  <div key={error}>{error}</div>
+                ))}
+              </div>
+          )}
         </div>
-      )}
         <form onSubmit={handleSubmit} className='create-spot-form-container' >
           {/* <fieldset className={`spot-fieldset-container`}> */}
           <div className="create-spot-form-content-container">
@@ -122,7 +122,7 @@ const SpotForm = ({spot, formType, setSpotModal}) => {
                   onChange={e => setAddress(e.target.value)}
                   className='form-control spot'
                   placeholder='Address'
-                  required="required"
+                  required={true}
                 />
               </div>
               <div className='form-group spot'>
@@ -133,7 +133,7 @@ const SpotForm = ({spot, formType, setSpotModal}) => {
                   onChange={e => setCity(e.target.value)}
                   placeholder="City"
                   className="form-control spot"
-                  required="required"
+                  required={true}
                 />
               </div>
               <div className='form-group spot'>
@@ -143,7 +143,7 @@ const SpotForm = ({spot, formType, setSpotModal}) => {
                   onChange={e => setState(e.target.value)}
                   placeholder='State'
                   className="form-control spot"
-                  required="required"
+                  required={true}
                 />
               </div>
               <div className='form-group spot'>
@@ -153,7 +153,7 @@ const SpotForm = ({spot, formType, setSpotModal}) => {
                   onChange={e => setCountry(e.target.value)}
                   placeholder='Country'
                   className="form-control spot"
-                  required="required"
+                  required={true}
                 />
               </div>
               <div className='form-group spot'>
@@ -163,7 +163,7 @@ const SpotForm = ({spot, formType, setSpotModal}) => {
                   onChange={e => setLat(e.target.value)}
                   placeholder='Latitude (-90 to 90)'
                   className="form-control spot"
-                  required="required"
+                  required={true}
                 />
               </div>
               <div className='form-group spot'>
@@ -173,7 +173,7 @@ const SpotForm = ({spot, formType, setSpotModal}) => {
                   onChange={e => setLng(e.target.value)}
                   placeholder='Longitude (-180 to 180)'
                   className="form-control spot"
-                  required="required"
+                  required={true}
                 />
               </div>
               <div className='form-group spot'>
@@ -183,7 +183,7 @@ const SpotForm = ({spot, formType, setSpotModal}) => {
                   onChange={e => setName(e.target.value)}
                   placeholder='Name'
                   className='form-control spot'
-                  required="required"
+                  required={true}
                 />
               </div>
               <div className='form-group spot'>
@@ -193,7 +193,6 @@ const SpotForm = ({spot, formType, setSpotModal}) => {
                   onChange={e => setDescription(e.target.value)}
                   placeholder='Description'
                   className='form-control spot'
-                  required="required"
                 />
               </div>
               <div className='form-group spot'>
@@ -222,7 +221,7 @@ const SpotForm = ({spot, formType, setSpotModal}) => {
           </div>
           {/* </fieldset> */}
         </form>
-      </>
+      </div>
     )
 }
 

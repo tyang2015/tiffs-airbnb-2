@@ -1,10 +1,10 @@
 #modal-content.create-spot-modal-content{
-  height: 45em;
-  width: 39em;
+  height: 50em;
+  width: 45em;
   border-radius: 20px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
   z-index: 202
 
 }

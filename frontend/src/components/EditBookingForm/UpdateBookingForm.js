@@ -163,6 +163,13 @@ const UpdateBookingForm = ({booking, bookings, spot, formType}) => {
   if (date.length){
     console.log("Valid dates? ", validDates())
   }
+
+  // const handleBookingSubmit = () => {
+  //   if (!sessionUser) {
+  //     alert("Please login first to book a spot")
+  //   }
+  // }
+
   return (
     <div className="update-bookings-main-outer-container">
         {spot && (<div className="update-bookings-title-container"> Update Form for Spot {spot.name}</div>)}

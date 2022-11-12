@@ -68,7 +68,7 @@ export const getBookings = () => async dispatch => {
 
 // ADDED HERE
 export const getSpotBookings =(spotId)=> async dispatch => {
-    const response = await fetch(`/api/spots/${spotId}/bookings`)
+    const response = await csrfFetch(`/api/spots/${spotId}/bookings`)
     if (response.ok){
         let bookings = await response.json()
         console.log("BOookings in thunk:", bookings)
