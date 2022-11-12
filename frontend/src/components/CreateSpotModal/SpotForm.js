@@ -59,7 +59,7 @@ const SpotForm = ({spot, formType, setSpotModal}) => {
     e.preventDefault();
 
     setHasSubmitted(true)
-    console.log('validation errors for spot form:', validationErrors)
+    // console.log('validation errors for spot form:', validationErrors)
 
     if (validationErrors.length>0){
       alert('Cannot submit data')

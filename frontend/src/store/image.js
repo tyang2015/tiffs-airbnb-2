@@ -37,24 +37,20 @@ export const getSpotImages = (spotId) => async dispatch => {
   const response = await fetch(`/api/spots/${spotId}/images`)
   if (response.ok){
     let images = await response.json()
-    console.log("IMAGES FROM SPOT in thunk:", images)
     dispatch(loadSpotImages(images))
     return images
   }
 }
 
 export const createSpotImage = (spotId, payload) => async dispatch => {
-  console.log("PAYLOAD IN THUNK FOR CREATE:", payload)
   const response = await csrfFetch(`/api/spots/${spotId}/images`, {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
-    // headers: {'Content-Type': 'image/jpeg'},
     body: JSON.stringify(payload)
   })
   if (response.ok){
     const image = await response.json()
-    console.log("Image id from thunkk:", image.id)
-    console.log('CREATED IMAGE IN THUNK:', image)
+
     dispatch(create(image))
     return image
   }
@@ -95,7 +91,6 @@ const imageReducer = (state=initialState, action) => {
     case CREATE_SPOT_IMAGE: {
       let newState = {...state}
       newState[action.payload.id] = action.payload
-      console.log("new state from create img reducer:", newState)
       return newState
     }
     case UPDATE_SPOT_IMAGE: {

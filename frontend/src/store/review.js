@@ -44,7 +44,7 @@ export const getSpotReviews = (spotId) => async dispatch => {
     const response = await fetch(`/api/spots/${spotId}/reviews`)
     if (response.ok){
         let reviews= await response.json()
-        console.log("REVIEWS from thunk:", reviews)
+        // console.log("REVIEWS from thunk:", reviews)
         dispatch(loadSpotReviews(reviews))
         return reviews
     }

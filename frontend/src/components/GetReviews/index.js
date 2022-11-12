@@ -34,7 +34,7 @@ const GetReviews = ({spot, avgStarRating}) =>{
     // const [triggerUpdate, setTriggerUpdate] = useState(false)
     const [reviewObj, setReviewObj] = useState(null)
     // const { triggerUpdate, setTriggerUpdate } = useTriggerUpdateReview();
-    console.log("GET REVIEWS:", reviews)
+    // console.log("GET REVIEWS:", reviews)
 
     useEffect(()=> {
       dispatch(getSpotReviews(spotId))

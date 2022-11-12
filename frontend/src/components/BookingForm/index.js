@@ -75,10 +75,10 @@ const BookingForm = ({ date, bookings, formType, booking, spot})=> {
           chosenStart = convertIntoComparableDates(new Date(date[0]))
           chosenEnd = convertIntoComparableDates(new Date(date[1]))
         }
-        console.log("ex start date:", exStartDate)
-        console.log("ex end date:", exEndDate)
-        console.log("chosen start:", chosenStart)
-        console.log("chosen end:", chosenEnd)
+        // console.log("ex start date:", exStartDate)
+        // console.log("ex end date:", exEndDate)
+        // console.log("chosen start:", chosenStart)
+        // console.log("chosen end:", chosenEnd)
         // CASE 1, CASE2, CASE3
         if ((chosenStart>= exStartDate && chosenStart<= exEndDate) || (
           chosenEnd>= exStartDate && chosenEnd<= exEndDate

@@ -71,7 +71,6 @@ export const getSpotBookings =(spotId)=> async dispatch => {
     const response = await csrfFetch(`/api/spots/${spotId}/bookings`)
     if (response.ok){
         let bookings = await response.json()
-        console.log("BOookings in thunk:", bookings)
         dispatch(loadSpotBookings(bookings))
     }
 }
@@ -84,7 +83,6 @@ export const createBooking =(spotId, payload) => async dispatch =>{
     })
     if (response.ok){
         const booking =await response.json()
-        console.log('Create booking in thunk:', booking)
         dispatch(create(booking))
     }
 }

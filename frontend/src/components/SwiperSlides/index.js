@@ -11,7 +11,6 @@ import "./SwiperSlides.css"
 const SwiperSlides = () =>{
   const dispatch = useDispatch();
   const allSpots= useSelector(state => Object.values(state.spots))
-  console.log("all spots", allSpots)
   useEffect(()=> {
     dispatch(getSpots())
     // dispatch(getSpotImages(1))

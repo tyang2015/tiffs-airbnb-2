@@ -11,11 +11,9 @@ const CreateSpotModal = ({setSpotModal, formType}) => {
   const {spotId} = useParams();
   const spots = useSelector(state=> state.spots)
   const spot = spots[spotId]
-  console.log('spot id in create spot modal', spotId)
   useEffect(()=> {
     dispatch(getSpots())
   }, [dispatch])
-  console.log("sPOT HERE::", spot)
   return (
     <Modal onClose={()=> setSpotModal(false)}>
       <SpotForm spot={spot} formType={formType} setSpotModal={setSpotModal}/>

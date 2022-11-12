@@ -29,10 +29,6 @@ const UpdateSpotImage = () => {
   }, [preview])
 
 
-  console.log('photo number:')
-  // console.log("image arrayyy:", images.map(image=> image.url))
-  console.log("imagess:", images)
-
   useEffect(()=> {
     dispatch(getSpotImages(spotId))
   }, [])
@@ -49,7 +45,7 @@ const UpdateSpotImage = () => {
     }
 
     const objectUrl = URL.createObjectURL(imageFilePath)
-    console.log("objectURL in update:", objectUrl)
+    // console.log("objectURL in update:", objectUrl)
     setPreview(objectUrl)
 
   return () => URL.revokeObjectURL(objectUrl)
@@ -80,7 +76,7 @@ const UpdateSpotImage = () => {
     }
     return Math.floor(seconds) + " seconds";
   }
-  console.log('photo numberrr:', photoNum)
+  // console.log('photo numberrr:', photoNum)
 
   const onSelectFile = (e) => {
     let file = e.target.files[0]

@@ -127,10 +127,10 @@ const GetSpot = () => {
         }
     }
 
-    if (date.length>0){
-      console.log("newly formatted start date:", date[0])
-      console.log("newly formatted start date:", date[1])
-    }
+    // if (date.length>0){
+    //   console.log("newly formatted start date:", date[0])
+    //   console.log("newly formatted start date:", date[1])
+    // }
 
     const convertDateToLocal = (dateStr) => {
       let dateObj = new Date(dateStr)

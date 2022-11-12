@@ -29,7 +29,8 @@ const Maps = ({ apiKey, lng, lat }) => {
       {isLoaded && (
           <GoogleMap
             mapContainerStyle={containerStyle}
-            center={{lng, lat}}
+            // center={{lng, lat}}
+            center={center}
             zoom={16.6}
           >
             <CustomMarker

@@ -160,11 +160,8 @@ router.get('/:spotId/images', async (req, res, next) => {
 
 // add an image to a spot based on the spot's id
 router.post('/:spotId/images', requireAuth, async (req,res,next)=>{
-    console.log("INSIDE CORRECT ROUTE FOR CREATE SPOT IMAGE IN BACKEND")
     let reviewId = null;
     const {url} = req.body
-    console.log("req.body in post image route::::", req.body)
-    console.log("user id:", req.user.id )
     let spot = await Spot.findOne({
         // include: [{model: Review}],
         where: {id: req.params.spotId}
@@ -203,7 +200,7 @@ router.post('/:spotId/images', requireAuth, async (req,res,next)=>{
     })
     res.statusCode = 201
     let imageToSend = await Image.findOne({where: {id: newImage.id}})
-    console.log("image to send:::", imageToSend.toJSON())
+    // console.log("image to send:::", imageToSend.toJSON())
     // res.json(imageToSend.toJSON())
     res.json(newImage.toJSON())
 
@@ -382,7 +379,7 @@ router.post('/:spotId/bookings', requireAuth ,validateBooking, async(req,res,nex
     // })
     ans.Spot= spot
     ans.Images= images
-    console.log('New record:', newRecord)
+    // console.log('New record:', newRecord)
     res.json(ans)
 
 });

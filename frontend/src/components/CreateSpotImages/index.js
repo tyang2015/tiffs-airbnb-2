@@ -46,13 +46,11 @@ const CreateSpotImages = () => {
     }
   }, [spot])
 
-  console.log("SPOT IMAGES IN CREATE SPOTE IMAGES:", images)
   // increment this each time you upload an image
   // useEffect(()=> {
   //   setImageCounter(images.length)
   // }, [images.length])
 
-  console.log("images length in spot images:", images.length)
   useEffect(()=> {
     dispatch(getSpotImages(Number(spotId)))
     dispatch(getSpots())
@@ -67,13 +65,12 @@ const CreateSpotImages = () => {
   }, [preview0, images.length])
 
   useEffect(() => {
-    console.log("trigger PREVIEW 0 use effect")
     if (!imageFilePath0){
       setPreview0(undefined)
       return
     }
     const objectUrl = URL.createObjectURL(imageFilePath0)
-    console.log('object url:', objectUrl)
+    // console.log('object url:', objectUrl)
     setPreview0(objectUrl)
 
     return () => URL.revokeObjectURL(objectUrl)

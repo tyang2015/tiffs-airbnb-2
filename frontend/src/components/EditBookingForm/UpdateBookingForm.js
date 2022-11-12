@@ -11,7 +11,6 @@ import SpotBookings from "../SpotBookings"
 const UpdateBookingForm = ({booking, bookings, spot, formType}) => {
   const history = useHistory()
   const dispatch = useDispatch();
-  console.log("SPOT in booking form:", spot)
 
   const {spotId, bookingId} = useParams();
   const sessionUser = useSelector(state => state.session.user);
@@ -85,10 +84,10 @@ const UpdateBookingForm = ({booking, bookings, spot, formType}) => {
           chosenStart = convertIntoComparableDates(new Date(date[0]))
           chosenEnd = convertIntoComparableDates(new Date(date[1]))
         }
-        console.log("ex start date:", exStartDate)
-        console.log("ex end date:", exEndDate)
-        console.log("chosen start:", chosenStart)
-        console.log("chosen end:", chosenEnd)
+        // console.log("ex start date:", exStartDate)
+        // console.log("ex end date:", exEndDate)
+        // console.log("chosen start:", chosenStart)
+        // console.log("chosen end:", chosenEnd)
         // CASE 1, CASE2, CASE3
         if ((chosenStart>= exStartDate && chosenStart<= exEndDate) || (
           chosenEnd>= exStartDate && chosenEnd<= exEndDate
@@ -102,9 +101,9 @@ const UpdateBookingForm = ({booking, bookings, spot, formType}) => {
     }
   }
 
-  if (date.length){
-    console.log(validDates())
-  }
+  // if (date.length){
+  //   console.log(validDates())
+  // }
   const convertDateInDisplay = (dateObj) => {
     let finalDate = dateObj.toLocaleString('en-US', {
       month: "numeric",
@@ -160,15 +159,6 @@ const UpdateBookingForm = ({booking, bookings, spot, formType}) => {
     return
   }
 
-  if (date.length){
-    console.log("Valid dates? ", validDates())
-  }
-
-  // const handleBookingSubmit = () => {
-  //   if (!sessionUser) {
-  //     alert("Please login first to book a spot")
-  //   }
-  // }
 
   return (
     <div className="update-bookings-main-outer-container">
@@ -203,7 +193,7 @@ const UpdateBookingForm = ({booking, bookings, spot, formType}) => {
               let calendarDate = convertIntoComparableDates(new Date(date))
               // console.log("calendar date:", calendarDate)
               if ((calendarDate>= exStartDate && calendarDate<= exEndDate)){
-                console.log("calendar date is booked")
+                // console.log("calendar date is booked")
                 return "booked-date"
               } else return "normal-date"
             })
