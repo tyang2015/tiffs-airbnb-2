@@ -10,10 +10,10 @@ const containerStyle = {
   height: '500px',
 };
 
-const center = {
-  lat: 38.9072,
-  lng: 77.0369,
-};
+// const center = {
+//   lat: 38.9072,
+//   lng: 77.0369,
+// };
 
 
 
@@ -29,8 +29,7 @@ const Maps = ({ apiKey, lng, lat }) => {
       {isLoaded && (
           <GoogleMap
             mapContainerStyle={containerStyle}
-            // center={{lng, lat}}
-            center={center}
+            center={{lng, lat}}
             zoom={16.6}
           >
             <CustomMarker
