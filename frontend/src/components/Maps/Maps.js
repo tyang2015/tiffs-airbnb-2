@@ -22,20 +22,22 @@ const Maps = ({ apiKey, lng, lat }) => {
     id: 'google-map-script',
     googleMapsApiKey: apiKey,
   });
-  console.log("LONgitude:", lng)
-  console.log("latitude:", lat)
+  // console.log("LONgitude:", lng)
+  // console.log("latitude:", lat)
+  let newLng = parseFloat(lng)
+  let newLat = parseFloat(lat)
   return (
     <>
       {isLoaded && (
           <GoogleMap
             mapContainerStyle={containerStyle}
-            center={{lng, lat}}
-            zoom={16.6}
+            center={{lng: newLng, lat: newLat}}
+            zoom={15}
           >
             <CustomMarker
               // position={{lng,lat}}
-              lat={lat}
-              lng={lng}
+              lat={newLng}
+              lng={newLat}
             />
             {/* <Marker className="spot-marker" position={{lng, lat}}/> */}
           </GoogleMap>
