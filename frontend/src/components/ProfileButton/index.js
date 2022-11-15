@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from 'react-redux';
+import { useHistory } from "react-router-dom";
 import * as sessionActions from '../../store/session';
 import "./ProfileButton.css"
 import LoginFormModal from "../LoginFormModal"
@@ -10,6 +11,7 @@ import CreateSpotModal from "../CreateSpotModal";
 
 function ProfileButton({ user, signupModal, setSignupModal, loginModal, setLoginModal}) {
   const dispatch = useDispatch();
+  const history = useHistory();
   const [showMenu, setShowMenu] = useState(false);
   const [spotModal, setSpotModal] = useState(false)
   // added here:
@@ -42,6 +44,7 @@ function ProfileButton({ user, signupModal, setSignupModal, loginModal, setLogin
   const logout = (e) => {
     e.preventDefault();
     dispatch(sessionActions.logout());
+    history.push('/')
     // added here per dan's suggestion
     dispatch(resetBookings())
     // dispatch(sessionActions.resetBookingsLogOut())

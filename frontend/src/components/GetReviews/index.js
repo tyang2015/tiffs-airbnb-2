@@ -41,9 +41,6 @@ const GetReviews = ({spot, avgStarRating}) =>{
     }, [dispatch])
 
 
-
-
-
     const getDate = (dateStr) => {
       let createdTimeObj = new Date(dateStr)
       let convertedLocalTime = createdTimeObj.toLocaleString('en-US', {
@@ -52,8 +49,6 @@ const GetReviews = ({spot, avgStarRating}) =>{
       })
       return convertedLocalTime
     }
-
-
 
 
     return (

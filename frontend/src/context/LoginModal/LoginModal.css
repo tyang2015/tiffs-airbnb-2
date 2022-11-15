@@ -1,0 +1,14 @@
+#modal-content.login-modal-content{
+  height: 300px;
+  width: 600px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  z-index:5
+}
+
+/* #modal-background.delete-review-modal-background{
+  background-color: rgba(0, 0, 0, 0.2);
+  position: absolute;
+} */

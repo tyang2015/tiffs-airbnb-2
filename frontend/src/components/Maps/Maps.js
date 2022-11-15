@@ -22,8 +22,7 @@ const Maps = ({ apiKey, lng, lat }) => {
     id: 'google-map-script',
     googleMapsApiKey: apiKey,
   });
-  // console.log("LONgitude:", lng)
-  // console.log("latitude:", lat)
+
   let newLng = parseFloat(lng)
   let newLat = parseFloat(lat)
   return (

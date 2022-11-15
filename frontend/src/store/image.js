@@ -65,6 +65,7 @@ export const updateSpotImage = (imageId, payload) => async dispatch => {
   })
   if (response.ok){
     const image = await response.json()
+    console.log('image here from update image thunk:', image)
     dispatch(update(image))
     return image
   }

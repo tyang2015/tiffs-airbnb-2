@@ -38,18 +38,17 @@ const UpdateSpotImage = () => {
     setPhotoNum(images.map(image=> image.id).indexOf(Number(imageId)))
   }, [images.length])
 
-  useEffect(() => {
-    if (!imageFilePath){
-      setPreview(undefined)
-      return
-    }
+  // useEffect(() => {
+  //   if (!imageFilePath){
+  //     setPreview(undefined)
+  //     return
+  //   }
 
-    const objectUrl = URL.createObjectURL(imageFilePath)
-    // console.log("objectURL in update:", objectUrl)
-    setPreview(objectUrl)
+  //   const objectUrl = URL.createObjectURL(imageFilePath)
+  //   setPreview(objectUrl)
 
-  return () => URL.revokeObjectURL(objectUrl)
-  }, [imageFilePath])
+  // return () => URL.revokeObjectURL(objectUrl)
+  // }, [imageFilePath])
 
   const timeSinceUpdate = (date) => {
     var seconds = Math.floor((new Date() - date) / 1000);
@@ -84,7 +83,14 @@ const UpdateSpotImage = () => {
       setImageFilePath(undefined)
       return
     }
-    setImageFilePath(file)
+    const reader = new FileReader()
+    reader.addEventListener("load", (e)=> {
+      // console.log("e.target.result:", e.target.result)
+      setPreview(e.target.result)
+    })
+    reader.readAsDataURL(file)
+    // setImageFilePath0(file)
+
     return
   }
 

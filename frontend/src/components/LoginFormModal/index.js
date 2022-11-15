@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Modal } from '../../context/Modal';
+// import { Modal } from '../../context/Modal';
 import LoginForm from './LoginForm';
-
+import {Modal} from "../../context/LoginModal"
 
 function LoginFormModal({setLoginModal, loginModal}) {
   // const [showModal, setShowModal] = useState(false);

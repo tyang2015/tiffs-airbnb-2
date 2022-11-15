@@ -46,15 +46,10 @@ const CreateSpotImages = () => {
     }
   }, [spot])
 
-  // increment this each time you upload an image
-  // useEffect(()=> {
-  //   setImageCounter(images.length)
-  // }, [images.length])
 
   useEffect(()=> {
     dispatch(getSpotImages(Number(spotId)))
     dispatch(getSpots())
-    // dispatch(getSpotData(spotId))
   }, [dispatch])
 
   useEffect(()=> {
@@ -64,67 +59,33 @@ const CreateSpotImages = () => {
     setErrors(errs)
   }, [preview0, images.length])
 
-  useEffect(() => {
-    if (!imageFilePath0){
-      setPreview0(undefined)
-      return
-    }
-    const objectUrl = URL.createObjectURL(imageFilePath0)
-    // console.log('object url:', objectUrl)
-    setPreview0(objectUrl)
-
-    return () => URL.revokeObjectURL(objectUrl)
-  }, [imageFilePath0])
-
-
-  // useEffect(()=> {
-  //   console.log("trigger PREVIEW 1 use effect")
-
-  //   if (!imageFilePath1){
-  //     setPreview1(undefined)
+  // useEffect(() => {
+  //   if (!imageFilePath0){
+  //     setPreview0(undefined)
   //     return
   //   }
-  //   const objectUrl = URL.createObjectURL(imageFilePath1)
-  //   setPreview1(objectUrl)
 
-  // return () => URL.revokeObjectURL(objectUrl)
-  // }, [imageFilePath1])
+  //   const objectUrl = URL.createObjectURL(imageFilePath0)
+  //   setPreview0(objectUrl)
 
-  // useEffect(()=> {
-  //   if (!imageFilePath2){
-  //     setPreview2(undefined)
-  //     return
-  //   }
-  //   const objectUrl = URL.createObjectURL(imageFilePath2)
-  //   setPreview2(objectUrl)
-
-  // return () => URL.revokeObjectURL(objectUrl)
-  // }, [imageFilePath2])
-
-  // useEffect(()=> {
-  //   if (!imageFilePath3){
-  //     setPreview3(undefined)
-  //     return
-  //   }
-  //   const objectUrl = URL.createObjectURL(imageFilePath3)
-  //   setPreview3(objectUrl)
-  // return () => URL.revokeObjectURL(objectUrl)
-
-  // }, [imageFilePath3])
+  //   return () => URL.revokeObjectURL(objectUrl)
+  // }, [imageFilePath0])
 
 
   const onSelectFile = (e) => {
-    // console.log('i in select file function:...',i)
     let file = e.target.files[0]
     if (!e.target.files || e.target.files.length === 0) {
       setImageFilePath0(undefined)
       return
     }
-    setImageFilePath0(file)
-    // if (i==0) setImageFilePath0(file)
-    // if (i==1) setImageFilePath1(file)
-    // if (i==2) setImageFilePath2(file)
-    // if (i==3) setImageFilePath3(file)
+    const reader = new FileReader()
+    reader.addEventListener("load", (e)=> {
+      console.log("e.target.result:", e.target.result)
+      setPreview0(e.target.result)
+    })
+    reader.readAsDataURL(file)
+    // setImageFilePath0(file)
+
     return
   }
 
@@ -158,6 +119,9 @@ const CreateSpotImages = () => {
   const handleSubmit = (e) => {
     // THIS is for create
     e.preventDefault()
+    // if (!sessionUser){
+    //   alert("Please sign in to update form!")
+    // }
     setHasSubmitted(true)
     if (errors.length > 0) {
       alert("Cannot submit form!")

@@ -82,7 +82,7 @@ const GetSpot = () => {
         }
         let avgRating = (totalStars/(allRatings.length)).toFixed(2)
         setAvgStarRating(avgRating)
-        if (userIds?.length>0 && userIds.includes(sessionUser.id)) {
+        if (userIds?.length>0 && sessionUser && userIds.includes(sessionUser.id)) {
           alert("Looks like you have already submitted a review. Only new customers can submit a review.")
         }
       }

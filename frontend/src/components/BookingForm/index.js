@@ -9,15 +9,13 @@ import './BookingForm.css'
 const BookingForm = ({ date, bookings, formType, booking, spot})=> {
   // it will be valid or undefined bc edit form does not have spotId in url
   // that is ok
-  // console.log('spot:', spot)
-  console.log("DATES clicked inside booking:", date)
+  // console.log("DATES clicked inside booking:", date)
     const history = useHistory()
     const {spotId, bookingId} = useParams();
     const sessionUser = useSelector(state => state.session.user);
 
     const dispatch = useDispatch();
     // number strings can be compared
-    // CHANGE HERE
     const [validationErrors, setValidationErrors] = useState([]);
     const [hasSubmitted, setHasSubmitted] = useState(false)
     const allBookings = Object.values(bookings)
