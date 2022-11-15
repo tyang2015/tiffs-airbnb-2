@@ -40,22 +40,26 @@ const UpdateBookingForm = ({booking, bookings, spot, formType}) => {
     dispatch(getSpots())
   }, [dispatch])
 
-  const convertDateToLocal = (dateStr) => {
-    let dateObj = new Date(dateStr)
-    dateObj.setDate(dateObj.getDate() + 1)
-    return dateObj
-  }
+  // const convertDateToLocal = (dateStr) => {
+  //   let dateObj = new Date(dateStr)
+  //   dateObj.setDate(dateObj.getDate() + 1)
+  //   return dateObj
+  // }
 
   const calcTotalPrice = (spotPrice) => {
     return Math.round(spotPrice * calcNightsBooked(), 2)
   }
 
   const convertIntoComparableDates = (dateObj) => {
-    // dateObj.setHours(0,0,0,0)
     const offset = dateObj.getTimezoneOffset()
     dateObj = new Date(dateObj.getTime() - (offset*60*1000))
     return dateObj.toISOString().split('T')[0]
   }
+
+  const convertForCalendarCompare = (dateObj) => {
+    return dateObj.toISOString().split('T')[0]
+  }
+
 
   const calcNightsBooked = () => {
     if (date.length>0){
@@ -101,9 +105,7 @@ const UpdateBookingForm = ({booking, bookings, spot, formType}) => {
     }
   }
 
-  // if (date.length){
-  //   console.log(validDates())
-  // }
+
   const convertDateInDisplay = (dateObj) => {
     let finalDate = dateObj.toLocaleString('en-US', {
       month: "numeric",
@@ -113,14 +115,6 @@ const UpdateBookingForm = ({booking, bookings, spot, formType}) => {
     return finalDate
   }
 
-  // const convertCheckOutDateDisplay = () => {
-  //   let endingDate = date[1].toLocaleString('en-US', {
-  //     month: "numeric",
-  //     day: 'numeric',
-  //     year: "numeric",
-  //   })
-  //   return endingDate
-  // }
 
   const formatDate = (dateStr) => {
     let dateObj = new Date(dateStr)
@@ -137,10 +131,6 @@ const UpdateBookingForm = ({booking, bookings, spot, formType}) => {
     e.preventDefault();
     setHasSubmitted(true)
 
-    // if (sessionUser.id ===spot.ownerId){
-    //   alert("Cannot book if you are the owner")
-    //   return
-    // }
     if (validationErrors.length>0){
       alert("Cannot submit bookings form")
       return
@@ -158,6 +148,7 @@ const UpdateBookingForm = ({booking, bookings, spot, formType}) => {
     history.push('/users/bookings')
     return
   }
+
 
 
   return (
@@ -186,17 +177,17 @@ const UpdateBookingForm = ({booking, bookings, spot, formType}) => {
           minDate={new Date()}
           tileClassName={({date,view})=>{
             // if (view === 'month' && date.getDay() === 3) return 'booked'
-            // else return null
-            bookings.map(booking =>{
-              let exStartDate = convertIntoComparableDates(new Date(booking.startDate))
-              let exEndDate = convertIntoComparableDates(new Date(booking.endDate))
-              let calendarDate = convertIntoComparableDates(new Date(date))
-              // console.log("calendar date:", calendarDate)
-              if ((calendarDate>= exStartDate && calendarDate<= exEndDate)){
-                // console.log("calendar date is booked")
-                return "booked-date"
-              } else return "normal-date"
-            })
+            for (let i =0; i< bookings.length; i++) {
+              let booking = bookings[i]
+                let exStartDate = convertForCalendarCompare(new Date(booking.startDate))
+                let exEndDate = convertForCalendarCompare(new Date(booking.endDate))
+                let calendarDate = convertForCalendarCompare(new Date(date))
+                if ((calendarDate>= exStartDate && calendarDate<= exEndDate)){
+                  return "booked-date"
+                }
+
+              }
+              return "normal-date"
           }}
         />
           <div className="spot-detail-container-2 update-booking-container">

@@ -153,10 +153,13 @@ const GetSpot = () => {
       return Math.round(spotPrice * calcNightsBooked(), 2)
     }
 
+    const convertForCalendarCompare = (dateObj) => {
+      return dateObj.toISOString().split('T')[0]
+    }
 
     const convertIntoComparableDates = (dateObj) => {
-      // const offset = dateObj.getTimezoneOffset()
-      // dateObj = new Date(dateObj.getTime() - (offset*60*1000))
+      const offset = dateObj.getTimezoneOffset()
+      dateObj = new Date(dateObj.getTime() - (offset*60*1000))
       return dateObj.toISOString().split('T')[0]
     }
 
@@ -325,9 +328,9 @@ const GetSpot = () => {
                                         // if (view === 'month' && date.getDay() === 3) return 'booked'
                                         for (let i =0; i< allBookings.length; i++) {
                                         let booking = allBookings[i]
-                                          let exStartDate = convertIntoComparableDates(new Date(booking.startDate))
-                                          let exEndDate = convertIntoComparableDates(new Date(booking.endDate))
-                                          let calendarDate = convertIntoComparableDates(new Date(date))
+                                          let exStartDate = convertForCalendarCompare(new Date(booking.startDate))
+                                          let exEndDate = convertForCalendarCompare(new Date(booking.endDate))
+                                          let calendarDate = convertForCalendarCompare(new Date(date))
                                           if ((calendarDate>= exStartDate && calendarDate<= exEndDate)){
                                             return "booked-date"
                                           }

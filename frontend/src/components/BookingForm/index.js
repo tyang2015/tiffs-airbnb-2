@@ -141,10 +141,6 @@ const BookingForm = ({ date, bookings, formType, booking, spot})=> {
           return
         }
 
-        // if (sessionUser.id ===spot.ownerId){
-        //   alert("Cannot book if you are the owner")
-        //   return
-        // }
         if (validationErrors.length>0){
           alert("Cannot submit bookings form")
           return
