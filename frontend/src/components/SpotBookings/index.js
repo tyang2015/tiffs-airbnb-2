@@ -10,7 +10,6 @@ import { getSpotBookings } from '../../store/booking'
 
 // TODO: change backend to do a joined table with users and get the firstName of user to be rendered on page
 const SpotBookings = ()=>{
-    console.log('in spot bookings')
     let {spotId} = useParams();
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
@@ -23,7 +22,6 @@ const SpotBookings = ()=>{
         return ()=> dispatch(resetBookings())
     }, [dispatch])
 
-    console.log('bookings in spot bookings:', bookings)
     const convertDate= (date) => {
       if (date.split(" ").length>2){
         return `${date.split(" ")[0]}`

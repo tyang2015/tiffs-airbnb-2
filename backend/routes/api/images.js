@@ -11,7 +11,7 @@ const router = express.Router();
 
 // CHANGE URL ENDPOINT FOR UPDATE IMAGE
 router.patch('/:imageId', requireAuth, async (req, res, next) => {
-  console.log("HITTING RIGHT ROUTE IN UPDATE IMG\n\n")
+  // console.log("HITTING RIGHT ROUTE IN UPDATE IMG\n\n")
   let image = await Image.findOne({
     where : {id: req.params.imageId},
     include: {model:Spot}
@@ -33,7 +33,7 @@ router.patch('/:imageId', requireAuth, async (req, res, next) => {
   const { url } = req.body
   image.url = url
   await image.save()
-  console.log("image from backend:", image.toJSON())
+  // console.log("image from backend:", image.toJSON())
   res.json(image)
 
 })

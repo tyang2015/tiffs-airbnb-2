@@ -664,16 +664,13 @@ router.get('/',  async(req, res, next)=>{
          oldSpots= await Spot.findAll({
             where,
             ...pagination,
-            include: {model:Review}
+            include: [{model:Review}, {model: User, as:"Owner"}]
         })
 
         spots = JSON.parse(JSON.stringify(oldSpots))
 
         for (let i=0; i<spots.length; i++){
-            // console.log('spots at ')
-            // console.log('spots at i:', spots[i])
             let spotObj = spots[i]
-            // get total number of reviews for each spot
             scores[i] = 0
             numReviews.push(spotObj.Reviews.length)
             for (let j =0; j< spots[i].Reviews.length; j++){
@@ -681,12 +678,9 @@ router.get('/',  async(req, res, next)=>{
                 scores[i] = scores[i] + review.stars
             }
         }
-        // console.log('scores:', scores)
-        // console.log('numReviews:', numReviews)
+
         for (let i=0; i< spots.length; i++){
-            // let spot = {...spots[i]}
             spots[i].avgStarRating = (scores[i]/numReviews[i]).toFixed(2)
-            // console.log('\n new spot obj:', newSpots[i], "\n\n")
         }
     }
 
