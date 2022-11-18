@@ -1,4 +1,4 @@
-# `AirBnb Project - tiff's airbnb`
+# `Tiffs-airbnb` - Airbnb clone
 
 ## Purpose of Project
 
