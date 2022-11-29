@@ -39,6 +39,7 @@ const SpotForm = ({spot, formType, spots}) => {
 
   useEffect(()=>{
     const errs= []
+    console.log("description length:", description.length)
     // console.log('name:', name)
     // console.log('name length:', name.length)
     if (!isImage(previewImage)) errs.push("Please enter a valid image url")
@@ -47,10 +48,13 @@ const SpotForm = ({spot, formType, spots}) => {
     if (!address) errs.push("Please enter a valid address")
     if (!city) errs.push("Please enter a valid city")
     if (!state) errs.push("Please enter a valid state")
+    if (state.length>2) errs.push("State must be a 2-digit acronym")
+    if (country.toLowerCase()!="us" || country.toLowerCase()!="usa" || country.toLowerCase()!="united states") errs.push("Our market currently is only domestic. Please type 'US'.")
     if (!country) errs.push("Please enter a valid country")
     if (!lat || typeof Number(lat)!== 'number' || Number(lat)>90 || Number(lat)< -90) errs.push("Please enter a valid latitude value")
     if (!lng || typeof Number(lat)!== 'number' || Number(lng)>180 || Number(lng)<-180) errs.push("Please enter a valid longitude value")
     if (!description) errs.push("Please enter a valid description")
+    if (description.length>150) errs.push("Description must be less than 350")
     if (!price || typeof Number(price)!=='number') errs.push("Please enter a valid price")
     setValidationErrors(errs)
 

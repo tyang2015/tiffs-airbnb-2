@@ -21,7 +21,6 @@ import DeleteReviewModal from "../DeleteReviewModal";
 import { useTriggerUpdateReview } from "../../context/TriggerUpdateReview";
 // import review from "../../../../backend/db/models/review";
 
-// BY SPOT
 const pfpUrls = [pfp1, pfp2, pfp4, pfp5, pfp6, pfp7, pfp8, pfp9, pfp10, pfp11, pfp12, pfp13, pfp14]
 
 const GetReviews = ({spot, avgStarRating}) =>{
@@ -34,7 +33,6 @@ const GetReviews = ({spot, avgStarRating}) =>{
     // const [triggerUpdate, setTriggerUpdate] = useState(false)
     const [reviewObj, setReviewObj] = useState(null)
     // const { triggerUpdate, setTriggerUpdate } = useTriggerUpdateReview();
-    // console.log("GET REVIEWS:", reviews)
 
     useEffect(()=> {
       dispatch(getSpotReviews(spotId))

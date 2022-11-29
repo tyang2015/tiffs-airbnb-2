@@ -229,7 +229,15 @@ div.spot-detail{
 }
 
 p.spot-detail-item-description{
-    margin-left: 10px;
+  margin-left: 10px;
+
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+
 }
 
 .spot-detail-icon-container{

@@ -4,13 +4,10 @@
   border-bottom: 1.5px solid #DDDDDD;
   /* background-color: lightcyan; */
   margin-top: 5em;
-
-
 }
 
-
 .reviews-main-container{
-  /* background-color: lightblue; */
+  /* background-color: lightblue;ss */
   border-top: 1px solid #e7e7e7;
 }
 
@@ -79,6 +76,13 @@
   height: fit-content;
   max-height: 100px;
   padding-top: 12px;
+  width: 504px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+
 }
 
 .update-delete-review-container{

@@ -25,8 +25,8 @@ const ReviewForm = ({reviews,reviewObj, spotId, formType}) => {
     const history= useHistory();
     const sessionUser = useSelector(state => state.session.user);
     const { triggerUpdate, setTriggerUpdate } = useTriggerUpdateReview();
-    let [review, setReview] = useState('')
-    const [stars, setStars] = useState(null);
+    let [review, setReview] = useState(reviewObj? reviewObj.review: '')
+    const [stars, setStars] = useState(reviewObj? reviewObj.stars: null);
     const [hasSubmitted, setHasSubmitted] = useState(false)
     const [hover, setHover] = useState(null);
     const [validationErrors, setValidationErrors] = useState([])
@@ -48,7 +48,7 @@ const ReviewForm = ({reviews,reviewObj, spotId, formType}) => {
                 }
             }
         }
-        if (review.length>500) errors.push("Review must be less than 500 characters")
+        if (review.length>350) errors.push("Review must be less than 350 characters")
         setValidationErrors(errors)
 
     }, [review, stars])
