@@ -23,12 +23,12 @@ When you are on home/splash/landing page, you will see all spots in a grid form.
 ![spots-images](./images/get-spots.png)
 
 ### View Spot
-You can get more info on a spot by clicking a spot to view the spot page. This is also where you can view the reviews as well as bookings calendar. Many of the website's features are located on this page, including a map of the location, so feel free to explore it in more detail
+You can get more info on a spot by clicking a spot to view the spot page. This is also where you can view the reviews as well as bookings calendar. Many of the website's features are located on this page, including a map of the location, so feel free to explore it in more detail.
 
 ![spot-page](./images/get-spot-page.png)
 
 ### Create Spot
-Once logged in, click the profile button on the top right, and click "Create a Spot". This will show you a pop-up modal where you can fill in information for a new spot as its owner/host (eg., latitude, price, address, etc.)
+Once logged in, click the profile button on the top right, and click "Create a Spot". This will show you a pop-up modal where you can fill in information for a new spot as its owner/host (eg., latitude, price, address, etc.).
 
 ![create-spot](./images/create-spot.png)
 
@@ -38,7 +38,7 @@ You can edit a spot by clicking "Edit spot" on the top header row on the spot pa
 ![edit-spot](./images/edit-spot.png)
 
 ### Upload Image
-In the same section as where you'd edit a spot, click "Update Images for Spot" to upload an image for the spot. This also requires proper authorization. This will be displayed in the right 4 picture grid (max 4 photos, not including cover photo which is required for creating a spot) on the spot page, next to the cover photo. The upload image page should have a plus icon container where you directly upload an image locally
+In the same section as where you'd edit a spot, click "Update Images for Spot" to upload an image for the spot. This also requires proper authorization. This will be displayed in the right 4 picture grid (max 4 photos, not including cover photo which is required for creating a spot) on the spot page, next to the cover photo. The upload image page should have a plus icon container where you directly upload an image locally.
 
 ![create-image](./images/create-image.png)
 
@@ -49,7 +49,7 @@ While on the upload image page, click the pencil-icon on an already uploaded ima
 ![update-image](./images/update-image.png)
 
 ### Create Booking
-On the spot-page, in the middle section of the page you will find an interactive calendar, where you can select dates with your mouse and it will display the number of nights, price/night, total cost, etc. Once booked, it will take you to your bookings page
+On the spot-page, in the middle section of the page you will find an interactive calendar, where you can select dates with your mouse and it will display the number of nights, price/night, total cost, etc. Once booked, it will take you to your bookings page.
 
 ![create-booking](./images/create-booking.png)
 
@@ -68,7 +68,7 @@ Back on the spot page, click "Check Bookings for spot" to see the spot bookings
 
 
 ### Create a Review / Update a Review / Delete a Review
-On the spot page, scroll past the calendar section to see the reviews section. Here you can create a review (spot you are reviewing must belong to another owner)
+On the spot page, scroll past the calendar section to see the reviews section. Here you can create a review (Note: you cannot review a spot you own).
 
 ![spot-reviews](./images/edit-review.png)
 
