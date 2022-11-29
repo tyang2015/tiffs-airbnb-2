@@ -68,11 +68,11 @@ Back on the spot page, click "Check Bookings for spot" to see the spot bookings
 
 
 ### Create a Review / Update a Review / Delete a Review
-On the spot page, scroll past the calendar section to see the reviews section. Here you can create a review
+On the spot page, scroll past the calendar section to see the reviews section. Here you can create a review (must belong to another owner)
 
 ![spot-reviews](./images/edit-review.png)
 
-The review page looks like this: 
+The review page looks like this, where you select the number of stars and leave a description of the spot: 
 
 ![create-review](./images/create-review.png)
 
