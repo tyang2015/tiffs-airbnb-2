@@ -81,6 +81,7 @@ const CreateSpotImages = () => {
     const reader = new FileReader()
     reader.addEventListener("load", (e)=> {
       console.log("e.target.result:", e.target.result)
+      console.log("LENGTH of image string:", e.target.result.length)
       setPreview0(e.target.result)
     })
     reader.readAsDataURL(file)

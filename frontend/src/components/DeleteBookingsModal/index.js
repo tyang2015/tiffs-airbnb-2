@@ -3,17 +3,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory, NavLink, useLocation } from 'react-router-dom';
 import { Modal } from '../../context/DeleteReviewModal';
 // import { deleteReview, getSpotReviews } from '../../store/review';
-import { deleteBooking, getSpotBookings } from '../../store/booking';
+import { deleteBooking, getBookings } from '../../store/booking';
 
-const DeleteBookingModal = ({ setModal, booking}) => {
+const DeleteBookingModal = ({ setModal, booking, spot}) => {
   const dispatch = useDispatch()
   const sessionUser = useSelector(state => state.session.user);
   const history = useHistory()
 
   const handleDelete = () => {
-
     dispatch(deleteBooking(booking.id))
-    dispatch(getSpotBookings(booking.spotId))
+    dispatch(getBookings())
     setModal(false)
     history.push({pathname: `/users/bookings`})
   }

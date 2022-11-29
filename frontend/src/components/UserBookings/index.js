@@ -43,7 +43,7 @@ const UserBookings = () => {
         <>
             <div className="user-bookings-main-container">
 
-                {!allBookings || allBookings.length === 0 && (
+                { allBookings.length === 0 && (
                   <div className='user-bookings-no-bookings-main-container'>
                     <div style={{fontSize: "34px", fontWeight: "550", marginRight: "20px"}}>No bookings</div>
                     <img style={{height: "300px", width: "200px"}} src={chocoboPic}/>
@@ -78,7 +78,7 @@ const UserBookings = () => {
                                       </NavLink>
                                     </div>
                                   </div>
-                                  {modal && (<DeleteBookingModal booking={booking} setModal={setModal}/>)}
+                                  {modal && (<DeleteBookingModal booking={booking} setModal={setModal} spot={booking.Spot}/>)}
                                 </div>
                             </div>
                         ))}

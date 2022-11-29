@@ -61,7 +61,7 @@ const SpotBookings = ()=>{
                                 {bookings.length>0 && (bookings.map((booking,i)=> (
                                   <div className={`booking-detail-card`} key={booking.id} >
                                       <h2> Booking #{i+1}</h2>
-                                      <p> Hosted by Owner {booking.Spot.ownerId}</p>
+                                      <p> Hosted by Owner {booking.User.firstName}</p>
                                       <p> {convertDate(booking.startDate)} ➣ {convertDate(booking.endDate)}</p>
                                       {/* <p> To: {booking.endDate}</p> */}
                                   </div>
