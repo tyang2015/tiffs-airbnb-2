@@ -37,16 +37,47 @@ You can edit a spot by clicking "Edit spot" on the top header row on the spot pa
 
 ![edit-spot](./images/edit-spot.png)
 
+### Upload Image
+In the same section as where you'd edit a spot, click "Update Images for Spot" to upload an image for the spot. This also requires proper authorization. This will be displayed in the right 4 picture grid (max 4 photos, not including cover photo which is required for creating a spot) on the spot page, next to the cover photo. The upload image page should have a plus icon container where you directly upload an image locally
+
+![create-image](./images/create-image.png)
 
 
+### Edit Image
+While on the upload image page, click the pencil-icon on an already uploaded image to change the photo. The page should look like this: 
 
-![Spot homepage](./homepage-sample-photo.png)
+![update-image](./images/update-image.png)
 
-2. Click on any card to fetch the GET /spots/:spotId endpoint. You will find all the specific spot info here. 4 buttons at the bottom will inform you on exactly which feature and which CRUD is applicable. (The 'reserve' div is not a clickable button, but rather for just as display to demonstrate how it will look in the future). We will not test edit spot yet as it's not a requirement.
+### Create Booking
+On the spot-page, in the middle section of the page you will find an interactive calendar, where you can select dates with your mouse and it will display the number of nights, price/night, total cost, etc. Once booked, it will take you to your bookings page
 
-![Spotid-page](./spot-photo.png)
+![create-booking](./images/create-booking.png)
 
-#### For Forms (features: spots and bookings)
-1) CREATE spot form can be accessed profile menu dropdown, with the clickable link "Create a spot". 
-2) EDIT spot form can be accessed at the bottom of the "/spots/:spotId" page .
-2) CREATE booking form (from /spots/:spotId/bookings/new) can be accessed near the same location as #2,  at the bottom of the "/spots/:spotId" page, or on the spot bookings page (if there are no bookings).
+### View Bookings / Update Booking / Delete Booking
+You can click the profile icon on the top, and click "View your bookings" to navigate to this page. Here you can update and delete a booking by clicking the trash or pencil icons.
+![user-bookings](./images/userbookings.png)
+
+The update booking page looks like this: 
+
+![edit-booking](./images/edit-booking.png)
+
+### View Spot Bookings
+Back on the spot page, click "Check Bookings for spot" to see the spot bookings
+
+![spot-bookings](./images/spot-bookings.png)
+
+
+### Create a Review / Update a Review / Delete a Review
+On the spot page, scroll past the calendar section to see the reviews section. Here you can create a review
+
+![spot-reviews](./images/edit-review.png)
+
+The review page looks like this: 
+
+![create-review](./images/create-review.png)
+
+You can edit/delete your review by clicking the pencil or trash icons.
+
+## Thanks for visiting Tiff's Airbnb!
+Hope you had a nice tour of the website :) Shoot me an email for any inquiries or feedback at tiffanyang2015@gmail.com
+
