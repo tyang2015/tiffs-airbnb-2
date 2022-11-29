@@ -9,7 +9,7 @@ My project aims to clone the website Airbnb.com -- a popular living-space rental
 
 ### INSTRUCTIONS for running locally
 
-1. run ```git clone repo_link_url_address``` to have my project downloaded to your local repo. cd into repo and run 'code .' to have it open on vscode
+1. run ```git clone https://github.com/tyang2015/Backup-for-tiff-s-airbnb.git``` to have my project downloaded to your local repo. cd into repo and run 'code .' to have it open on vscode
 2. run ```cd .. ``` and then ```npm i``` to install packages needed to run code on heroku properly
 3. run ```cd frontend``` and then ```npm i``` inside frontend folder to download necessary packages from package.json
 4. run ```cd backend``` and then ```npm i``` inside backend folder (repeating step 2)
@@ -17,8 +17,28 @@ My project aims to clone the website Airbnb.com -- a popular living-space rental
 6. open another terminal from vscode and run ```npm start``` to start front end server at port 3000
 
 ### INSTRUCTIONS for navigating the page
+## Get All Spots
+When you are on home/splash/landing page, you will see all spots in a grid form. It will show you some brief details of the spot itself, such as avg rating and price per night. To access more of the features of my website, login through demo user by clicking the top right profile icon -> then click "Demo User".
 
-1. When you are on home/splash/landing page, you will see all spots in a grid form. There are 3 links at the top ("create a spot", "view your bookings", "see all spots") in the profile dropdown menu where you can navigate to the CREATE "/spot/new" endpoint, GET "/users/bookings" endpoint, and GET "/spots" endpoint (which is the current homepage)
+![spots-images](./images/get-spots.png)
+
+### View Spot
+You can get more info on a spot by clicking a spot to view the spot page. This is also where you can view the reviews as well as bookings calendar. Many of the website's features are located on this page, so feel free to explore it in more detail
+
+![spot-page](./images/get-spot-page.png)
+
+### Create Spot
+Once logged in, click the profile button on the top right, and click "Create a Spot". This will show you a pop-up modal where you can fill in information for a new spot as its owner/host (eg., latitude, price, address, etc.)
+
+![create-spot](./images/create-spot.png)
+
+### Edit Spot
+You can edit a spot by clicking "Edit spot" on the top header row on the spot page. Note that you must have proper authorization as the owner of the spot to make edits. Fill out the info as you would for create a spot.
+
+![edit-spot](./images/edit-spot.png)
+
+
+
 
 ![Spot homepage](./homepage-sample-photo.png)
 
