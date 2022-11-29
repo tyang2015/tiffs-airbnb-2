@@ -23,7 +23,7 @@ When you are on home/splash/landing page, you will see all spots in a grid form.
 ![spots-images](./images/get-spots.png)
 
 ### View Spot
-You can get more info on a spot by clicking a spot to view the spot page. This is also where you can view the reviews as well as bookings calendar. Many of the website's features are located on this page, so feel free to explore it in more detail
+You can get more info on a spot by clicking a spot to view the spot page. This is also where you can view the reviews as well as bookings calendar. Many of the website's features are located on this page, including a map of the location, so feel free to explore it in more detail
 
 ![spot-page](./images/get-spot-page.png)
 
@@ -68,7 +68,7 @@ Back on the spot page, click "Check Bookings for spot" to see the spot bookings
 
 
 ### Create a Review / Update a Review / Delete a Review
-On the spot page, scroll past the calendar section to see the reviews section. Here you can create a review (must belong to another owner)
+On the spot page, scroll past the calendar section to see the reviews section. Here you can create a review (spot you are reviewing must belong to another owner)
 
 ![spot-reviews](./images/edit-review.png)
 
