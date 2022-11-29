@@ -12,6 +12,7 @@ const { restoreUser, requireAuth, setTokenCookie} = require('./utils/auth');
 const { handleValidationErrors } = require('./utils/validation');
 // const signup = require('./routes/signup');
 // const login = require('./routes/login');
+// const bodyParser = require('body-parser');
 
 const { environment } = require('./config');
 const user = require('./db/models/user');
@@ -22,9 +23,10 @@ const app = express();
 
 app.use(morgan('dev'));
 app.use(cookieParser());
-app.use(express.json());
+// app.use(express.json());
 
-
+app.use(express.json({limit: '5mb'}));
+app.use(express.urlencoded({limit: '5mb'}));
 
 if (!isProduction){
     app.use(cors());

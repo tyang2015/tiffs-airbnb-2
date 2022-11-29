@@ -160,11 +160,8 @@ router.get('/:spotId/images', async (req, res, next) => {
 
 // add an image to a spot based on the spot's id
 router.post('/:spotId/images', requireAuth, async (req,res,next)=>{
-    console.log("INSIDE CORRECT ROUTE FOR CREATE SPOT IMAGE IN BACKEND")
     let reviewId = null;
     const {url} = req.body
-    console.log("req.body in post image route::::", req.body)
-    console.log("user id:", req.user.id )
     let spot = await Spot.findOne({
         // include: [{model: Review}],
         where: {id: req.params.spotId}
@@ -203,8 +200,9 @@ router.post('/:spotId/images', requireAuth, async (req,res,next)=>{
     })
     res.statusCode = 201
     let imageToSend = await Image.findOne({where: {id: newImage.id}})
-    console.log("image to send:::", imageToSend.toJSON())
-    res.json(imageToSend.toJSON())
+    // console.log("image to send:::", imageToSend.toJSON())
+    // res.json(imageToSend.toJSON())
+    res.json(newImage.toJSON())
 
 });
 
@@ -381,7 +379,7 @@ router.post('/:spotId/bookings', requireAuth ,validateBooking, async(req,res,nex
     // })
     ans.Spot= spot
     ans.Images= images
-    console.log('New record:', newRecord)
+    // console.log('New record:', newRecord)
     res.json(ans)
 
 });
@@ -395,31 +393,12 @@ router.get('/:spotId/bookings', async(req, res, next)=>{
       where: {spotId: req.params.spotId}
     });
 
-    if (!bookings.length){
-        res.statusCode = 404
-        res.json({
-            "message": "Spot couldn't be found",
-            "statusCode": 404
-        })
-    }
-    // if im checking the bookings for my own place
-    // for (let i = 0; i<bookings.length; i++){
-    //   let booking = bookings[i].toJSON()
-    //   if (booking.Spot.ownerId === req.user.id){
-    //     // console.log('owner is true')
-    //     delete booking.Spot
-    //   }
-    //   else {
-    //     // booking a different place
-    //     delete booking.Spot
-    //     delete booking.User
-    //     for (key in booking){
-    //       if (key!='spotId' && key!='startDate' && key!= 'endDate'){
-    //         delete booking[key]
-    //       }
-    //     }
-    //   }
-    //   bookings[i] = booking
+    // if (!bookings.length){
+    //     res.statusCode = 404
+    //     res.json({
+    //         "message": "Spot couldn't be found",
+    //         "statusCode": 404
+    //     })
     // }
 
     res.json({bookings})
@@ -685,16 +664,13 @@ router.get('/',  async(req, res, next)=>{
          oldSpots= await Spot.findAll({
             where,
             ...pagination,
-            include: {model:Review}
+            include: [{model:Review}, {model: User, as:"Owner"}]
         })
 
         spots = JSON.parse(JSON.stringify(oldSpots))
 
         for (let i=0; i<spots.length; i++){
-            // console.log('spots at ')
-            // console.log('spots at i:', spots[i])
             let spotObj = spots[i]
-            // get total number of reviews for each spot
             scores[i] = 0
             numReviews.push(spotObj.Reviews.length)
             for (let j =0; j< spots[i].Reviews.length; j++){
@@ -702,12 +678,9 @@ router.get('/',  async(req, res, next)=>{
                 scores[i] = scores[i] + review.stars
             }
         }
-        // console.log('scores:', scores)
-        // console.log('numReviews:', numReviews)
+
         for (let i=0; i< spots.length; i++){
-            // let spot = {...spots[i]}
             spots[i].avgStarRating = (scores[i]/numReviews[i]).toFixed(2)
-            // console.log('\n new spot obj:', newSpots[i], "\n\n")
         }
     }
 
