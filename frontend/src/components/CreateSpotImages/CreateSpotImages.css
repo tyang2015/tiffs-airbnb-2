@@ -169,5 +169,6 @@ div.create-spot-fake-file{
 .create-spote-images-cover-pic{
   height: 22em;
   object-fit: cover;
+  width: 85%
 
 }
