@@ -22,7 +22,7 @@ const SplashFooter = () => {
             <i style={{marginRight: '10px'}} class="fa-solid fa-user"></i>
           </div>
           <a style={{textDecoration:"none"}} href="https://tiffany-yang-personal-site.herokuapp.com/">
-            <div>
+            <div style={{fontWeight: '500', color: "black"}}>
               Tiffany Yang
             </div>
           </a>

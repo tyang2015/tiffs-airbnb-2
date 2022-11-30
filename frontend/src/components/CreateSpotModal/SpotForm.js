@@ -33,7 +33,14 @@ const SpotForm = ({spot, formType, setSpotModal}) => {
 
 
   function isImage(url) {
-    return /\.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(url);
+    let imageExtensions= ['jpg', 'jpeg', 'png', 'svg', 'gif', 'webp']
+    for (let i = 0; i< imageExtensions.length; i++){
+      let ext = imageExtensions[i]
+      if (url.toLowerCase().includes(ext)){
+        return true
+      }
+    }
+    return false
   }
 
   useEffect(()=>{
@@ -51,7 +58,7 @@ const SpotForm = ({spot, formType, setSpotModal}) => {
     if (!lat || typeof Number(lat)!== 'number' || Number(lat)>90 || Number(lat)< -90) errs.push("Please enter a valid latitude value")
     if (!lng || typeof Number(lat)!== 'number' || Number(lng)>180 || Number(lng)<-180) errs.push("Please enter a valid longitude value")
     if (!description) errs.push("Please enter a valid description")
-    if (description.length>150) errs.push("Description must be less than 350")
+    if (description.length>350) errs.push("Description must be less than 350")
     if (!price || typeof Number(price)!=='number') errs.push("Please enter a valid price")
     setValidationErrors(errs)
 
