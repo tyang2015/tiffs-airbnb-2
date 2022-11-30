@@ -416,7 +416,7 @@ router.post('/:spotId/reviews', requireAuth, validateReview , async (req, res, n
         })
     }
     // search through reviews, check if the userId of review is the same as current user
-    // if so, you cannot write another review
+    // if so, you cannot write another reviews
     // console.log("reviews array: ", spot.Reviews)
     for (let i = 0; i< spot.Reviews.length; i++){
         let review = spot.Reviews[i]
@@ -435,7 +435,7 @@ router.post('/:spotId/reviews', requireAuth, validateReview , async (req, res, n
 });
 
 router.get('/:spotId/reviews', async (req,res, next)=>{
-  let spot = await Spot.findOne({where: {id: req.params.spotId, ownerId: req.user.id}})
+  let spot = await Spot.findOne({where: {id: req.params.spotId}})
   if (!spot){
     res.statusCode = 404
     return res.json({
