@@ -15,25 +15,16 @@ module.exports = {
         },
         onDelete: 'CASCADE'
       },
-      // reviewId: {
-      //   type: Sequelize.INTEGER,
-      //   references: {
-      //     model: 'Reviews'
-      //   },
-      //   onDelete: 'CASCADE'
-      // },
       url: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+        type: Sequelize.DATE
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+        type: Sequelize.DATE
       }
     });
   },
