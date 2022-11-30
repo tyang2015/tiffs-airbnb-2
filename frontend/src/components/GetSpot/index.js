@@ -201,13 +201,13 @@ const GetSpot = () => {
                                 {sessionUser && sessionUser.id=== spot.ownerId && (
                                     <button onClick={deleteHandle} className="spot-footer-button navlink"> Delete Spot </button>
                                 )}
-                                {sessionUser && sessionUser.id!= spot.ownerId && (
+                                {/* {sessionUser && sessionUser.id!= spot.ownerId && (
                                     <button className="spot-footer-button" >
                                         <NavLink className="navlink" exact to={`/spots/${spotId}/bookings/new`}>
                                             Click here to book
                                         </NavLink>
                                     </button>
-                                )}
+                                )} */}
                                 {sessionUser && (
                                     <button className="spot-footer-button">
                                         <NavLink className="navlink" exact to={`/spots/${spotId}/bookings`}>
