@@ -28,16 +28,11 @@ const CreateSpotImages = () => {
   // const [preview1, setPreview1] = useState('')
   // const [preview2, setPreview2] = useState('')
   // const [preview3, setPreview3] = useState('')
-  const [isUpdate, setIsUpdate] = useState(false)
   const [hasSubmitted, setHasSubmitted] = useState(false)
 
   // MAX 4: for only the images NOT preview image (there must always be 1 preview image)
-  const [imageCounter, setImageCounter] = useState(0)
-  const [uploadedImg, setUploadedImg] = useState(false)
   const [errors, setErrors] = useState([])
   let spot = spots[spotId]
-  // will not change
-  let imagesRemaining = 4 - imageCounter
 
   useEffect(()=> {
     if (spot){
@@ -80,8 +75,8 @@ const CreateSpotImages = () => {
     }
     const reader = new FileReader()
     reader.addEventListener("load", (e)=> {
-      console.log("e.target.result:", e.target.result)
-      console.log("LENGTH of image string:", e.target.result.length)
+      // console.log("e.target.result:", e.target.result)
+      // console.log("LENGTH of image string:", e.target.result.length)
       setPreview0(e.target.result)
     })
     reader.readAsDataURL(file)
@@ -135,7 +130,7 @@ const CreateSpotImages = () => {
     dispatch(getSpotImages(spotId))
     alert("Successfully submitted!")
     setHasSubmitted(false)
-    // history.push(`/spots/${spotId}`)
+    history.push(`/spots/${spotId}`)
     return
   }
 
