@@ -108,7 +108,7 @@ const GetReviews = ({spot, avgStarRating}) =>{
         )}
         {sessionUser && sessionUser.id != spot.ownerId && (
           <div className="create-review-container" style={{marginBottom: "3em"}}>
-            <NavLink to={`/spots/${spotId}/reviews/new`}>
+            <NavLink to={`/spots/${spotId}/reviews/new`} className="navlink">
               <div style={{marginTop: "2em", display: 'flex', textAlign: "center"}} className="spot-footer-button create-a-review-button">
                 Create a Review
               </div>

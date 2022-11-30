@@ -12,7 +12,7 @@
 }
 
 .spot-reviews-main-container-no-reviews{
-  background-color: lightblue;
+  /* background-color: lightblue; */
   height: 12em;
   width: 100%;
   display: flex;

@@ -91,9 +91,9 @@ const BookingForm = ({ date, bookings, formType, booking, spot})=> {
     }
 
     // console.log('dates:', date)
-    if (date.length && date.length>1){
-      console.log("VALID DATES?---------", validDates())
-    }
+    // if (date.length && date.length>1){
+    //   console.log("VALID DATES?---------", validDates())
+    // }
 
     useEffect(()=>{
       let errs=[]

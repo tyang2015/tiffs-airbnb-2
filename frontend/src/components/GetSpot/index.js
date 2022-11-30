@@ -67,7 +67,7 @@ const GetSpot = () => {
             setAvgStarRating("No")
             return
           }
-          console.log("DATA.REVIEWS", data)
+          // console.log("DATA.REVIEWS", data)
           return data.reviews
         })
         if (!newReviews){
@@ -266,7 +266,7 @@ const GetSpot = () => {
                             <div className="spot-bottom-half-info-main-container">
                               <div className="spot-bottom-half-info-container">
                                   <div className="spot-left-text-container">
-                                      <h2 className='spot-owner-intro-container'> Entire home hosted by {spot.Owner.firstName}</h2>
+                                      <h2 className='spot-owner-intro-container'> Entire home hosted by {spot?.Owner?.firstName}</h2>
                                       <div className='spot-detail first'>
                                           <div className= 'spot-detail-icon-container'>
                                               <i class="fa-solid fa-envelope"></i>

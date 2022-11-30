@@ -71,7 +71,7 @@ const ReviewForm = ({reviews,reviewObj, spotId, formType}) => {
             stars,
             review
         }
-        console.log('review obj after revision:', reviewObj)
+        // console.log('review obj after revision:', reviewObj)
         if (formType==="Create Review"){
             dispatch(createSpotReview(spotId, reviewObj))
             alert('successfully submitted review!')

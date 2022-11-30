@@ -21,9 +21,11 @@ const SplashFooter = () => {
           <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
             <i style={{marginRight: '10px'}} class="fa-solid fa-user"></i>
           </div>
-          <div>
-            Tiffany Yang
-          </div>
+          <a style={{textDecoration:"none"}} href="https://tiffany-yang-personal-site.herokuapp.com/">
+            <div>
+              Tiffany Yang
+            </div>
+          </a>
         </div>
         <div className='splash-right-container-item'>
           <a className="github-container link" href="https://github.com/tyang2015/Backup-for-tiff-s-airbnb">
