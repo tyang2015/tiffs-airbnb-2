@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Image.init({
     spotId: DataTypes.INTEGER,
-    url: DataTypes.STRING(10000)
+    url: DataTypes.TEXT
   }, {
     sequelize,
     modelName: 'Image',
