@@ -94,7 +94,7 @@ const GetSpot = () => {
       // console.log("USE EFFECT TRIGGERED after update review")
       const updateRating = async ()=> {
         let newReviews = await dispatch(getSpotReviews(spotId)).then(data=>{
-          return data.reviews
+          return data?.reviews
         })
         let totalStars;
         let allRatings = newReviews.map(review => review.stars)

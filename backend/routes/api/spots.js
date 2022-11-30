@@ -435,7 +435,15 @@ router.post('/:spotId/reviews', requireAuth, validateReview , async (req, res, n
 });
 
 router.get('/:spotId/reviews', async (req,res, next)=>{
-    let reviews = await Review.findAll({
+  let spot = await Spot.findOne({where: {id: req.params.spotId, ownerId: req.user.id}})
+  if (!spot){
+    res.statusCode = 404
+    return res.json({
+      "message": "Spot couldn't be found!!",
+      "statusCode": 404
+  })
+  }
+  let reviews = await Review.findAll({
         include: [
         {model: User, attributes: {exclude: ['createdAt', 'updatedAt', 'email', 'hashedPassword']}},
         // {model: Image, attributes: ['url']},
@@ -443,13 +451,13 @@ router.get('/:spotId/reviews', async (req,res, next)=>{
     ],
         where: {spotId: req.params.spotId}
     })
-    if (!reviews.length){
-        res.statusCode = 404
-        res.json({
-            "message": "Spot couldn't be found",
-            "statusCode": 404
-        });
-    }
+    // if (!reviews.length){
+    //     res.statusCode = 404
+    //     res.json({
+    //         "message": "Spot couldn't be found",
+    //         "statusCode": 404
+    //     });
+    // }
     res.statusCode = 200
     res.json({
         reviews
@@ -478,6 +486,7 @@ router.delete('/:spotId', requireAuth, async (req,res,next)=>{
 
 
 router.patch('/:spotId', requireAuth, validateSpot, async (req, res, next)=>{
+// router.patch('/:spotId', requireAuth, async (req, res, next)=>{
     const {address, city, state, country, lat, lng, name, description, price, previewImage}= req.body
     // check to see if spotId is correct for req.user.id
     // console.log('req.body: ', req.body)
@@ -517,7 +526,7 @@ router.patch('/:spotId', requireAuth, validateSpot, async (req, res, next)=>{
 
 
 router.post('/', requireAuth, validateSpot, async (req,res, next)=>{
-    // include preview image here (regardless of what they say)
+// router.post('/', requireAuth,  async (req,res, next)=>{
     const {address, city, state, country, lat, lng, name, description, price, previewImage}= req.body
     let newSpot = await Spot.create({ownerId: req.user.id, address, city, state, country, lat, lng, name, description, price, previewImage})
     res.statusCode=201

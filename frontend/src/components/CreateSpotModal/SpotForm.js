@@ -104,7 +104,6 @@ const SpotForm = ({spot, formType, setSpotModal}) => {
         alert('Spot changes have been updated!')
         setHasSubmitted(false)
         history.push('/')
-
     }
   }
 

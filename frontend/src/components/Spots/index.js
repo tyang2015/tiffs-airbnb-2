@@ -8,6 +8,7 @@ import React from 'react'
 import './Spots.css'
 import ClipLoader from "react-spinners/ClipLoader"
 import SplashFooter from '../SplashFooter'
+import { getSpotReviews } from '../../store/review'
 
 
 const Spots = () =>{

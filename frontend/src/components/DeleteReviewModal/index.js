@@ -13,7 +13,7 @@ const DeleteReviewModal = ({review, setDeleteReviewModal}) => {
 
   const handleDelete = () => {
     dispatch(deleteReview(review.id))
-    dispatch(getSpotReviews())
+    dispatch(getSpotReviews(Number(spotId)))
     setDeleteReviewModal(false)
     history.push({pathname: `/spots/${spotId}`})
     // console.log('review length after deleting:', reviews.length)

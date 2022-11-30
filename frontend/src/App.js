@@ -9,7 +9,6 @@ import Spots from './components/Spots'
 import GetSpot from './components/GetSpot'
 import { getSpots } from "./store/spot";
 import { getBookings } from "./store/booking";
-import CreateSpotForm from "./components/CreateSpotForm";
 import EditSpotForm from "./components/EditSpotForm"
 import UserBookings from "./components/UserBookings";
 import SpotBookings from "./components/SpotBookings";
@@ -52,9 +51,6 @@ function App() {
       <Switch>
         <Route exact path= "/">
           <Spots spots={spots}/>
-        </Route>
-        <Route exact path= "/spots/new">
-          <CreateSpotForm spots={spots}/>
         </Route>
         <Route exact path= "/spots/:spotId/edit">
           <EditSpotForm spots={spots}/>
