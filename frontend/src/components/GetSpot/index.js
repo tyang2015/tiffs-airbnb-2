@@ -165,7 +165,7 @@ const GetSpot = () => {
 
     const formatDate = (dateStr) => {
       let dateObj = new Date(dateStr)
-      dateObj.setDate(dateObj.getDate()+1)
+      // dateObj.setDate(dateObj.getDate()+1)
       let finalDate = dateObj.toLocaleString('en-US', {
         month: "long",
         day: 'numeric',
@@ -325,7 +325,6 @@ const GetSpot = () => {
                                       minDate={new Date()}
                                       // maxDate={new Date().setFullYear(date.getFullYear()+1)}
                                       tileClassName={({date,view})=>{
-                                        // if (view === 'month' && date.getDay() === 3) return 'booked'
                                         for (let i =0; i< allBookings.length; i++) {
                                         let booking = allBookings[i]
                                           let exStartDate = convertForCalendarCompare(new Date(booking.startDate))

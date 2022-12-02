@@ -588,14 +588,16 @@ router.get('/',  async(req, res, next)=>{
     if (minPrice) where.price = {[Op.gt]: Number(minPrice)}
     if (maxPrice) where.price =  {[Op.lt]: Number(maxPrice)}
 
-    page = typeof Number(page)!= "number" || Number(page)<=0 ||!(page)? 1: parseInt(page)
-    size = typeof Number(size)!= "number" || Number(size)<=0 || !(size)? 20: parseInt(size)
+    // page = typeof Number(page)!= "number" || Number(page)<=0 ||!(page)? 1: parseInt(page)
+    // size = typeof Number(size)!= "number" || Number(size)<=0 || !(size)? 20: parseInt(size)
+
     // at this point, we've changed it to a number, so you can more easily compare the number
-    if (size > 20) {
-      size = 20
-    }
-    pagination.offset= size * (page -1)
-    pagination.limit= size
+
+    // if (size > 20) {
+    //   size = 20
+    // }
+    // pagination.offset= size * (page -1)
+    // pagination.limit= size
 
     // lat range only
     if ((minLat && maxLat) && !(minLng && maxLng) && !(minPrice && maxPrice)){
