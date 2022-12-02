@@ -48,7 +48,7 @@ const ReviewForm = ({reviews,reviewObj, spotId, formType}) => {
                 }
             }
         }
-        if (review.length>350) errors.push("Review must be less than 350 characters")
+        if (review.length>250) errors.push("Review must be less than 250 characters")
         setValidationErrors(errors)
 
     }, [review, stars])
