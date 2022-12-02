@@ -105,3 +105,10 @@ background-color: lightblue;
   align-items: center;
 
 }
+
+.spot-bookings-no-bookings-text-container{
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+ 
+}

@@ -75,11 +75,13 @@ const SpotBookings = ()=>{
                   (<>
                     <div className='spot-bookings-no-bookings-main-container'>
                       <img style={{height: "160px", width: "120px"}} src={chocoboPic}/>
-                      <div style={{marginleft: "100px"}}> This spot has not been booked yet </div>
-                      {sessionUser && spot && sessionUser.id!=spot.ownerId && (
-                          <NavLink exact to={`/spots/${spotId}/bookings/new`}> Click here to book </NavLink>
-                      )}
-                    </div>
+                      <div className='spot-bookings-no-bookings-text-container'>
+                        <div style={{marginleft: "100px"}}> This spot has not been booked yet </div>
+                        {sessionUser && spot && sessionUser.id!=spot.ownerId && (
+                            <NavLink exact to={`/spots/${spotId}`} className="navlink"> Click here to go to spot page and book by clicking the calendar dates! </NavLink>
+                        )}
+                      </div>
+                      </div>
                   </>)
                 }
         </>
